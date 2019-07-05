@@ -1,0 +1,86 @@
+<?php
+class Kodeqr_model extends CI_Model 
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+	//function mengambil data kodeqr
+	function getKodeqr()
+    {
+		$query=$this->db->query("select kodeqr.*,nama_area, nama_subarea from kodeqr,area,subarea where area.id_area=kodeqr.id_area and subarea.id_subarea=kodeqr.id_subarea");
+		foreach ($query->result_array() as $row) {$array[] = $row;}
+		if (!isset($array)) { $array='';}
+		$query->free_result();
+		return $array;
+	}
+	//function menampilkan data kodeqr yang akan di Update ke Form
+	function getKodeqrUpdate($kode)
+    {
+		$query=$this->db->query("select kodeqr.*,nama_area, nama_subarea from kodeqr,area,subarea where area.id_area=kodeqr.id_area and subarea.id_subarea=kodeqr.id_subarea and id_kodeqr='$kode'");
+		foreach ($query->result_array() as $row) {$array[] = $row;}
+		if (!isset($array)) { $array='';}
+		$query->free_result();
+		return $array;
+	}
+
+	//function hapus data kodeqr
+	function hapus($kode)
+    {
+		 $sql = "delete from kodeqr  WHERE id_kodeqr ='$kode'"; 
+		 $this->db->query($sql);
+		 return true;
+    }
+	/*
+	//tambah
+	function simpanKodeqr()
+    {
+		$CI =& get_instance();
+		$CI->load->database('default');
+		//insert
+		if(!empty($_POST['id_kodeqr']))
+		{
+			$id_kodeqr		= $_POST['id_kodeqr'];
+			$id_area		= $_POST['id_area'];
+			$id_subarea		= $_POST['id_subarea'];
+			$qr_code		= $_POST['image_name'];
+			$sql = "insert into kodeqr(id_kodeqr, id_area, id_subarea, qr_code) values('$id_kodeqr','$id_area','$id_subarea','$image_name')"; 
+			$this->db->query($sql);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }
+    */
+	function simpanKodeqr($id_area,$id_subarea,$image_name){
+        $data = array(
+            'id_area'       => $id_area,
+            'id_subarea'   => $id_subarea,
+            'qr_code'   => $image_name
+        );
+        $this->db->insert('kodeqr',$data);
+    }
+
+	function ubah()
+    {
+		$CI =& get_instance();
+		$CI->load->database('default');
+		if(!empty($_POST['id_kodeqr']))
+		{
+			$id_kodeqr		= $_POST['id_kodeqr'];
+			$id_area		= $_POST['id_area'];
+			$id_subarea		= $_POST['id_subarea'];
+			$qr_code		= $_POST['image_name'];
+			$sql = "update kodeqr set id_area='$id_area',id_subarea='$id_subarea', qr_codea='$image_name' where id_kodeqr='$id_kodeqr'"; 
+			$this->db->query($sql);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+    }                                                                                                    
+}
+?>
