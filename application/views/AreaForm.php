@@ -66,7 +66,7 @@
 											<input class="form-control" type="hidden" name="id_area" value="<?php echo isset($area[0]['id_area'])?$area[0]['id_area']:'';?>" <?php echo $disabled;?>>
 							
 											<div class="form-group">
-												<label>Nama Area</label>
+												<label>Ini Nama Area</label>
 												<input class="form-control" name="nama_area" value="<?php echo isset($area[0]['nama_area'])?$area[0]['nama_area']:'';?>">
 											</div>
 										<button type="submit" class="btn btn-success" name="save">Simpan</button>
