@@ -1,72 +1,94 @@
-﻿<head>
-     <meta charset="UTF-8" />
-    <title>Sistem Informasi Pembelian PT. SUnBreads | Login Page</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
-     <!--[if IE]>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <![endif]-->
-    <!-- GLOBAL STYLES -->
-     <!-- PAGE LEVEL STYLES -->
-     <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap/css/bootstrap.css')?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/login.css')?>" />
-    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/magic/magic.css')?>" />
-     <!-- END PAGE LEVEL STYLES -->
-   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>E-Checksheet - Login</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="<?php echo base_url();?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="<?php echo base_url();?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
-    <!-- BEGIN BODY -->
-<body >
-   <!-- PAGE CONTENT --> 
-    <div class="container">
-    <div class="text-center">
-        <img src="<?php echo base_url('assets/img/sunjava.png')?>" id="logoimg" alt=" Logo" />
-    </div>
-    <div class="tab-content">
-		<?php
-			if(!empty($error))
-			{
-				echo $error;	
-			}								
-		?>
-        <div id="login" class="tab-pane active">
-			<?php
-			//Jika tombol Simpan ditekan, maka jalankan controller Login->function cekStatusLogin untuk validasi Login			
-				echo form_open_multipart('Login/cekStatusLogin'); 									
-			?>
-            <form action="<?php echo site_url('Login/cekStatusLogin'); ?>" class="form-signin">
-                <p class="text-muted text-center btn-block btn btn-primary btn-rect">
-                    Enter your username and password
-                </p>
-                <input type="text" name="username" placeholder="username" class="form-control" />
-                <input type="password" name="password" placeholder="Password" class="form-control" />
-                <button class="btn text-muted text-center btn-danger" type="submit">Sign in</button>
-            </form>
+
+<body class="bg-gradient-primary">
+
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Silahkan Login</h1>
+                  </div>
+                  <form class="user" method="post" action="<?php echo base_url(); ?>login/cekStatusLogin">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" name="username" id="username" aria-describedby="emailHelp" placeholder="Masukkan Username" autofocus required>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Masukkan Password" required>
+                    </div>
+                    <?php
+                      $info = $this->session->flashdata('info');
+                      if (!empty($info)) {
+                          echo "<br /><div class='alert alert-danger' role='alert'>";
+                          echo $info."</div>";
+                      }
+
+                    ?>
+
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                      Login
+                    </button>
+                    <hr>
+                  </form>
+                  <div class="text-center">
+                     <img class="img-fluid" src="<?php echo base_url();?>/assets/images/logoaps.png" alt="Logo APS">
+                  </div>
+                  <hr>
+                  <div class="text-center">
+                    <h6>INSPIRING GENUINES</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-		
-	 <p class="text-warning">Untuk Testing , username Login sebagai Admin : PT14001</p>
-		   <p class="text-warning">Untuk Testing , username Login sebagai Pemilik : OWN1201</p>
-		   <p class="text-warning">Untuk Testing , username Login sebagai Karyawan Gudang : PT15001</p>
-		  <p class="text-warning">Untuk Testing , username Login sebagai Karyawan Keuangan : PT15002</p>
-		   <p class="text-warning">Untuk Testing , username Login sebagai Karyawan Pembelian : PT15003</p>
-		   <p class="text-warning">Password sama :123456</p>
 
-		  
+      </div>
+
     </div>
-</div>
 
-	  <!--END PAGE CONTENT -->     
+  </div>
 
-      <!-- PAGE LEVEL SCRIPTS -->
-		<script src="<?php echo base_url('assets/plugins/jquery-2.0.3.min.js') ?>"></script>
-		<script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.js')?>"></script>
-		<script src="<?php echo base_url('assets/js/login.js')?>"></script>
-      <!--END PAGE LEVEL SCRIPTS -->
+  <!-- Bootstrap core JavaScript-->
+  <script src="<?php echo base_url();?>/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="<?php echo base_url();?>/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="<?php echo base_url();?>/assets/js/sb-admin-2.min.js"></script>
 
 </body>
-    <!-- END BODY -->
+
 </html>
