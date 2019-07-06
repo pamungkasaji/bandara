@@ -17,8 +17,20 @@
 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url();?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+  <?php
+  if (is_array($skortanggal) || is_object($skortanggal))
+{
+        foreach($skortanggal as $data){
+          $time=strtotime($data->tanggal);
+          $hari=date("D",$time);
+            $tanggal[] = $hari;
+            $skor[] = $data->skor;
+        }
+      }
+    ?>
 
 </head>
 
@@ -28,7 +40,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -300,11 +312,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                <?php
-                  echo $username;
-                ?></span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $username; ?></span>
+                <img class="img-profile rounded-circle" src="<?php echo $gambar; ?>">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -449,109 +458,27 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
-                    <canvas id="myChart" width="1000" height="280"></canvas>
-
-                    <!--Load chart js-->
-                    <script type="text/javascript" src="<?php echo base_url().'assets/vendor/chart.js/Chart.min.js'?>"></script>
+                    <canvas id="myChart"></canvas>
                     <script>
-                    var data_tanggal = [];
-                    var data_skor = [];
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        // The type of chart we want to create
+                        type: 'line',
 
-                    $.post("<?php echo base_url(); ?>dashboard/getData",
-                      function (data) {
-                        var obj = JSON.parse(data);
-                        $.each(onj, function (test, item){
-                          data_tanggal.push(item.tanggal);
-                          data_skor.push(item.skor);
-                        });
-
-
-
-                        var ctx = $('myChart');
-                        var myChart = new Chart(ctx, {
-                          // The type of chart we want to create
-                          type: 'line',
-
-                          // The data for our dataset
-                          data: {
-                            labels: tanggal,
+                        // The data for our dataset
+                        data: {
+                            labels: <?php echo json_encode($tanggal);?>,
                             datasets: [{
-                              label: 'My First dataset',
-                              backgroundColor: 'rgb(255, 99, 132)',
-                              borderColor: 'rgb(255, 99, 132)',
-                              data: skor
+                                label: 'My First dataset',
+                                backgroundColor: 'rgb(255, 99, 132)',
+                                borderColor: 'rgb(255, 99, 132)',
+                                data: <?php echo json_encode($skor);?>
                             }]
-                          },
+                        },
 
-                          // Configuration options go here
-                          options: {
-                            maintainAspectRatio: false,
-                            layout: {
-                              padding: {
-                                left: 10,
-                                right: 25,
-                                top: 25,
-                                bottom: 0
-                              }
-                            },
-                            scales: {
-                              xAxes: [{
-                                time: {
-                                  unit: 'date'
-                                },
-                                gridLines: {
-                                  display: false,
-                                  drawBorder: false
-                                },
-                                ticks: {
-                                  maxTicksLimit: 7
-                                }
-                              }],
-                              yAxes: [{
-                                ticks: {
-                                  maxTicksLimit: 5,
-                                  padding: 10,
-                                  // Include a dollar sign in the ticks
-                                  callback: function(value, index, values) {
-                                    return '$' + number_format(value);
-                                  }
-                                },
-                                gridLines: {
-                                  color: "rgb(234, 236, 244)",
-                                  zeroLineColor: "rgb(234, 236, 244)",
-                                  drawBorder: false,
-                                  borderDash: [2],
-                                  zeroLineBorderDash: [2]
-                                }
-                              }],
-                            },
-                            legend: {
-                              display: false
-                            },
-                            tooltips: {
-                              backgroundColor: "rgb(255,255,255)",
-                              bodyFontColor: "#858796",
-                              titleMarginBottom: 10,
-                              titleFontColor: '#6e707e',
-                              titleFontSize: 14,
-                              borderColor: '#dddfeb',
-                              borderWidth: 1,
-                              xPadding: 15,
-                              yPadding: 15,
-                              displayColors: false,
-                              intersect: false,
-                              mode: 'index',
-                              caretPadding: 10,
-                              callbacks: {
-                                label: function(tooltipItem, chart) {
-                                  var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                  return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                                }
-                              }
-                            }
-                          }
-                        });
-                      });
+                        // Configuration options go here
+                        options: {}
+                    });
                     </script>
                   </div>
                 </div>
@@ -772,13 +699,6 @@
 
   <!-- Custom scripts for all pages-->
   <script src="<?php echo base_url();?>/assets/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="<?php echo base_url();?>/assets/vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="<?php echo base_url();?>/assets/js/demo/chart-area-demo.js"></script>
-  <script src="<?php echo base_url();?>/assets/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

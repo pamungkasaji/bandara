@@ -13,6 +13,7 @@ class M_login extends CI_Model {
         $sess = array('username' => $row->username,
                       'password' => $row->password,
                       'level' => $row->level,
+                      'gambar' => $row->gambar,
                       'status_login' => 'login'
         );
         $this->session->set_userdata($sess);
@@ -33,5 +34,10 @@ class M_login extends CI_Model {
   function ambil_username() {
     $sesu = $this->session->userdata('username');
     return $sesu;
+  }
+
+  function ambil_gambar(){
+    $gambar = $this->session->userdata('gambar');
+    return $gambar;
   }
 }

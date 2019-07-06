@@ -14,9 +14,11 @@ class Dashboard extends CI_Controller{
   function index()
   {
     $data['username'] = $this->m_login->ambil_username();
-    $x = $this->m_dashboard->select_skor();
-    $data['skortanggal'] = json_encode($x);
+    $data['gambar'] = $this->m_login->ambil_gambar();
+    //var_dump($data['gambar']);
+    $data['skortanggal'] = $this->m_dashboard->select_skor();
     $this->load->view('tampilan_dashboard',$data);
+    //var_dump($date);
   }
 
   function getData(){
