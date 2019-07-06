@@ -1,28 +1,39 @@
 <?php
-class Login_m extends CI_Model 
+class Login_m extends CI_Model
 {
     private $ci;
     private $error =  array();
-	function validasi($username,$password) 
+	function validasi($username,$password)
 	// Build a query to retrieve the user's details // based on the received username and password
 	{
-		
-		$this->db->from('karyawan');
+
 		$this->db->where('username',$username );
-		$this->db->where('password',$password); 
-		//$this->db->where('password',md5($password)); 
-		$login = $this->db->get()->result();
+		$this->db->where('password',$password);
+		//$this->db->where('password',md5($password));
+		$login = $this->db->get('karyawan');
 		// The results of the query are stored in $login.
-		if ( is_array($login) && count($login) == 1 ) 
-		{
-			// Set the users details into the $details property of this class
-			$this->details = $login[0];
-			return true;
-		}
-		$this->error = array('login'=>'Login Failed');
-		return false;
-	}	
-	
+    if ($login->num_rows()>0) {
+      foreach ($login->result() as $row) {
+        $data = array('username' => $row->username,
+                      'password' => $row->password,
+                      'level' => $row->level,
+                      'status_login' => 'login'
+        );
+        $this->session->set_userdata($data);
+        if ($data['level']=='SPV') {
+            redirect('Dashboard');
+        }
+        else {
+            redirect('Welcome');
+        }
+
+      }
+    } else {
+      $this->session->set_flashdata('info', 'Maaf, username atau password salah');
+      redirect('login');
+    }
+  }
+
 	function getSession($username,$password)
     {
 		$password	=$password;
@@ -42,4 +53,3 @@ class Login_m extends CI_Model
 		return $array;
 	}
 }
-?>
