@@ -38,7 +38,7 @@ class Kodeqr extends CI_Controller
 	  if($this->uri->segment(3))
 	  {
 	   $id_kodeqr = $this->uri->segment(3);
-	   $html_content = '<h3 align="center">Convert HTML to PDF in CodeIgniter using Dompdf</h3>';
+	   $html_content = '<h3 align="center">Angkasa Pura</h3>';
 	   $html_content .= $this->kodeqr_model->fetch_single_details($id_kodeqr);
 	   $this->pdf->loadHtml($html_content);
 	   $this->pdf->render();
