@@ -50,7 +50,7 @@
                                             <td>
 												<a class="btn btn-info" href="<?php echo site_url()."/Karyawan/ubah?username=".$data['username'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>
 											
-												<a href="<?php echo site_url()."/Karyawan/hapus?username=".$data['username'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i>  Hapus</a>
+												<a onclick="return confirm('Yakin data anda ingin di hapus??')" href="<?php echo site_url()."/Karyawan/hapus?username=".$data['username'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i>  Hapus</a>
 												
 											</td>
                                         </tr>

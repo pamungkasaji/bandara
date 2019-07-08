@@ -78,8 +78,9 @@
 												<label>Level</label>
 												<SELECT name="level" class="form-control">
 													<OPTION value="<?php echo isset($karyawan[0]['level'])?$karyawan[0]['level']:'';?>"><?php echo isset($karyawan[0]['level'])?$karyawan[0]['level']:'';?></OPTION>
-													<OPTION value="Laki-Laki">Laki-Laki</OPTION>
-													<OPTION value="Perempuan">Perempuan</OPTION>
+													<OPTION value="ADM">Admin</OPTION>
+													<OPTION value="SPV">Supervisor</OPTION>
+													<OPTION value="ATD">Attendant</OPTION>
 												</SELECT>
 											</div>
 										<button type="submit" class="btn btn-success" name="save">Simpan</button>

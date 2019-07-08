@@ -47,7 +47,7 @@
                                             <td>
                                                 <a class="btn btn-info" href="<?php echo site_url()."/Area/ubah?id_area=".$data['id_area'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>
                                                  
-                                                <a href="<?php echo site_url()."/Area/hapus?id_area=".$data['id_area'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
+                                                <a onclick="return confirm('Yakin data anda ingin di hapus??')" href="<?php echo site_url()."/Area/hapus?id_area=".$data['id_area'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
                                                 
                                             </td>
                                         </tr>

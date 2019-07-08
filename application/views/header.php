@@ -12,7 +12,7 @@
                 <header class="navbar-header">
 
                     <a href="<?php echo site_url('Welcome'); ?>" class="navbar-brand">
-						<img src="<?php echo base_url('assets/img/sunjava.png')?>" alt="SunBreads" />      
+						<img src="<?php echo base_url('assets/images/logoaps.png')?>" alt="SunBreads" />      
                     </a>
                 </header>
             </nav>

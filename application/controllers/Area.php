@@ -108,12 +108,7 @@ class Area extends CI_Controller
 								<p><strong>Update Data Area Sukses</strong></p>
 							</div>';
 			$data['area']	= $this->area_model->getAreaUpdate($id_area);
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi',$data);
-			$this->load->view('AreaForm',$data);
-			$this->load->view('right');
-			$this->load->view('footer');				
+			redirect('Area');			
 		}
 		//Jika update data tidak sukses
 		else
