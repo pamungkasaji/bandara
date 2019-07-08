@@ -49,7 +49,9 @@
                                             <td><img style="width: 100px;" src="<?php echo base_url().'assets/images/'.$qr_code;?>"></td>
                                             <td>
 												<a class="btn btn-info" href="<?php echo site_url()."/Kodeqr/ubah?id_kodeqr=".$data['id_kodeqr'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>
-												 
+
+												<a class="btn btn-info" href="<?php echo site_url()."Kodeqr/pdfdetails/".$data['id_kodeqr'];?>"><i class="icon-pencil icon-white"></i> Print</a>
+
 												<a href="<?php echo site_url()."/Kodeqr/hapus?id_kodeqr=".$data['id_kodeqr'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
 												
 											</td>

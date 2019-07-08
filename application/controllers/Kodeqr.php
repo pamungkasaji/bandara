@@ -8,6 +8,7 @@ class Kodeqr extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('kodeqr_model');
+		$this->load->library('pdf');
 		$this->load->model('area_model');
 		$this->load->model('subarea_model');
 		$this->load->model('login_m');
@@ -32,6 +33,18 @@ class Kodeqr extends CI_Controller
 		$this->load->view('footer-table');
 	}
 	//function tambahKodeqr
+	public function pdfdetails()
+	 {
+	  if($this->uri->segment(3))
+	  {
+	   $id_kodeqr = $this->uri->segment(3);
+	   $html_content = '<h3 align="center">Convert HTML to PDF in CodeIgniter using Dompdf</h3>';
+	   $html_content .= $this->kodeqr_model->fetch_single_details($id_kodeqr);
+	   $this->pdf->loadHtml($html_content);
+	   $this->pdf->render();
+	   $this->pdf->stream("".$id_kodeqr.".pdf", array("Attachment"=>0));
+	  }
+	 }
 	public function tambahKodeqr()
 	{
 		$data['session']	= $this->session->all_userdata();
@@ -67,7 +80,7 @@ class Kodeqr extends CI_Controller
  
         $image_name=$id_area.'/'.$id_subarea.'.png'; //buat name dari qr code sesuai dengan nim
  
-        $params['data'] = 'localhost/ci-tutorial/Penilaian/IsiNilai/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
+        $params['data'] = 'localhost/bandara/Penilaian/IsiNilai/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
@@ -96,7 +109,7 @@ class Kodeqr extends CI_Controller
 
         $image_name=$id_area.'-'.$id_subarea.'.png'; //buat name dari qr code sesuai dengan nim
 
-        $params['data'] = 'localhost/ci-tutorial/Penilaian/IsiNilai/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
+        $params['data'] = 'localhost/bandara/Penilaian/IsiNilai/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/

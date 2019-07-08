@@ -31,6 +31,29 @@ class Kodeqr_model extends CI_Model
 		 $this->db->query($sql);
 		 return true;
     }
+
+	function fetch_single_details($id_kodeqr)
+	 {
+	 $query=$this->db->query("select kodeqr.*,nama_area, nama_subarea from kodeqr,area,subarea where area.id_area=kodeqr.id_area and subarea.id_subarea=kodeqr.id_subarea and id_kodeqr='$id_kodeqr'");
+
+	  $output = '<table width="100%" cellspacing="5" cellpadding="5">';
+	  foreach($query->result() as $row)
+	  {
+	   $output .= '
+	   <tr>
+	    <td width="50%"><img style="width: 200px;" src="'.base_url().'assets/'.'images/'.$row->qr_code.'" /></td>
+	    <td width="50%">
+	     <p><b>Area : </b>'.$row->nama_area.'</p>
+	     <p><b>Subarea : </b>'.$row->nama_subarea.'</p>
+
+	    </td>
+	   </tr>
+	   ';
+	  }
+
+	  return $output;
+	 }
+
 	/*
 	//tambah
 	function simpanKodeqr()
