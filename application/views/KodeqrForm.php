@@ -1,4 +1,8 @@
+<?php include 'template/head.php'; ?>
 
+</head>
+
+<?php include 'template/nav_header.php'; ?>
 	<!--PAGE CONTENT -->
         <div id="content">   
 		
@@ -123,3 +127,6 @@
 
     </div>
     <!--END PAGE CONTENT -->
+<?php include 'template/footer.php'; ?>
+
+</html>

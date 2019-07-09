@@ -25,12 +25,9 @@ class Kodeqr extends CI_Controller
 		$username			= $this->session->userdata('username');
 		$data['level']		= $this->login_m->getKodeDivisi($username);
 		$data['kodeqr'] 	= $this->kodeqr_model->getKodeqr(); 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
+
 		$this->load->view('KodeqrList',$data);
-		$this->load->view('right');
-		$this->load->view('footer-table');
+
 	}
 	//function tambahKodeqr
 	public function pdfdetails()
@@ -185,7 +182,9 @@ class Kodeqr extends CI_Controller
 		$data['level']		= $this->login_m->getKodeDivisi($username);
 		$id_kodeqr			= $this->input->get('id_kodeqr');
 		$data['kodeqr']		= $this->kodeqr_model->getKodeqrUpdate($id_kodeqr);
-		$this->subarea_model->getSubarea(); 		
+		$data['subarea'] 	= $this->subarea_model->getSubarea(); 
+		$data['area'] 		= $this->area_model->getArea();
+		
 		$this->load->view('head');
 		$this->load->view('header');
 		$this->load->view('navigasi',$data);

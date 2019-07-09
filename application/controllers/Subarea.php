@@ -22,12 +22,9 @@ class Subarea extends CI_Controller
 		$username				= $this->session->userdata('username');
 		$data['level']= $this->login_m->getKodeDivisi($username);
 		$data['subarea'] = $this->subarea_model->getSubarea(); 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
+
 		$this->load->view('SubareaList',$data);
-		$this->load->view('right');
-		$this->load->view('footer-table');
+
 	}
 	//function tambahSubarea
 	public function tambahSubarea()
@@ -35,12 +32,9 @@ class Subarea extends CI_Controller
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
 		$data['level']= $this->login_m->getKodeDivisi($username);
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		$this->load->view('SubareaForm'); 
-		$this->load->view('right');
-		$this->load->view('footer');
+
+		$this->load->view('SubareaForm',$data); 
+
 	}
 	//function input data
 	public function simpanSubarea()

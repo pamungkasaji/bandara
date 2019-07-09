@@ -1,15 +1,25 @@
+<?php include 'template/head.php'; ?>
 
+</head>
+
+<?php include 'template/nav_header.php'; ?>
 	<!--PAGE CONTENT -->
-        <div id="content">   
-		
-            <div class="inner" style="min-height: 700px;">
-			    <hr />
-			<div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Form Subarea</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Data Subarea</h6>
+    </div>
+
+    <div class="card-body">
+        <a href="<?php echo site_url('Subarea/tambahSubarea'); ?>">
+            <button type="button" class="btn btn-primary"><i class="icon-plus icon-white"> </i> Tambah</button>
+        </a>
+        <br>
+        <br>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
@@ -97,3 +107,6 @@
 
     </div>
     <!--END PAGE CONTENT -->
+<?php include 'template/footer.php'; ?>
+
+</html>
