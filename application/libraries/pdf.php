@@ -22,7 +22,7 @@ class Pdf extends Dompdf
     $html = $this->ci->load->view($view, $data, TRUE);
     $dompdf->loadHtml($html);
     $dompdf->setPaper($paper, $orientation);
-    // Render the HTML as PDF
+    // Render the HTML as PDF.
     $dompdf->render();
       $dompdf->stream( $filename . ".pdf", array("Attachment" => FALSE));
 
