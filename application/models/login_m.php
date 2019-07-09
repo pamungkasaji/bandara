@@ -17,6 +17,8 @@ class Login_m extends CI_Model
         $data = array('username' => $row->username,
                       'password' => $row->password,
                       'level' => $row->level,
+                      'gambar' => $row->gambar,
+                      'id_karyawan' => $row->id_karyawan,
                       'status_login' => 'login'
         );
         $this->session->set_userdata($data);
@@ -52,4 +54,5 @@ class Login_m extends CI_Model
 		$query->free_result();
 		return $array;
 	}
+
 }
