@@ -49,13 +49,10 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']  = '
-					<div class="msg msg-ok"><p><strong>Input Data Subarea Sukses</strong></p></div>';
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi',$data);
+					<div class="alert alert-success"><p><strong>Input Data Subarea Sukses</strong></p></div>';
+
 			$this->load->view('SubareaForm',$data); //load view SubareaForm
-			$this->load->view('right');
-			$this->load->view('footer'); 
+
 		}
 		else
 		{
@@ -64,12 +61,9 @@ class Subarea extends CI_Controller
 							<div class="msg msg-error">
 								<p><strong>Input Subarea Data Gagal!</strong></p>
 							</div>';
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi',$data);
+
 			$this->load->view('SubareaForm',$data); 
-			$this->load->view('right');
-			$this->load->view('footer'); 
+
 		}
 	}	
 	//ubah
@@ -80,12 +74,9 @@ class Subarea extends CI_Controller
 		$data['level']= $this->login_m->getKodeDivisi($username);	
 		$id_subarea		= $this->input->get('id_subarea');
 		$data['subarea']		= $this->subarea_model->getSubareaUpdate($id_subarea);
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
+
 		$this->load->view('SubareaForm',$data);
-		$this->load->view('right');
-		$this->load->view('footer');				
+		
 	}
 	public function prosesUbah()
 	{
@@ -98,16 +89,13 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="msg msg-ok">
+							<div class="alert alert-success">
 								<p><strong>Update Data Subarea Sukses</strong></p>
 							</div>';
 			$data['subarea']	= $this->subarea_model->getSubareaUpdate($id_subarea);
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi',$data);
+
 			$this->load->view('SubareaForm',$data);
-			$this->load->view('right');
-			$this->load->view('footer');				
+			
 		}
 		//Jika update data tidak sukses
 		else
@@ -117,12 +105,9 @@ class Subarea extends CI_Controller
 								<div class="msg msg-error"><p><strong>Update Data Subarea Gagal!</strong></p>
 								</div>';
 			$data['subarea']	= $this->subarea_model->getSubareaUpdate($id_subarea);
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi');
+
 			$this->load->view('SubareaForm',$data);
-			$this->load->view('right');
-			$this->load->view('footer');
+
 		}
 	}
 	
@@ -136,12 +121,9 @@ class Subarea extends CI_Controller
 		//panggil query hapus di model
 		$this->subarea_model->hapus($id_subarea);
 		$data['subarea'] = $this->subarea_model->getSubarea(); 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
+
 		$this->load->view('SubareaList',$data);
-		$this->load->view('right');
-		$this->load->view('footer-table');
+
 	}
 }
 

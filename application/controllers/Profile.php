@@ -9,8 +9,12 @@ class Profile extends CI_Controller{
     //Codeigniter : Write Less Do More
     $this->load->model(array('m_profile'));
     $this->load->model(array('m_form'));
+<<<<<<< HEAD
     $this->load->model(array('login_m'));
     $this->load->helper(array('form', 'url'));
+=======
+    $this->load->helper(array('form, url'));
+>>>>>>> a7f5a65b0a43c8e5f9c66b03a02656a91d2a1ad5
   }
 
   	public function index(){
