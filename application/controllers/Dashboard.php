@@ -19,18 +19,49 @@ class Dashboard extends CI_Controller{
   function index()
   {
     $data['session']  = $this->session->all_userdata();
-    $username     = $this->session->userdata('username');
-    $data['level']    = $this->login_m->getKodeDivisi($username);
+    $nav['username']     = $this->session->userdata('username');
+    $nav['level']    = $this->login_m->getKodeDivisi($nav['username']);
+    $nav['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
+    $nav['id_user'] = $this->session->userdata('id_karyawan');
+    $data['subsub'] = $this->m_dashboard->pie_subarea();
+    $data['data_area'] = $this->m_dashboard->pie_area();
+    //$data['gambar'] = $this->m_login->ambil_gambar();
     //var_dump($data['gambar']);
     $data['skortanggal'] = $this->m_dashboard->select_skor();
+    $data['area'] = $this->m_dashboard->ambil_area();
+    $nama_areas = $this->input->post('getarea');
+    $this->load->view('template/head');
+    $this->load->view('template/nav_header',$nav);
     $this->load->view('tampilan_dashboard',$data);
+    $this->load->view('template/footer');
     //var_dump($date);
   }
 
-  function getData(){
-    $data = $this->m_dashboard->select_skor();
-    echo json_encode($skor);
+  function update_piesubarea(){
+    $c = $this->input->post('getarea');
+    $uu = $this->input->post('getsubarea');
+    $data['session']  = $this->session->all_userdata();
+    $nav['username']     = $this->session->userdata('username');
+    $nav['level']    = $this->login_m->getKodeDivisi($nav['username']);
+    $nav['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
+    $nav['id_user'] = $this->session->userdata('id_karyawan');
+    $data['subsub'] = $this->m_dashboard->update_pie_subarea($c, $uu);
+    $data['data_area'] = $this->m_dashboard->pie_area();
+    //$data['gambar'] = $this->m_login->ambil_gambar();
+    //var_dump($data['gambar']);
+    $data['skortanggal'] = $this->m_dashboard->select_skor();
+    $data['area'] = $this->m_dashboard->ambil_area();
+    $nama_areas = $this->input->post('getarea');
+    $this->load->view('template/head');
+    $this->load->view('template/nav_header',$nav);
+    $this->load->view('tampilan_dashboard',$data);
+    $this->load->view('template/footer');
+  }
 
+  function get_subselect(){
+    if ($this->input->post('getarea')){
+      echo $this->m_dashboard->getsubselect($this->input->post('getarea'));
+    }
   }
 
 

@@ -1,20 +1,60 @@
-<?php include 'template/head.php'; ?>
+
+  <script>
+  $(document).ready(function(){
+    $('#getarea').change(function(){
+      var getarea=$('#getarea').val();
+      if(getarea !='')
+      {
+        $.ajax({
+          url : "<?php echo base_url(); ?>Dashboard/get_subselect",
+          method : "POST",
+          data : {getarea: getarea},
+          success:function(data){
+            $('#getsubarea').html(data);
+          }
+        })
+      }
+    });
+  });
+  </script>
 
   <?php
   if (is_array($skortanggal) || is_object($skortanggal))
-{
+      {
         foreach($skortanggal as $data){
           $time=strtotime($data->tanggal);
           $hari=date("D",$time);
-            $tanggal[] = $hari;
-            $skor[] = $data->skor;
+          $tanggal[] = $hari;
+          $skor[] = ($data->skor1)/($data->tottang);
         }
       }
+
+      if (is_array($subsub) || is_object($subsub))
+    {
+            foreach($subsub as $data){
+              //$time=strtotime($data->tanggal);
+              //$hari=date("D",$time);
+                $subar[] = $data->nama_subarea;
+                $skorp[] = ($data->skor1)/($data->suba);
+                $skorup[] = ($data->skor1)/($data->tangnew);
+                $tangsub[] = $data->tanggal;
+            }
+          }
+
+          if (is_array($data_area) || is_object($data_area))
+          {
+            foreach($data_area as $data){
+              //$time=strtotime($data->tanggal);
+              //$hari=date("D",$time);
+              $areas[] = $data->nama_area;
+              $skora[] = ($data->skor1)/($data->are);
+            }
+          }
+
+          $id_k = $this->uri->segment('3');
     ?>
+
 </head>
-
-<?php include 'template/nav_header.php'; ?>
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -107,14 +147,14 @@
 
           <!-- Content Row -->
 
-          <div class="row">
+
 
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-12 col-lg-12">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Presentase Kebersihan Harian</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -138,19 +178,35 @@
                         // The type of chart we want to create
                         type: 'line',
 
+
+
                         // The data for our dataset
                         data: {
                             labels: <?php echo json_encode($tanggal);?>,
                             datasets: [{
-                                label: 'My First dataset',
-                                backgroundColor: 'rgb(255, 99, 132)',
+                                label: 'Skor Kebersihan (%)',
+                                backgroundColor: 'rgb(150, 99, 132)',
+                                fill:false,
                                 borderColor: 'rgb(255, 99, 132)',
                                 data: <?php echo json_encode($skor);?>
                             }]
                         },
 
                         // Configuration options go here
-                        options: {}
+                        options: {
+
+                          responsive:true,
+                          maintainAspectRatio: false,
+                          scales: {
+                            yAxes: [{
+                              ticks: {
+                                max: 100,
+                                min: 0,
+                                stepSize: 10
+                              }
+                            }]
+                          }
+                        }
                     });
                     </script>
                   </div>
@@ -158,20 +214,24 @@
               </div>
             </div>
 
-            <!-- Pie Chart -->
+
+
+            <div class="row">
+            <!-- Pie Chart Sub Area -->
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Skor Kebersihan Sub Area</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-header">Pilih Area</div>
+                      <a class="dropdown-item">
+                        </a>
+                    </ul>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
@@ -180,23 +240,316 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
+                    <canvas id="PieChart">
+                      <script>
+                      var ctx = document.getElementById('PieChart').getContext('2d');
+                      var chart = new Chart(ctx, {
+                          // The type of chart we want to create
+                          type: 'pie',
+
+                          // The data for our dataset
+                          data: {
+                              labels: <?php echo json_encode($subar);?>,
+                              datasets: [{
+                                  label: 'Skor Kebersihan (%)',
+                                  backgroundColor: ["#DEB887",
+                                  "#A9A9A9",
+                                  "#DC143C",
+                                  "#F4A460",
+                                  "#2E8B57",
+                                  "#1D7A46",
+                                  "#CDA776",],
+                                  borderColor: [
+                                    "#CDA776",
+                                    "#989898",
+                                    "#CB252B",
+                                    "#E39371",
+                                    "#1D7A46",
+                                    "#F4A460",
+                                    "#CDA776",
+                                  ],
+                                  data: <?php echo json_encode($skorp);?>
+                              }]
+                          },
+
+                          // Configuration options go here
+                          options: {maintainAspectRatio: false,
+                            tooltips: {
+                              enabled: true,
+                              backgroundColor: "rgb(255,255,255)",
+                              bodyFontColor: "#858796",
+                              borderColor: '#dddfeb',
+                              borderWidth: 1,
+                              xPadding: 15,
+                              yPadding: 15,
+                              displayColors: false,
+                              caretPadding: 10,
+                            },
+                          legend: {
+                            display: false
+                          },
+                          cutoutPercentage: 80,
+                        }
+                      });
+                      </script>
+                    </canvas>
                   </div>
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
-                    </span>
+                  <form method="POST" action="<?php echo base_url(); ?>Dashboard/update_piesubarea">
+                  <div class="input-group input-group-sm mb-3">
+
+                  <select class="form-control" name="getarea" id="getarea">
+                    <option value="">Select Area</option>;
+                  <?php
+                  foreach($area as $row)
+                  {
+                    echo '<option value="'.$row->id_area.'">'.$row->nama_area.'</option>';
+                  } ?>
+                  </select>
+
+                  <select class="form-control" name="getsubarea" id="getsubarea">
+                    <option value="">Select Subarea</option>;
+                  </select>
+
+                  <input type="submit" class="btn-group-small" value="ok" >
+                  </form>
                   </div>
+                </div>
+                </div>
+              </div>
+
+              <!--AreaChart Sub Area-->
+              <div class="col-xl-8 col-lg-12">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Presentase Kebersihan Harian</h6>
+                    <div class="dropdown no-arrow">
+                      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Dropdown Header:</div>
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="SubAreaChart"></canvas>
+                      <script>
+                      var ctx = document.getElementById('SubAreaChart').getContext('2d');
+                      var chart = new Chart(ctx, {
+                          // The type of chart we want to create
+                          type: 'line',
+
+
+
+                          // The data for our dataset
+                          data: {
+                              labels: <?php echo json_encode($tangsub);?>,
+                              datasets: [{
+                                  label: 'Skor Kebersihan (%)',
+                                  backgroundColor: 'rgb(150, 99, 132)',
+                                  fill:false,
+                                  borderColor: 'rgb(255, 99, 132)',
+                                  data: <?php echo json_encode($skorup);?>
+                              }]
+                          },
+
+                          // Configuration options go here
+                          options: {
+
+                            responsive:true,
+                            maintainAspectRatio: false,
+                            scales: {
+                              yAxes: [{
+                                ticks: {
+                                  max: 100,
+                                  min: 0,
+                                  stepSize: 10
+                                }
+                              }]
+                            }
+                          }
+                      });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--row div-->
+              </div>
+
+
+          <div class="row">
+          <!-- Pie Chart Area -->
+          <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Skor Kebersihan Area</h6>
+                <div class="dropdown no-arrow">
+                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header">Dropdown Header:</div>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                  <canvas id="PieChartArea">
+                    <script>
+                    var ctx = document.getElementById('PieChartArea').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        // The type of chart we want to create
+                        type: 'pie',
+
+                        // The data for our dataset
+                        data: {
+                            labels: <?php echo json_encode($areas);?>,
+                            datasets: [{
+                                label: 'Skor Kebersihan (%)',
+                                backgroundColor: ["#DEB887",
+                                "#A9A9A9",
+                                "#DC143C",
+                                "#F4A460",
+                                "#2E8B57",
+                                "#1D7A46",
+                                "#CDA776",],
+                                borderColor: [
+                                  "#CDA776",
+                                  "#989898",
+                                  "#CB252B",
+                                  "#E39371",
+                                  "#1D7A46",
+                                  "#F4A460",
+                                  "#CDA776",
+                                ],
+                                data: <?php echo json_encode($skora);?>
+                            }]
+                        },
+
+                        // Configuration options go here
+                        options: {maintainAspectRatio: false,
+                        tooltips: {
+                          backgroundColor: "rgb(255,255,255)",
+                          bodyFontColor: "#858796",
+                          borderColor: '#dddfeb',
+                          borderWidth: 1,
+                          xPadding: 15,
+                          yPadding: 15,
+                          displayColors: false,
+                          caretPadding: 10,
+                        },
+                        legend: {
+                          display: false
+                        },
+                        cutoutPercentage: 80,
+                      }
+                    });
+                    </script>
+                  </canvas>
                 </div>
               </div>
             </div>
           </div>
+
+          <!--AreaChart Sub Area-->
+          <div class="col-xl-8 col-lg-12">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Presentase Kebersihan Harian</h6>
+                <div class="dropdown no-arrow">
+                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header">Dropdown Header:</div>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </div>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="AreaAreaChart"></canvas>
+                  <script>
+                  var ctx = document.getElementById('AreaAreaChart').getContext('2d');
+                  var chart = new Chart(ctx, {
+                      // The type of chart we want to create
+                      type: 'bar',
+
+
+
+                      // The data for our dataset
+                      data: {
+                          labels: <?php echo json_encode($areas);?>,
+                          datasets: [{
+                              label: 'Skor Kebersihan (%)',
+                              backgroundColor: ["#DEB887",
+                              "#A9A9A9",
+                              "#DC143C",
+                              "#F4A460",
+                              "#2E8B57",
+                              "#1D7A46",
+                              "#CDA776",],
+                              borderColor: [
+                                "#CDA776",
+                                "#989898",
+                                "#CB252B",
+                                "#E39371",
+                                "#1D7A46",
+                                "#F4A460",
+                                "#CDA776",
+                              ],
+                              data: <?php echo json_encode($skora);?>
+                          }]
+                      },
+
+                      // Configuration options go here
+                      options: {
+
+                        responsive:true,
+                        maintainAspectRatio: false,
+                        scales: {
+                          yAxes: [{
+                            ticks: {
+                              max: 100,
+                              min: 0,
+                              stepSize: 10
+                            }
+                          }]
+                        }
+                      }
+                  });
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--row div-->
+          </div>
+
+
+
+
 
           <!-- Content Row -->
           <div class="row">
@@ -320,50 +673,5 @@
         </div>
         <!-- /.container-fluid -->
 
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-<?php include 'template/footer.php'; ?>
-
+      
 </html>
