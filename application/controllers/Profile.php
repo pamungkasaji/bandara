@@ -9,7 +9,6 @@ class Upload extends CI_Controller{
     //Codeigniter : Write Less Do More
     $this->load->model(array('m_profile'));
     $this->load->model(array('m_form'));
-    $this->load->model('m_login');
     $this->load->helper(array('form, url'));
   }
 

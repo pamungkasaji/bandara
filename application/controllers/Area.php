@@ -55,7 +55,7 @@ class Area extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']  = '
-					<div class="msg msg-ok"><p><strong>Input Data Area Sukses</strong></p></div>';
+					<div class="alert alert-success"><p><strong>Input Data Area Sukses</strong></p></div>';
 			$this->load->view('head');
 			$this->load->view('header');
 			$this->load->view('navigasi',$data);
@@ -104,7 +104,7 @@ class Area extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="msg msg-ok">
+							<div class="alert alert-success">
 								<p><strong>Update Data Area Sukses</strong></p>
 							</div>';
 			$data['area']	= $this->area_model->getAreaUpdate($id_area);

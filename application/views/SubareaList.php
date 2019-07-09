@@ -31,16 +31,16 @@
         </thead>
         <tbody>
             <?php
-									//jika data Subarea tidak kosong maka jalankan perintah dibawah ini
+                                    //jika data Subarea tidak kosong maka jalankan perintah dibawah ini
             if(!empty($subarea))
             {
-										//load data Subarea
+                                        //load data Subarea
               foreach ($subarea as $data)
               {
-               $id_subarea	=$data['id_subarea']; 
-               $nama_subarea	=$data['nama_subarea']; 
+               $id_subarea    =$data['id_subarea']; 
+               $nama_subarea  =$data['nama_subarea']; 
 
-               ?>	
+               ?> 
                <tr class="odd gradeX">
                 <td><?php echo $id_subarea; ?></td>
                 <td><?php echo $nama_subarea; ?></td>
@@ -63,6 +63,7 @@
 
 </div>
 <!-- /.container-fluid -->
+
 
 <?php include 'template/footer.php'; ?>
 
