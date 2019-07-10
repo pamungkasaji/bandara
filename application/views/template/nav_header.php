@@ -143,7 +143,6 @@ elseif(!empty($session[0]['level']))
               </div>
             </li>
 							<!-- Dropdown - User Information -->
-						</li>
 
 					</ul>
 
