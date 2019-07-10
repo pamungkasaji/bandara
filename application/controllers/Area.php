@@ -2,14 +2,15 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Area extends CI_Controller 
+class Area extends CI_Controller
 {
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('area_model');
 		$this->load->model('login_m');
-		if(!$this->session->userdata('username'))
+		$this->load->model('Navbar_model');
+		if(!$this->session->userdata('id_karyawan'))
 		{
 			redirect('Login');
 		}
@@ -18,50 +19,39 @@ class Area extends CI_Controller
 
 	public function index()
 	{
+
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
-		$data['area'] = $this->area_model->getArea(); 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		$this->load->view('AreaList',$data);
-		$this->load->view('right');
-		$this->load->view('footer-table');
+		$data['area'] = $this->area_model->getArea();
+	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+	    //include head, header, footer di view dihapus dulu
+	    //parameter $data tidak diubah, ikut controller bersangkutan,
+	    //kalo parameter $nav sama di semua controller
+	  $this->Navbar_model->view_loader('AreaList', $data);
+
 	}
 	//function tambahArea
 	public function tambahArea()
 	{
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		$this->load->view('AreaForm'); 
-		$this->load->view('right');
-		$this->load->view('footer');
+
+		$this->Navbar_model->view_loader('AreaForm', $data);
+
 	}
 	//function input data
 	public function simpanArea()
 	{
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
-		//Untuk Validasi	
-		$this->load->library('javascript');
+		//Untuk Validasi
 		//query simpan data Area
 		if($this->area_model->simpanArea())
 		{
 			//load notifikasi sukses
 			$data['sukses']  = '
 					<div class="alert alert-success"><p><strong>Input Data Area Sukses</strong></p></div>';
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi',$data);
-			$this->load->view('AreaForm',$data); //load view AreaForm
-			$this->load->view('right');
-			$this->load->view('footer'); 
+					$this->Navbar_model->view_loader('AreaForm', $data);
+
 		}
 		else
 		{
@@ -70,34 +60,26 @@ class Area extends CI_Controller
 							<div class="msg msg-error">
 								<p><strong>Input Area Data Gagal!</strong></p>
 							</div>';
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi',$data);
-			$this->load->view('AreaForm',$data); 
-			$this->load->view('right');
-			$this->load->view('footer'); 
+
+					$this->Navbar_model->view_loader('AreaForm', $data);
+
 		}
-	}	
+	}
 	//ubah
 	public function ubah()
 	{
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);	
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$id_area		= $this->input->get('id_area');
 		$data['area']		= $this->area_model->getAreaUpdate($id_area);
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		$this->load->view('AreaForm',$data);
-		$this->load->view('right');
-		$this->load->view('footer');				
+
+		$this->Navbar_model->view_loader('AreaForm', $data);
+
 	}
 	public function prosesUbah()
 	{
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$id_area	= $this->input->get('id_area');
 		//Jika update data sukses
 		if($this->area_model->ubah())
@@ -107,8 +89,9 @@ class Area extends CI_Controller
 							<div class="alert alert-success">
 								<p><strong>Update Data Area Sukses</strong></p>
 							</div>';
-			$data['area']	= $this->area_model->getAreaUpdate($id_area);
-			redirect('Area');			
+							$data['area'] = $this->area_model->getArea();
+
+			$this->Navbar_model->view_loader('AreaList', $data);
 		}
 		//Jika update data tidak sukses
 		else
@@ -117,32 +100,42 @@ class Area extends CI_Controller
 			$data['error'] = '
 								<div class="msg msg-error"><p><strong>Update Data Area Gagal!</strong></p>
 								</div>';
-			$data['area']	= $this->area_model->getAreaUpdate($id_area);
-			$this->load->view('head');
-			$this->load->view('header');
-			$this->load->view('navigasi');
-			$this->load->view('AreaForm',$data);
-			$this->load->view('right');
-			$this->load->view('footer');
+								$data['area'] = $this->area_model->getArea();
+
+			$this->Navbar_model->view_loader('AreaList', $data);
 		}
 	}
-	
+
 	//function hapus
 	public function hapus()
 	{
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
 		$id_area		= $this->input->get('id_area');
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		//panggil query hapus di model
-		$this->area_model->hapus($id_area);
-		$data['area'] = $this->area_model->getArea(); 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		$this->load->view('AreaList',$data);
-		$this->load->view('right');
-		$this->load->view('footer-table');
+		if($this->area_model->hapus($id_area))
+		{
+			//load notifikasi sukses
+			$data['sukses']= '
+							<div class="alert alert-success">
+								<p><strong>Hapus Data Area Sukses</strong></p>
+							</div>';
+							$data['area'] = $this->area_model->getArea();
+
+			$this->Navbar_model->view_loader('AreaList', $data);
+		}
+		//Jika update data tidak sukses
+		else
+		{
+			//load notifikasi gagal
+			$data['error'] = '
+								<div class="msg msg-error"><p><strong>Hapus Data Area Gagal!</strong></p>
+								</div>';
+								$data['area'] = $this->area_model->getArea();
+
+			$this->Navbar_model->view_loader('AreaList', $data);
+		}
+
 	}
 }
 

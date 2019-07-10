@@ -55,4 +55,13 @@ class Login_m extends CI_Model
 		return $array;
 	}
 
+  function ambil_gambar($id_kar) {
+      $this->db->where('id_karyawan', $id_kar);
+      $this->db->select('gambar');
+      $this->db->from('karyawan');
+      $query = $this->db->get();
+      $ret = $query->row();
+      return $ret->gambar;
+  }
+
 }

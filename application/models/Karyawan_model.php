@@ -7,7 +7,7 @@ class Karyawan_model extends CI_Model
     }
 	
 	//function menampilkan data Karyawan
-	function getData()
+	function getKaryawan()
     {
 		$query=$this->db->query("select * from karyawan");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
@@ -18,7 +18,7 @@ class Karyawan_model extends CI_Model
 	//function menampilkan data Karyawan yang akan di Update ke Form
 	function getKaryawanUpdate($kode)
     {
-		$query=$this->db->query("select * from karyawan where username='$kode'");
+		$query=$this->db->query("select * from karyawan where id_karyawan='$kode'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
@@ -37,7 +37,7 @@ class Karyawan_model extends CI_Model
 	//function hapus data Karyawan
 	function hapus($kode)
     {
-		 $sql = "delete from karyawan  WHERE username ='$kode'"; 
+		 $sql = "delete from karyawan  WHERE id_karyawan ='$kode'"; 
 		 $this->db->query($sql);
 		 return true;
     }
@@ -68,13 +68,14 @@ class Karyawan_model extends CI_Model
     {
 		$CI =& get_instance();
 		$CI->load->database('default');
-		if(!empty($_POST['username']))
+		if(!empty($_POST['id_karyawan']))
 		{
+		$id_karyawan	= $_POST['id_karyawan'];
 		$nama			= $_POST['nama'];
 		$username		= $_POST['username'];
 		$password		= $_POST['password'];
         $level			= $_POST['level'];
-		$sql = "update karyawan set nama='$nama',password='$password',level='$level' where username='$username'"; 
+		$sql = "update karyawan set nama='$nama',username='$username',password='$password',level='$level' where id_karyawan='$id_karyawan'"; 
 		$this->db->query($sql);
 		return true;
 		}
