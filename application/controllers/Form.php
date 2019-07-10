@@ -70,7 +70,7 @@ class Form extends CI_Controller{
       $insert = $this->m_form->insert('penilaian', $data);
     $data1 = array(
         'id_penilaian' => $insert,
-        'id_karyawan' => '1'
+        'id_karyawan' => $id_att
     );
     $insert1 = $this->db->insert('job', $data1);
   }

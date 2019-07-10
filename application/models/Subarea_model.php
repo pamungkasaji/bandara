@@ -1,11 +1,11 @@
 <?php
-class Subarea_model extends CI_Model 
+class Subarea_model extends CI_Model
 {
     function __construct()
     {
         parent::__construct();
     }
-	
+
 	//function menampilkan data Subarea
 	function getSubarea()
     {
@@ -24,15 +24,15 @@ class Subarea_model extends CI_Model
 		$query->free_result();
 		return $array;
 	}
-	
+
 	//function hapus data Subarea
 	function hapus($kode)
     {
-		 $sql = "delete from subarea  WHERE id_subarea ='$kode'"; 
+		 $sql = "delete from subarea  WHERE id_subarea ='$kode'";
 		 $this->db->query($sql);
 		 return true;
     }
-	
+
 	//tambah
 	function simpanSubarea()
     {
@@ -40,7 +40,7 @@ class Subarea_model extends CI_Model
 		$CI->load->database('default');
 		$nama_subarea		= $_POST['nama_subarea'];
 		//insert
-		$sql = "insert into subarea(nama_subarea) values('$nama_subarea')"; 
+		$sql = "insert into subarea(nama_subarea) values('$nama_subarea')";
 		$this->db->query($sql);
 		return true;
     }
@@ -50,11 +50,11 @@ class Subarea_model extends CI_Model
 		$CI->load->database('default');
 		$id_subarea		= $_POST['id_subarea'];
 		$nama_subarea		= $_POST['nama_subarea'];
-		$sql = "update subarea set nama_subarea='$nama_subarea' where id_subarea='$id_subarea'"; 
+		$sql = "update subarea set nama_subarea='$nama_subarea' where id_subarea='$id_subarea'";
 		$this->db->query($sql);
 		return true;
 
     }
-	
+
 }
 ?>

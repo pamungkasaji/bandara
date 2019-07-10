@@ -11,12 +11,13 @@ class M_form extends CI_Model{
   }
   function get_subarea($p, $u) {
 
-      $this->db->where("id_subarea", $u);
-      $this->db->where("area.id_area", $p);
+      $this->db->where("kodeqr.id_subarea", $u);
+      $this->db->where("kodeqr.id_area", $p);
       $this->db->select('
       subarea.nama_subarea, area.nama_area
       ');
-      $this->db->join('area', 'area.id_area = subarea.id_area');
+      $this->db->join('kodeqr', 'kodeqr.id_subarea = subarea.id_subarea');
+      $this->db->join('area', 'area.id_area = kodeqr.id_area');
       $this->db->from('subarea');
       $query = $this->db->get();
       //return $query->result();
@@ -81,12 +82,13 @@ class M_form extends CI_Model{
   }
 
   function get_id($area, $subarea) {
-    $this->db->where("nama_subarea", $subarea);
-    $this->db->where("nama_area", $area);
+    $this->db->where("subarea.nama_subarea", $subarea);
+    $this->db->where("area.nama_area", $area);
     $this->db->select('
-    subarea.id_subarea, area.id_area
+    kodeqr.id_subarea, kodeqr.id_area
     ');
-    $this->db->join('area', 'area.id_area = subarea.id_area');
+    $this->db->join('kodeqr', 'kodeqr.id_subarea = subarea.id_subarea');
+    $this->db->join('area', 'area.id_area = kodeqr.id_area');
     $this->db->from('subarea');
     $query = $this->db->get();
     foreach ($query->result() as $row) {

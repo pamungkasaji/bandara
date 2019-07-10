@@ -1,8 +1,6 @@
-<?php include 'template/head.php'; ?>
 
 </head>
 
-<?php include 'template/nav_header.php'; ?>
 <!--PAGE CONTENT -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -11,7 +9,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<?php 
+			<?php
 							//Form ini bisa dipakai untuk menambah ataupun edit Subarea
 			if(!empty($subarea[0]['id_subarea']))
 			{
@@ -21,41 +19,41 @@
 			else
 			{
 				?> <h6 class="m-0 font-weight-bold text-primary">Tambah Data Subarea</h6>
-				<?php 
+				<?php
 			}
-			?>   
+			?>
 
 		</div>
 
 		<div class="card-body">
 
 
-			<?php 
+			<?php
 			//Jika update Sukses tampilkan Notifikasi sukses
 			if(@$sukses):
 				echo $sukses;
 				echo "<br>";
 			//Jika update gagal tampilkan Notifikasi error
-			else:  
-				if(@$error){echo @$error;} 
+			else:
+				if(@$error){echo @$error;}
 			endif;
 			//Tampilkan Error Validasi
-			echo validation_errors(); 
+			echo validation_errors();
 			//Jika tombol Simpan ditekan, maka jalankan controller Subarea->function simpan untuk menambah data atau function prosesUbah untuk mengubah data
 			if(!empty($subarea[0]['id_subarea']))
 			{
-				echo form_open_multipart('Subarea/prosesUbah'); 
+				echo form_open_multipart('Subarea/prosesUbah');
 			}
 			else
 			{
-				echo form_open_multipart('Subarea/simpanSubarea'); 
-			}											
+				echo form_open_multipart('Subarea/simpanSubarea');
+			}
 			?>
 			<!--Label kode_jenis-->
 			<?php
 			if(!empty($subarea[0]['id_subarea']))
 			{
-				$disabled="readonly";	
+				$disabled="readonly";
 			}
 			else
 			{
@@ -80,6 +78,5 @@
 
 </div>
 <!--END PAGE CONTENT -->
-<?php include 'template/footer.php'; ?>
 
 </html>

@@ -10,24 +10,18 @@ class Profile extends CI_Controller{
     $this->load->model(array('m_profile'));
     $this->load->model(array('m_form'));
     $this->load->model(array('login_m'));
+    $this->load->model(array('Navbar_model'));
     $this->load->helper(array('form', 'url'));
   }
 
   	public function index(){
-  		$this->load->view('tampilan_profile', array('error' => ' ' ));
-      $this->load->view('template/nav_header',$nav);
   	}
 
     public function tambahGambar($id){
       $data['id_karyawan']=$id;
-      $nav['username']     = $this->session->userdata('username');
-      $nav['level']    = $this->login_m->getLevel($nav['username']);
-      $nav['logo'] = $this->session->userdata('gambar');
-      $nav['id_user'] = $this->session->userdata('id_karyawan');
-      $this->load->view('template/head');
-      $this->load->view('template/nav_header',$nav);
-      $this->load->view('tampilan_profile',$data);
-      $this->load->view('template/footer');
+      $data['session']	= $this->session->all_userdata();
+      $data['logo'] = $this->session->userdata('gambar');
+      $this->Navbar_model->view_loader('tampilan_profile', $data);
     }
 
   	public function aksi_upload($id){

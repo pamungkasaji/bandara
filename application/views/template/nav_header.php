@@ -31,7 +31,7 @@ elseif(!empty($session[0]['level']))
 
 			<?php
 				//Jika Karyawan Login sebagai Admin
-			if($level=='ADM')
+			if($session['level'] =='ADM')
 			{
 				?>
 
@@ -62,7 +62,7 @@ elseif(!empty($session[0]['level']))
 				<?php
 			}
 				//Jika  Login sebagai Owner
-			elseif($level=='SPV')
+			elseif($session['level'] =='SPV')
 			{
 				?>
 
@@ -118,12 +118,12 @@ elseif(!empty($session[0]['level']))
 							<!-- Nav Item - User Information -->
 							<li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $username; ?></span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $session['username']; ?></span>
                 <img class="img-profile rounded-circle" src="<?php echo base_url().'/gambar/'.$logo;?>">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="<?php echo base_url().'Profile/tambahGambar/'.$id_user;?>">
+                <a class="dropdown-item" href="<?php echo base_url().'Profile/tambahGambar/'.$session['id_karyawan'];?>">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
@@ -143,6 +143,7 @@ elseif(!empty($session[0]['level']))
               </div>
             </li>
 							<!-- Dropdown - User Information -->
+
 
 					</ul>
 

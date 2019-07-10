@@ -37,10 +37,10 @@
 										//load data Subarea
               foreach ($subarea as $data)
               {
-                 $id_subarea	=$data['id_subarea']; 
-                 $nama_subarea	=$data['nama_subarea']; 
+                 $id_subarea	=$data['id_subarea'];
+                 $nama_subarea	=$data['nama_subarea'];
 
-                 ?>	
+                 ?>
                  <tr class="odd gradeX">
                     <td><?php echo $id_subarea; ?></td>
                     <td><?php echo $nama_subarea; ?></td>
@@ -74,28 +74,28 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">      
+                            <div class="modal-body">
 
-                                     <?php 
+                                     <?php
                                             //Jika update Sukses tampilkan Notifikasi sukses
                                             if(@$sukses):
                                             echo $sukses;
                                             echo "<br>";
                                             //Jika update gagal tampilkan Notifikasi error
-                                            else:  
-                                            if(@$error){echo @$error;} 
+                                            else:
+                                            if(@$error){echo @$error;}
                                             endif;
                                             //Tampilkan Error Validasi
-                                            echo validation_errors(); 
+                                            echo validation_errors();
                                             //Jika tombol Simpan ditekan, maka jalankan controller Subarea->function simpan untuk menambah data atau function prosesUbah untuk mengubah data
                                             if(!empty($subarea[0]['id_subarea']))
                                             {
-                                                echo form_open_multipart('Subarea/simpanSubarea'); 
+                                                echo form_open_multipart('Subarea/simpanSubarea');
                                             }
                                             else
                                             {
-                                                echo form_open_multipart('Subarea/simpanSubarea'); 
-                                            }                                           
+                                                echo form_open_multipart('Subarea/simpanSubarea');
+                                            }
                                         ?>
 
 
@@ -124,28 +124,28 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">      
+                            <div class="modal-body">
 
-                                     <?php 
+                                     <?php
                                             //Jika update Sukses tampilkan Notifikasi sukses
                                             if(@$sukses):
                                             echo $sukses;
                                             echo "<br>";
                                             //Jika update gagal tampilkan Notifikasi error
-                                            else:  
-                                            if(@$error){echo @$error;} 
+                                            else:
+                                            if(@$error){echo @$error;}
                                             endif;
                                             //Tampilkan Error Validasi
-                                            echo validation_errors(); 
+                                            echo validation_errors();
                                             //Jika tombol Simpan ditekan, maka jalankan controller Subarea->function simpan untuk menambah data atau function prosesUbah untuk mengubah data
                                             if(!empty($subarea[0]['id_subarea']))
                                             {
-                                                echo form_open_multipart('Subarea/prosesUbah'); 
+                                                echo form_open_multipart('Subarea/prosesUbah');
                                             }
                                             else
                                             {
-                                                echo form_open_multipart('Subarea/simpanSubarea'); 
-                                            }                                           
+                                                echo form_open_multipart('Subarea/simpanSubarea');
+                                            }
                                         ?>
 
 
@@ -164,6 +164,5 @@
                     </div>
                 </div>
 
-<?php include 'template/footer.php'; ?>
 
 </html>
