@@ -46,7 +46,7 @@ class Login_m extends CI_Model
 		$query->free_result();
 		return $array;
 	}
-	function getKodeDivisi($username)
+	function getLevel($username)
     {
 		$query=$this->db->query("select level from karyawan where username='$username'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}

@@ -21,7 +21,7 @@ class Karyawan extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$data['karyawan'] = $this->karyawan_model->getData(); 
 		$this->load->view('head');
 		$this->load->view('header');
@@ -35,7 +35,7 @@ class Karyawan extends CI_Controller
 	{
 		$data['session']		= $this->session->all_userdata();
 		$username					= $this->session->userdata('username');
-		$data['level']	= $this->login_m->getKodeDivisi($username);
+		$data['level']	= $this->login_m->getLevel($username);
 		//$data['divisi']		 	= $this->divisi_model->getData(); 
 		$this->load->view('head');
 		$this->load->view('header');
@@ -50,7 +50,7 @@ class Karyawan extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		//query simpan data karyawan
 		if(!empty($_POST['username']))
 		{
@@ -107,7 +107,7 @@ class Karyawan extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$username				= $this->input->get('username');
 		$data['karyawan']		= $this->karyawan_model->getKaryawanUpdate($username);
 		//$data['divisi'] 	= $this->divisi_model->getData(); 
@@ -122,7 +122,7 @@ class Karyawan extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$username				= $this->input->get('username');
 		//Jika update data sukses
 		if($this->karyawan_model->ubah())
@@ -163,7 +163,7 @@ class Karyawan extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$username	= $this->input->get('username');
 		//panggil query hapus di model
 		$this->karyawan_model->hapus($username);

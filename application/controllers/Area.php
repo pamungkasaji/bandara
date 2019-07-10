@@ -20,7 +20,7 @@ class Area extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$data['area'] = $this->area_model->getArea(); 
 		$this->load->view('head');
 		$this->load->view('header');
@@ -34,7 +34,7 @@ class Area extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$this->load->view('head');
 		$this->load->view('header');
 		$this->load->view('navigasi',$data);
@@ -47,7 +47,7 @@ class Area extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		//Untuk Validasi	
 		$this->load->library('javascript');
 		//query simpan data Area
@@ -83,7 +83,7 @@ class Area extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);	
+		$data['level']= $this->login_m->getLevel($username);	
 		$id_area		= $this->input->get('id_area');
 		$data['area']		= $this->area_model->getAreaUpdate($id_area);
 		$this->load->view('head');
@@ -97,7 +97,7 @@ class Area extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$id_area	= $this->input->get('id_area');
 		//Jika update data sukses
 		if($this->area_model->ubah())
@@ -132,7 +132,7 @@ class Area extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$id_area		= $this->input->get('id_area');
 		//panggil query hapus di model
 		$this->area_model->hapus($id_area);

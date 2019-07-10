@@ -20,7 +20,7 @@ class Dashboard extends CI_Controller{
   {
     $data['session']  = $this->session->all_userdata();
     $nav['username']     = $this->session->userdata('username');
-    $nav['level']    = $this->login_m->getKodeDivisi($nav['username']);
+    $nav['level']    = $this->login_m->getLevel($nav['username']);
     $nav['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
     $nav['id_user'] = $this->session->userdata('id_karyawan');
     $data['subsub'] = $this->m_dashboard->pie_subarea();
@@ -42,7 +42,7 @@ class Dashboard extends CI_Controller{
     $uu = $this->input->post('getsubarea');
     $data['session']  = $this->session->all_userdata();
     $nav['username']     = $this->session->userdata('username');
-    $nav['level']    = $this->login_m->getKodeDivisi($nav['username']);
+    $nav['level']    = $this->login_m->getLevel($nav['username']);
     $nav['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
     $nav['id_user'] = $this->session->userdata('id_karyawan');
     $data['subsub'] = $this->m_dashboard->update_pie_subarea($c, $uu);

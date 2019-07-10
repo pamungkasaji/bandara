@@ -1,8 +1,8 @@
-<?php include 'template/head.php'; ?>
+
 
 </head>
 
-<?php include 'template/nav_header.php'; ?>
+
 
 <!-- Begin Page Content -->
 <div class="container-fluid">

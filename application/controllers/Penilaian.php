@@ -21,7 +21,7 @@ class Penilaian extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		//$data['penilaian'] 	= $this->penilaian_model->getArea(); 
 		$this->load->view('head');
 		$this->load->view('header');
@@ -36,7 +36,7 @@ class Penilaian extends CI_Controller
 
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$this->load->view('head');
 		$this->load->view('PenilaianForm',$data);
 		$this->load->view('right');

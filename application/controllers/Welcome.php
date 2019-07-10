@@ -16,7 +16,7 @@ class Welcome extends CI_Controller {
 	{
 		$data['session']		= $this->session->all_userdata();
 		$username					= $this->session->userdata('username');
-		$data['level']	= $this->login_m->getKodeDivisi($username);
+		$data['level']	= $this->login_m->getLevel($username);
 
 		/*
 		$data['DetailStok']		= $this->Welcome_model->getStokDetail();

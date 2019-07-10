@@ -8,6 +8,7 @@ class Subarea extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('subarea_model');
+		$this->load->model('m_dashboard');
 		$this->load->model('login_m');
 		if(!$this->session->userdata('username'))
 		{
@@ -18,12 +19,22 @@ class Subarea extends CI_Controller
 
 	public function index()
 	{
+
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$data['subarea'] = $this->subarea_model->getSubarea(); 
-
-		$this->load->view('SubareaList',$data);
+		$nav['username']     = $this->session->userdata('username');
+	    $nav['level']    = $this->login_m->getLevel($nav['username']);
+	    $nav['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
+	    $nav['id_user'] = $this->session->userdata('id_karyawan');
+	    //include head, header, footer di view dihapus dulu
+	    //parameter $data tidak diubah, ikut controller bersangkutan, 
+	    //kalo parameter $nav sama di semua controller
+	    $this->load->view('template/head');
+    	$this->load->view('template/nav_header',$nav);
+		$this->load->view('SubareaListModalCoba',$data);
+		$this->load->view('template/footer');
 
 	}
 	//function tambahSubarea
@@ -31,7 +42,7 @@ class Subarea extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 
 		$this->load->view('SubareaForm',$data); 
 
@@ -41,7 +52,7 @@ class Subarea extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		//Untuk Validasi	
 		$this->load->library('javascript');
 		//query simpan data Subarea
@@ -71,7 +82,7 @@ class Subarea extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);	
+		$data['level']= $this->login_m->getLevel($username);	
 		$id_subarea		= $this->input->get('id_subarea');
 		$data['subarea']		= $this->subarea_model->getSubareaUpdate($id_subarea);
 
@@ -82,7 +93,7 @@ class Subarea extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$id_subarea	= $this->input->get('id_subarea');
 		//Jika update data sukses
 		if($this->subarea_model->ubah())
@@ -116,7 +127,7 @@ class Subarea extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$id_subarea		= $this->input->get('id_subarea');
 		//panggil query hapus di model
 		$this->subarea_model->hapus($id_subarea);

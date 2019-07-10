@@ -21,7 +21,7 @@ class Profile extends CI_Controller{
     public function tambahGambar($id){
       $data['id_karyawan']=$id;
       $nav['username']     = $this->session->userdata('username');
-      $nav['level']    = $this->login_m->getKodeDivisi($nav['username']);
+      $nav['level']    = $this->login_m->getLevel($nav['username']);
       $nav['logo'] = $this->session->userdata('gambar');
       $nav['id_user'] = $this->session->userdata('id_karyawan');
       $this->load->view('template/head');

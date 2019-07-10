@@ -23,7 +23,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']		= $this->login_m->getKodeDivisi($username);
+		$data['level']		= $this->login_m->getLevel($username);
 		$data['kodeqr'] 	= $this->kodeqr_model->getKodeqr(); 
 
 		$this->load->view('KodeqrList',$data);
@@ -46,7 +46,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']		= $this->login_m->getKodeDivisi($username);
+		$data['level']		= $this->login_m->getLevel($username);
 		$data['subarea'] 	= $this->subarea_model->getSubarea(); 
 		$data['area'] 		= $this->area_model->getArea();
 		$this->load->view('head');
@@ -120,7 +120,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$data['subarea'] 	= $this->subarea_model->getSubarea(); 
 		
 		$this->load->library('ciqrcode'); //pemanggilan library QR CODE
@@ -179,7 +179,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']		= $this->login_m->getKodeDivisi($username);
+		$data['level']		= $this->login_m->getLevel($username);
 		$id_kodeqr			= $this->input->get('id_kodeqr');
 		$data['kodeqr']		= $this->kodeqr_model->getKodeqrUpdate($id_kodeqr);
 		$data['subarea'] 	= $this->subarea_model->getSubarea(); 
@@ -196,7 +196,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']		= $this->login_m->getKodeDivisi($username);
+		$data['level']		= $this->login_m->getLevel($username);
 		$id_kodeqr			= $this->input->get('id_kodeqr');
 		$data['subarea'] 	= $this->subarea_model->getSubarea(); 
 		$data['area'] 		= $this->area_model->getArea();
@@ -238,7 +238,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username			= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$id_kodeqr	= $this->input->get('id_kodeqr');
 		$this->kodeqr_model->hapus($id_kodeqr);
 		$data['kodeqr'] = $this->kodeqr_model->getKodeqr(); 
@@ -249,7 +249,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getKodeDivisi($username);
+		$data['level']= $this->login_m->getLevel($username);
 		$data['kodeqr'] = $this->kodeqr_model->getStok(); 
 		$this->load->view('head');
 		$this->load->view('header');
