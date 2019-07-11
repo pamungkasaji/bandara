@@ -27,6 +27,7 @@ class Subarea extends CI_Controller
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
 	  $this->Navbar_model->view_loader('SubareaList', $data);
+	  //var_dump($data['subarea']);
 
 	}
 	//function tambahSubarea

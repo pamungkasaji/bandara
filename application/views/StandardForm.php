@@ -58,7 +58,7 @@
 			</div>
 			<div class="form-group">
 				<label>Material</label>
-				<SELECT name="id_material" class="form-control">
+				<SELECT name="id_material" required class="form-control">
 					<OPTION value="<?php echo isset($standard[0]['id_material'])?$standard[0]['id_material']:'';?>"><?php echo isset($standard[0]['nama_material'])?$standard[0]['nama_material']:'';?></OPTION>
 					<?php
 					if(!empty($material))

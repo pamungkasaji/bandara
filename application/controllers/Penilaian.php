@@ -41,6 +41,17 @@ class Penilaian extends CI_Controller
 		$this->load->view('PenilaianForm',$data);
 		$this->load->view('right');
 	}
+
+	public function ini()
+	{
+		$data['session']	= $this->session->all_userdata();
+		$this->load->library('pdf');
+		$data['data'] = array(
+			['nim'=>'123456789','name'=>'example name 1','jurusan'=>'Teknik Informatika'],
+			['nim'=>'123456789', 'name'=>'example name 2', 'jurusan'=>'Jaringan']
+		);
+		$this->pdf->generate('Laporan/laporan1', $data, 'laporan-mahasiswa', 'A4', 'landscape');
+	}
 }
 
 ?>

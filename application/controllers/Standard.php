@@ -9,7 +9,7 @@ class Standard extends CI_Controller
 		parent::__construct();
 		$this->load->model('standard_model');
 		$this->load->model('login_m');
-		$this->load->model('Material_model');
+		$this->load->model('material_model');
 		$this->load->model('Navbar_model');
 		if(!$this->session->userdata('id_karyawan'))
 		{
@@ -35,7 +35,7 @@ class Standard extends CI_Controller
 	{
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
-		$data['material'] 		= $this->Material_model->getMaterial(); 
+		$data['material'] 		= $this->material_model->getMaterial(); 
 
 		$this->Navbar_model->view_loader('StandardForm', $data);
 
@@ -45,7 +45,7 @@ class Standard extends CI_Controller
 	{
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
-		$data['material'] 		= $this->Material_model->getMaterial(); 
+		$data['material'] 		= $this->material_model->getMaterial(); 
 		//Untuk Validasi
 		//query simpan data Standard
 		if($this->standard_model->simpanStandard())
@@ -75,8 +75,10 @@ class Standard extends CI_Controller
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$id_standard		= $this->input->get('id_standard');
 		//$data['STD']= $this->standard_model->getSTDUpdate($kode); 
-		$data['material'] 		= $this->Material_model->getMaterial(); 
+		$data['material'] 		= $this->material_model->getMaterial(); 
+		$data['materialstd']		= $this->material_model->getMaterialStandard($id_standard);
 		$data['standard']		= $this->standard_model->getStandardUpdate($id_standard);
+
 
 		$this->Navbar_model->view_loader('StandardForm', $data);
 

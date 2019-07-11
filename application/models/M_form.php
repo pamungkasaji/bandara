@@ -9,6 +9,16 @@ class M_form extends CI_Model{
     date_default_timezone_set("Asia/Jakarta");
     //Codeigniter : Write Less Do More
   }
+
+  function getPenilaian()
+    {
+    $query=$this->db->query("select * from penilaian");
+    foreach ($query->result_array() as $row) {$array[] = $row;}
+    if (!isset($array)) { $array='';}
+    $query->free_result();
+    return $array;
+  }
+
   function get_subarea($p, $u) {
 
       $this->db->where("kodeqr.id_subarea", $u);

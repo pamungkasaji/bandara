@@ -25,6 +25,15 @@ class Material_model extends CI_Model
 		return $array;
 	}
 
+	function getMaterialStandard($kode)
+    {
+		$query=$this->db->query("select * from memiliki where id_standard='$kode'");
+		foreach ($query->result_array() as $row) {$array[] = $row;}
+		if (!isset($array)) { $array='';}
+		$query->free_result();
+		return $array;
+	}
+
 	//function hapus data Material
 	function hapus($kode)
     {
