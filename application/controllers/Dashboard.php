@@ -20,7 +20,7 @@ class Dashboard extends CI_Controller{
   function index()
   {
     $data['session']	= $this->session->all_userdata();
-	  $data['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
+	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
     $data['subsub'] = $this->m_dashboard->pie_subarea();
     $data['data_area'] = $this->m_dashboard->pie_area();
     $data['skortanggal'] = $this->m_dashboard->select_skor();
@@ -35,7 +35,7 @@ class Dashboard extends CI_Controller{
     $c = $this->input->post('getarea');
     $uu = $this->input->post('getsubarea');
     $data['session']  = $this->session->all_userdata();
-    $data['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
+    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
     $data['subsub'] = $this->m_dashboard->update_pie_subarea($c, $uu);
     $data['data_area'] = $this->m_dashboard->pie_area();
     //$data['gambar'] = $this->m_login->ambil_gambar();

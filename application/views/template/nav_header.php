@@ -31,7 +31,7 @@ elseif(!empty($session[0]['level']))
 
 			<?php
 				//Jika Karyawan Login sebagai Admin
-			if($session['level'] =='ADM')
+			if($session['level'] =='admin')
 			{
 				?>
 
@@ -64,7 +64,7 @@ elseif(!empty($session[0]['level']))
 				<?php
 			}
 				//Jika  Login sebagai Owner
-			elseif($session['level'] =='SPV')
+			elseif($session['level'] =='supervisor')
 			{
 				?>
 

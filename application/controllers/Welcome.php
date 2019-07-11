@@ -4,20 +4,18 @@ class Welcome extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('login_m');
 		$this->load->model('Welcome_model');
-		if(!$this->session->userdata('username'))
+		$this->load->model('login_m');
+		$this->load->model('Navbar_model');
+		if(!$this->session->userdata('id_karyawan'))
 		{
 			redirect('Login');
 		}
-		$this->load->helper(array('form', 'url','download'));
-	}
+		$this->load->helper(array('form', 'url','download'));	}
 	public function index()
 	{
-		$data['session']		= $this->session->all_userdata();
-		$username					= $this->session->userdata('username');
-		$data['level']	= $this->login_m->getLevel($username);
-
+		$data['session']	= $this->session->all_userdata();
+	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		/*
 		$data['DetailStok']		= $this->Welcome_model->getStokDetail();
 		$data['DetailPR']		= $this->Welcome_model->getPRDetail();
@@ -25,12 +23,9 @@ class Welcome extends CI_Controller {
 		$data['DetailTagihan']	= $this->Welcome_model->getTagihanDetail();
 		*/
 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		//$this->load->view('dashboard',$data);
-		$this->load->view('right');
-		$this->load->view('footer');
+    $this->load->view('template/head');
+    $this->load->view('template/nav_header',$data);
+		$this->load->view('template/footer');
 	}
 }
 

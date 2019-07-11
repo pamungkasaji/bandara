@@ -24,12 +24,21 @@ class Standard_model extends CI_Model
 		$query->free_result();
 		return $array;
 	}
-
+	function getSTDUpdate($kode)
+    {
+		$query=$this->db->query("select memiliki.*,material.nama_material from meminta,material,standard where and standard.id_standard=meminta.id_standard and meminta.id_material=material.id_material and meminta.id_standard='$kode'");
+		foreach ($query->result_array() as $row) {$array[] = $row;}
+		if (!isset($array)) { $array='';}
+		$query->free_result();
+		return $array;
+	}
 	//function hapus data Standard
 	function hapus($kode)
     {
-		 $sql = "delete from standard  WHERE id_standard ='$kode'";
+		 $sql = "delete from standard  WHERE id_standard ='$kode'"; 
 		 $this->db->query($sql);
+		 $sqli = "delete from standard  WHERE id_standard ='$kode'"; 
+		 $this->db->query($sqli);
 		 return true;
     }
 
@@ -38,11 +47,15 @@ class Standard_model extends CI_Model
     {
 		$CI =& get_instance();
 		$CI->load->database('default');
+		$id_standard		= $_POST['id_standard'];
 		$nama_standard		= $_POST['nama_standard'];
 		$pertanyaan		= $_POST['pertanyaan'];
+		$id_material	= $_POST['id_material'];
 		//insert
 		$sql = "insert into standard(nama_standard,pertanyaan) values('$nama_standard','$pertanyaan')";
 		$this->db->query($sql);
+		$sqli="insert into memiliki (id_standard,id_material) values(LAST_INSERT_ID(),'$id_material')";
+		$this->db->query($sqli);
 		return true;
     }
 	function ubah()
@@ -52,8 +65,11 @@ class Standard_model extends CI_Model
 		$id_standard		= $_POST['id_standard'];
 		$nama_standard		= $_POST['nama_standard'];
 		$pertanyaan		= $_POST['pertanyaan'];
+		$id_material	= $_POST['id_material'];
 		$sql = "update standard set nama_standard='$nama_standard', pertanyaan='$pertanyaan' where id_standard='$id_standard'";
 		$this->db->query($sql);
+		$sqli="update memiliki set id_standard='$id_standard', id_material='$id_material' where id_standard='$id_standard'";
+		$this->db->query($sqli);
 		return true;
 
     }

@@ -56,6 +56,27 @@
 				<label>Pertanyaan</label>
 				<input class="form-control" required name="pertanyaan" value="<?php echo isset($standard[0]['pertanyaan'])?$standard[0]['pertanyaan']:'';?>">
 			</div>
+			<div class="form-group">
+				<label>Material</label>
+				<SELECT name="id_material" class="form-control">
+					<OPTION value="<?php echo isset($standard[0]['id_material'])?$standard[0]['id_material']:'';?>"><?php echo isset($standard[0]['nama_material'])?$standard[0]['nama_material']:'';?></OPTION>
+					<?php
+					if(!empty($material))
+					{
+						foreach($material as $data)
+						{
+							$id_material=$data['id_material'];
+							$nama_material=$data['nama_material'];
+
+							?>	
+
+							<OPTION value="<?php echo $id_material;?>"><?php echo $nama_material;?></OPTION>
+							<?php
+						}
+					}
+					?>		
+				</SELECT>
+			</div>
 			<button type="submit" class="btn btn-success" name="save">Simpan</button>
 			<a href="<?php echo site_url('Standard'); ?>"> <button type="button" class="btn btn-danger" name="batal">Kembali</button></a>
 

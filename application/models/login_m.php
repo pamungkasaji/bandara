@@ -22,7 +22,7 @@ class Login_m extends CI_Model
                       'status_login' => 'login'
         );
         $this->session->set_userdata($data);
-        if ($data['level']=='SPV') {
+        if ($data['level']=='supervisor') {
             redirect('Dashboard');
         }
         else {

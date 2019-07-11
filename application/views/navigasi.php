@@ -26,7 +26,7 @@ elseif(!empty($session[0]['level']))
                 </li>
 			<?php
 				//Jika Karyawan Login sebagai Admin
-				if($level=='ADM')
+				if($level=='admin')
 				{
 				?>
 				<li class="panel">
@@ -45,7 +45,7 @@ elseif(!empty($session[0]['level']))
                 </li>
 				<?php
 				}
-				elseif($level=='TL') 
+				elseif($level=='teamleader') 
 				{
 				?>				
 				<li class="panel">
@@ -67,12 +67,12 @@ elseif(!empty($session[0]['level']))
 				<?php
 				}
 				//Jika  Login sebagai Owner
-				elseif($level=='SPV')
+				elseif($level=='supervisor')
 				{
 				?>
 				<li class="panel">
                     <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#laporan-nav">
-                        <i class="icon-print"> </i> SPV     
+                        <i class="icon-print"> </i> Supervisor     
                         <span class="pull-right">
                           <i class="icon-angle-left"></i>
                         </span>
