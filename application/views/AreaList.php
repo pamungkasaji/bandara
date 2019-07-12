@@ -30,7 +30,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-                <th>Kode Area</th>
+                <th>No</th>
                 <th>Nama Area</th>
                 <th>Aksi</th>
             </tr>
@@ -41,14 +41,14 @@
             if(!empty($area))
             {
                                         //load data Area
-                foreach ($area as $data)
+                $no = 1; foreach ($area as $data)
                 {
                     $id_area =$data['id_area']; 
                     $nama_area   =$data['nama_area']; 
 
                     ?>  
                     <tr class="odd gradeX">
-                        <td><?php echo $id_area; ?></td>
+                        <td><?php echo $no++; ?></td>
                         <td><?php echo $nama_area; ?></td>
                         <td>
                             <a class="btn btn-info" href="<?php echo site_url()."/Area/ubah?id_area=".$data['id_area'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>

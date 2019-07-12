@@ -30,7 +30,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Kode Material</th>
+              <th>No</th>
               <th>Nama Material</th>
               <th>Aksi</th>
             </tr>
@@ -41,14 +41,14 @@
             if(!empty($material))
             {
                                         //load data Material
-              foreach ($material as $data)
+              $no = 1; foreach ($material as $data)
               {
                $id_material    =$data['id_material']; 
                $nama_material  =$data['nama_material']; 
 
                ?> 
                <tr class="odd gradeX">
-                <td><?php echo $id_material; ?></td>
+                <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_material; ?></td>
                 <td>
                   <a class="btn btn-info" href="<?php echo site_url()."/Material/ubah?id_material=".$data['id_material'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>

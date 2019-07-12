@@ -29,6 +29,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th>No</th>
               <th>Area</th>
               <th>Subarea</th>
               <th>Kode QR</th>
@@ -42,14 +43,16 @@
            if(!empty($kodeqr))
            {
                     //load data kodeqr
-            foreach ($kodeqr as $data)
+            $no = 1; foreach ($kodeqr as $data)
             {
+              $id_kodeqr    =$data['id_kodeqr']; 
               $area         =$data['nama_area']; 
               $subarea    =$data['nama_subarea']; 
               $qr_code         =$data['qr_code']; 
 
               ?>  
               <tr>
+                <td><?php echo $no++; ?></td>
                 <td><?php echo $area; ?></td>
                 <td><?php echo $subarea; ?></td>
                 <td><img style="width: 100px;" src="<?php echo base_url().'assets/images/'.$qr_code;?>"></td>

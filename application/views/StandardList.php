@@ -30,7 +30,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Kode Standar Area</th>
+              <th>No</th>
               <th>Nama Standar Area</th>
               <th>Pertanyaan</th>
               <th>Aksi</th>
@@ -42,7 +42,7 @@
             if(!empty($standard))
             {
                                         //load data Standard
-              foreach ($standard as $data)
+              $no = 1; foreach ($standard as $data)
               {
                $id_standard    =$data['id_standard']; 
                $nama_standard  =$data['nama_standard']; 
@@ -50,7 +50,7 @@
 
                ?> 
                <tr class="odd gradeX">
-                <td><?php echo $id_standard; ?></td>
+                <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_standard; ?></td>
                 <td><?php echo $pertanyaan; ?></td>
                 <td>

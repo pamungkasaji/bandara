@@ -30,7 +30,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Kode Subarea</th>
+              <th>No</th>
               <th>Nama Subarea</th>
               <th>Aksi</th>
             </tr>
@@ -41,14 +41,14 @@
             if(!empty($subarea))
             {
                                         //load data Subarea
-              foreach ($subarea as $data)
+              $no = 1; foreach ($subarea as $data)
               {
                $id_subarea    =$data['id_subarea']; 
                $nama_subarea  =$data['nama_subarea']; 
 
                ?> 
                <tr class="odd gradeX">
-                <td><?php echo $id_subarea; ?></td>
+                <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_subarea; ?></td>
                 <td>
                   <a class="btn btn-info" href="<?php echo site_url()."/Subarea/ubah?id_subarea=".$data['id_subarea'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>

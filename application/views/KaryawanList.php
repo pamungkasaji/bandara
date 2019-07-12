@@ -30,7 +30,8 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-                <th>username</th>
+                <th>No</th>
+                <th>Username</th>
                 <th>Nama</th>
                 <th>Divisi</th>
                 <th>Aksi</th>
@@ -42,14 +43,16 @@
             if(!empty($karyawan))
             {
 										//load data Karyawan
-              foreach ($karyawan as $data)
+              $no = 1; foreach ($karyawan as $data)
               {
+                 $id_karyawan    =$data['id_karyawan']; 
                  $username		=$data['username']; 
                  $nama			=$data['nama']; 
                  $level       	=$data['level']; 
 
                  ?>	
                  <tr class="odd gradeX">
+                  <td><?php echo $no++; ?></td>
                   <td><?php echo $username; ?></td>
                   <td><?php echo $nama; ?></td>
                   <td><?php echo $level; ?></td>
