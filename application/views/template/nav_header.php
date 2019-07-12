@@ -31,7 +31,7 @@ elseif(!empty($session[0]['level']))
 
 			<?php
 				//Jika Karyawan Login sebagai Admin
-			if($session['level'] =='admin')
+			if($session['level'] =='ADM')
 			{
 				?>
 
@@ -54,8 +54,6 @@ elseif(!empty($session[0]['level']))
 							<a class="collapse-item" href="<?php echo site_url('Area'); ?>"><i class="icon-angle-right"></i> Area </a>
 							<a class="collapse-item" href="<?php echo site_url('Subarea'); ?>"><i class="icon-angle-right"></i> Subarea </a>
 							<a class="collapse-item" href="<?php echo site_url('Kodeqr'); ?>"><i class="icon-angle-right"></i> Kodeqr </a>
-							<a class="collapse-item" href="<?php echo site_url('Material'); ?>"><i class="icon-angle-right"></i> Material </a>
-							<a class="collapse-item" href="<?php echo site_url('Standard'); ?>"><i class="icon-angle-right"></i> Standard </a>
 
 						</div>
 					</div>
@@ -64,7 +62,7 @@ elseif(!empty($session[0]['level']))
 				<?php
 			}
 				//Jika  Login sebagai Owner
-			elseif($session['level'] =='supervisor')
+			elseif($session['level'] =='SPV')
 			{
 				?>
 
@@ -75,8 +73,8 @@ elseif(!empty($session[0]['level']))
 
 				<!-- Nav Item - Pages Collapse Menu -->
 				<li class="nav-item active">
-					<a class="nav-link" href="<?php echo site_url('Dashboard'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Tables</span></a>
-					<a class="nav-link" href="<?php echo site_url('DashboardBulanan'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Tables</span></a>
+					<a class="nav-link" href="<?php echo site_url('Dashboard'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Harian</span></a>
+					<a class="nav-link" href="<?php echo site_url('DashboardBulanan'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Bulanan</span></a>
 				</li>
 				<?php
 			}

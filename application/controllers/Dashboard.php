@@ -7,8 +7,8 @@ class Dashboard extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('m_dashboard');
-    $this->load->model('login_m');
     $this->load->model(array('Navbar_model'));
+    date_default_timezone_set('Asia/Jakarta');
     if(!$this->session->userdata('username'))
     {
       redirect('Login');
@@ -19,32 +19,32 @@ class Dashboard extends CI_Controller{
 
   function index()
   {
-    $data['session']	= $this->session->all_userdata();
-	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-    $data['subsub'] = $this->m_dashboard->pie_subarea();
-    $data['data_area'] = $this->m_dashboard->pie_area();
-    $data['skortanggal'] = $this->m_dashboard->select_skor();
-    $data['area'] = $this->m_dashboard->ambil_area();
-    $nama_areas = $this->input->post('getarea');
-    $this->Navbar_model->view_loader('tampilan_dashboard', $data);
+      $c = $this->input->post('getarea');
+      $uu = $this->input->post('getsubarea');
+      $p = $this->input->post('jumlah');
+      $data['session']  = $this->session->all_userdata();
+      $data['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
+      $data['subsub'] = $this->m_dashboard->pie_subarea($p);
+      $data['subnew'] = $this->m_dashboard->pie_subarea_area($c, $p);
+      $data['data_area'] = $this->m_dashboard->pie_area($p);
+      $data['line_sub'] = $this->m_dashboard->line_subarea($c,$uu,$p);
+      $data['line_area'] = $this->m_dashboard->line_area($c,$p);
+      $data['are'] = $this->m_dashboard->ambil_area();
+      //$data['gambar'] = $this->m_login->ambil_gambar();
+      $coba = $this->m_dashboard->pie_subarea_area($c,$p);
+      //var_dump($coba);
+      $data['skortanggal'] = $this->m_dashboard->select_skor($p);
+      if (isset($c)){$data['area'] = $this->m_dashboard->get_area($c);}
+      if (isset($uu)){$data['subarea'] = $this->m_dashboard->get_subarea($uu);}
+      $this->Navbar_model->view_loader('tampilan_dashboard', $data);
+      $datestring = '%Y-%m-%d';
+      $time = time();
+      $second_date = mdate($datestring, $time);
+      $times = $this->time = date('Y-m-d', strtotime("-$p day", time()));
 
-    //var_dump($date);
+    var_dump($data['skortanggal']);
   }
 
-  function update_piesubarea(){
-    $c = $this->input->post('getarea');
-    $uu = $this->input->post('getsubarea');
-    $data['session']  = $this->session->all_userdata();
-    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-    $data['subsub'] = $this->m_dashboard->update_pie_subarea($c, $uu);
-    $data['data_area'] = $this->m_dashboard->pie_area();
-    //$data['gambar'] = $this->m_login->ambil_gambar();
-    //var_dump($data['gambar']);
-    $data['skortanggal'] = $this->m_dashboard->select_skor();
-    $data['area'] = $this->m_dashboard->ambil_area();
-    $nama_areas = $this->input->post('getarea');
-    $this->Navbar_model->view_loader('tampilan_dashboard', $data);
-  }
 
   function get_subselect(){
     if ($this->input->post('getarea')){

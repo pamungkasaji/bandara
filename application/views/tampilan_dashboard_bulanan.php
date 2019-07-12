@@ -23,7 +23,7 @@
       {
         foreach($skortanggal as $data){
           $time=strtotime($data->tanggal);
-          $hari=date("D",$time);
+          $hari=date("M",$time);
           $tanggal[] = $hari;
           $skor[] = ($data->skor1)/($data->tottang);
         }
@@ -69,8 +69,8 @@
               //$time=strtotime($data->tanggal);
               //$hari=date("D",$time);
               $time=strtotime($data->tanggal);
-              $hari=date("D",$time);
-              $tangls[] = $hari;
+              $bulan=date("M",$time);
+              $tangls[] = $bulan;
               $skorls[] = ($data->skor1)/($data->tangnew);
             }
           }
@@ -81,12 +81,12 @@
               //$time=strtotime($data->tanggal);
               //$hari=date("D",$time);
               $time=strtotime($data->tanggal);
-              $hari=date("D",$time);
-              $tangla[] = $hari;
+              $bulan=date("M",$time);
+              $tangla[] = $bulan;
               $skorla[] = ($data->skor1)/($data->tangnew);
             }
           }
-
+          
           $id_k = $this->uri->segment('3');
     ?>
 
@@ -632,7 +632,7 @@
           </div>
 
 
-          <form class="user" method="POST" action="<?php echo base_url(); ?>Dashboard">
+          <form class="user" method="POST" action="<?php echo base_url(); ?>DashboardBulanan">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Masukkan jumlah hari</span>
