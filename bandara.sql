@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2019 at 11:46 AM
+-- Generation Time: Jul 12, 2019 at 05:36 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -52,17 +52,17 @@ CREATE TABLE `area` (
 
 INSERT INTO `area` (`id_area`, `nama_area`) VALUES
 (1, 'CheckinHall'),
-(3, 'bag'),
-(4, 'depart'),
+(3, 'Dropzone'),
+(4, 'departure'),
 (5, 'arrival');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cust_complain`
+-- Table structure for table `complain`
 --
 
-CREATE TABLE `cust_complain` (
+CREATE TABLE `complain` (
   `id_complain` int(10) NOT NULL,
   `tgl_complain` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `keterangan` longtext NOT NULL,
@@ -77,8 +77,7 @@ CREATE TABLE `cust_complain` (
 
 CREATE TABLE `job` (
   `id_karyawan` int(5) NOT NULL,
-  `id_penilaian` int(5) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id_penilaian` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -92,16 +91,18 @@ CREATE TABLE `karyawan` (
   `nama` varchar(50) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `level` varchar(10) NOT NULL
+  `level` varchar(10) NOT NULL,
+  `gambar` varchar(50) NOT NULL DEFAULT 'bandara.jpeg'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`id_karyawan`, `nama`, `username`, `password`, `level`) VALUES
-(3, 'aa', 'admin', 'admin', 'ADM'),
-(5, 'adam', 'adam', '123456', 'SPV');
+INSERT INTO `karyawan` (`id_karyawan`, `nama`, `username`, `password`, `level`, `gambar`) VALUES
+(3, 'aa', 'admin', 'admin', 'admin', 'bandara.jpeg'),
+(5, 'adam', 'adam', '123456', 'supervisor', '56.jpg'),
+(6, 'arifina', 'arifin', '123456', 'attendant', 'bandara.jpeg');
 
 -- --------------------------------------------------------
 
@@ -134,9 +135,9 @@ CREATE TABLE `kodeqr` (
 --
 
 INSERT INTO `kodeqr` (`id_kodeqr`, `id_area`, `id_subarea`, `qr_code`) VALUES
-(25, 1, 8, '1-8.png'),
-(27, 4, 1, '4-1.png'),
-(28, 3, 3, '3-3.png');
+(29, 1, 30, '1-30.png'),
+(33, 3, 30, '3-30.png'),
+(35, 5, 2, '5-2.png');
 
 -- --------------------------------------------------------
 
@@ -161,6 +162,13 @@ CREATE TABLE `lost_found` (
   `keterangan` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `lost_found`
+--
+
+INSERT INTO `lost_found` (`id_laf`, `tgl_laf`, `keterangan`) VALUES
+(1, '2019-07-02', 'Dompet hilang');
+
 -- --------------------------------------------------------
 
 --
@@ -169,16 +177,20 @@ CREATE TABLE `lost_found` (
 
 CREATE TABLE `material` (
   `id_material` int(5) NOT NULL,
-  `nama` varchar(20) NOT NULL
+  `nama_material` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `material`
 --
 
-INSERT INTO `material` (`id_material`, `nama`) VALUES
+INSERT INTO `material` (`id_material`, `nama_material`) VALUES
 (1, 'lantai'),
-(2, 'kaca');
+(2, 'kaca'),
+(3, 'tangga'),
+(4, 'Pilar'),
+(11, 'Dinding'),
+(12, 'kursi');
 
 -- --------------------------------------------------------
 
@@ -198,7 +210,8 @@ CREATE TABLE `memiliki` (
 INSERT INTO `memiliki` (`id_standard`, `id_material`) VALUES
 (3, 2),
 (2, 1),
-(4, 1);
+(4, 1),
+(17, 2);
 
 -- --------------------------------------------------------
 
@@ -210,7 +223,7 @@ CREATE TABLE `penilaian` (
   `id_penilaian` int(5) NOT NULL,
   `id_subarea` int(11) NOT NULL,
   `id_area` int(5) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tanggal` date NOT NULL,
   `kode_tinjauan` int(5) DEFAULT NULL,
   `penjelasan` varchar(200) DEFAULT NULL,
   `tindak_lanjut` varchar(200) DEFAULT NULL,
@@ -225,10 +238,9 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id_penilaian`, `id_subarea`, `id_area`, `tanggal`, `kode_tinjauan`, `penjelasan`, `tindak_lanjut`, `oleh`, `waktu`, `hasil`, `skor`) VALUES
-(2, 1, 1, '2019-07-04 02:07:42', 0, NULL, '', '', '2019-07-04 02:07:42', 0, 3),
-(3, 1, 1, '2019-07-04 02:27:25', 0, NULL, '', '', '2019-07-04 02:27:25', 0, 3),
-(4, 1, 1, '2019-07-04 02:32:27', 0, NULL, '', '', '2019-07-04 02:32:27', 0, 3),
-(5, 1, 1, '2019-07-04 02:33:44', 0, NULL, '', '', '2019-07-04 02:33:44', 0, 3);
+(10, 2, 1, '2019-07-06', NULL, NULL, NULL, NULL, '2019-07-08 11:50:45', NULL, 80),
+(12, 2, 4, '2019-07-04', NULL, NULL, NULL, NULL, '2019-07-08 11:51:52', NULL, 25),
+(13, 1, 1, '2019-07-09', NULL, NULL, NULL, NULL, '2019-07-09 00:55:25', NULL, 75);
 
 -- --------------------------------------------------------
 
@@ -253,24 +265,26 @@ INSERT INTO `ruang_lingkup` (`id_material`, `id_subarea`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `standard_area`
+-- Table structure for table `standard`
 --
 
-CREATE TABLE `standard_area` (
+CREATE TABLE `standard` (
   `id_standard` int(5) NOT NULL,
   `nama_standard` varchar(20) NOT NULL,
   `pertanyaan` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `standard_area`
+-- Dumping data for table `standard`
 --
 
-INSERT INTO `standard_area` (`id_standard`, `nama_standard`, `pertanyaan`) VALUES
+INSERT INTO `standard` (`id_standard`, `nama_standard`, `pertanyaan`) VALUES
 (1, 'ada', 'asdadsas'),
 (2, 'lantai bebas debu', 'Apakah lantai bebas dari debu ?'),
 (3, 'kaca bebas noda', 'Apakah kaca bebas dari noda ?'),
-(4, 'lantai tidak lembab', 'Apakah lantai tidak lembab ?');
+(4, 'lantai tidak lembab', 'Apakah lantai tidak lembab ?'),
+(8, 'pilar bersih', 'Apakah pilar tidak berdebu?'),
+(17, 'tembok bersih', 'Apakah tembok bersih tak berdebu');
 
 -- --------------------------------------------------------
 
@@ -290,8 +304,8 @@ CREATE TABLE `subarea` (
 INSERT INTO `subarea` (`id_subarea`, `nama_subarea`) VALUES
 (1, 'Toilet'),
 (2, 'Parkir'),
-(3, 'lifta'),
-(8, 'baru');
+(30, 'Kamar'),
+(32, 'wwwg');
 
 --
 -- Indexes for dumped tables
@@ -310,9 +324,9 @@ ALTER TABLE `area`
   ADD PRIMARY KEY (`id_area`);
 
 --
--- Indexes for table `cust_complain`
+-- Indexes for table `complain`
 --
-ALTER TABLE `cust_complain`
+ALTER TABLE `complain`
   ADD PRIMARY KEY (`id_complain`);
 
 --
@@ -385,9 +399,9 @@ ALTER TABLE `ruang_lingkup`
   ADD KEY `id_subarea` (`id_subarea`);
 
 --
--- Indexes for table `standard_area`
+-- Indexes for table `standard`
 --
-ALTER TABLE `standard_area`
+ALTER TABLE `standard`
   ADD PRIMARY KEY (`id_standard`);
 
 --
@@ -413,16 +427,16 @@ ALTER TABLE `area`
   MODIFY `id_area` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `cust_complain`
+-- AUTO_INCREMENT for table `complain`
 --
-ALTER TABLE `cust_complain`
+ALTER TABLE `complain`
   MODIFY `id_complain` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_karyawan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kerusakan`
@@ -434,37 +448,37 @@ ALTER TABLE `kerusakan`
 -- AUTO_INCREMENT for table `kodeqr`
 --
 ALTER TABLE `kodeqr`
-  MODIFY `id_kodeqr` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_kodeqr` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `lost_found`
 --
 ALTER TABLE `lost_found`
-  MODIFY `id_laf` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_laf` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id_material` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_material` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_penilaian` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_penilaian` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `standard_area`
+-- AUTO_INCREMENT for table `standard`
 --
-ALTER TABLE `standard_area`
-  MODIFY `id_standard` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `standard`
+  MODIFY `id_standard` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `subarea`
 --
 ALTER TABLE `subarea`
-  MODIFY `id_subarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_subarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
@@ -496,7 +510,7 @@ ALTER TABLE `laporan`
 --
 ALTER TABLE `memiliki`
   ADD CONSTRAINT `material` FOREIGN KEY (`id_material`) REFERENCES `material` (`id_material`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `standard` FOREIGN KEY (`id_standard`) REFERENCES `standard_area` (`id_standard`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `standard` FOREIGN KEY (`id_standard`) REFERENCES `standard` (`id_standard`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `penilaian`
