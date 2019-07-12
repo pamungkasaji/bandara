@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Laporan extends CI_Controller {
+class LaporanSCA extends CI_Controller {
 
 
 	function __construct()
@@ -21,20 +21,22 @@ class Laporan extends CI_Controller {
 	{
 
 		$data['session']	= $this->session->all_userdata();
+		$data['penilaian'] = $this->M_form->getPenilaian();
 	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-    $this->load->view('template/head');
-    $this->load->view('template/nav_header',$data);
-		$this->load->view('template/footer');
+	    //include head, header, footer di view dihapus dulu
+	    //parameter $data tidak diubah, ikut controller bersangkutan,
+	    //kalo parameter $nav sama di semua controller
+	  $this->Navbar_model->view_loader('laporan/Laporansca_view', $data);
+	  //var_dump($data['subarea']);
 	  //$this->Navbar_model->view_loader('SubareaList', $data);
 	  //var_dump($data['subarea']);
-				$data['data'] = array(
-			['nim'=>'123456789','name'=>'example name 1','jurusan'=>'Teknik Informatika'],
-			['nim'=>'123456789', 'name'=>'example name 2', 'jurusan'=>'Jaringan']
-		);
+
 		//var_dump($data['data']);
 	}
 
-	public function laporansca()
+	
+
+	public function cetakLaporansca()
 	{
 		$data['session']	= $this->session->all_userdata();
 		$this->load->library('pdf');
