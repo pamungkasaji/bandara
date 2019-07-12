@@ -30,6 +30,7 @@ class DashboardBulanan extends CI_Controller{
       $data['line_sub'] = $this->m_dashboard_bulanan->line_subarea($c,$uu,$p);
       $data['line_area'] = $this->m_dashboard_bulanan->line_area($c,$p);
       $data['are'] = $this->m_dashboard_bulanan->ambil_area();
+      $data['karyawan'] = $this->m_dashboard_bulanan->karyawan_rating($p);
       //$data['gambar'] = $this->m_login->ambil_gambar();
       $coba = $this->m_dashboard_bulanan->pie_subarea_area($c,$p);
       //var_dump($coba);

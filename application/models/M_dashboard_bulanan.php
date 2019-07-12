@@ -208,4 +208,23 @@ class M_dashboard_bulanan extends CI_Model{
     }
     return $output;
   }
+
+  function karyawan_rating($z){
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $second_date = mdate($datestring, $time);
+    $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+    $this->db->where('tanggal <=', $second_date);
+    $this->db->where('tanggal >=', $first_date);
+    $this->db->select_sum('skor', 'skor1');
+    $this->db->select('COUNT(job.id_karyawan) as kar, karyawan.nama');
+    $this->db->group_by('job.id_karyawan');
+    $this->db->order_by('skor1', 'desc');
+    $this->db->join('job', 'penilaian.id_penilaian = job.id_penilaian');
+    $this->db->join('karyawan', 'job.id_karyawan = karyawan.id_karyawan');
+    $this->db->from('penilaian');
+    //$this->db->where($condition);
+    $query = $this->db->get();
+    return $query->result();
+  }
 }

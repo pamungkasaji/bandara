@@ -141,10 +141,6 @@ $( document.body )
                       <label for="penlan">Penindak Lanjut</label>
                       <input type="text" class="form-control" name="penlan" id="penlan">
                     </div>
-                    <div class="form-group">
-                      <label for="hasil">Hasil</label>
-                      <input type="text" class="form-control" name="hasil" id="hasil">
-                    </div>
 
                     <?php
                       $info = $this->session->flashdata('info');

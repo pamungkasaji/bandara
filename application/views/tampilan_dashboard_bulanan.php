@@ -86,7 +86,7 @@
               $skorla[] = ($data->skor1)/($data->tangnew);
             }
           }
-          
+
           $id_k = $this->uri->segment('3');
     ?>
 
@@ -660,7 +660,31 @@
 
           <hr>
 
+          <div class="row">
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-12 col-md-12 mb-12">
+            <div class="card border-left-primary shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Peringkat Attendant</div><br>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach ($karyawan as $key=>$value){
+                      echo ($key+1).'. '.$value->nama.'
 
+                      <div class="progress" style="height: 20px;">
+    <div class="progress-bar" role="progressbar" style="width: '.($value->skor1/$value->kar).'%" aria-valuenow="'.($value->skor1/$value->kar).'" aria-valuemin="0" aria-valuemax="100">'.($value->skor1/$value->kar).'%</div>
+                      </div><br>';
+                    } ?></div>
+                    <div class="col">
+
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
           <!-- Content Row -->
 
 

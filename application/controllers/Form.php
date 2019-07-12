@@ -49,7 +49,6 @@ class Form extends CI_Controller{
     $pentin = $this->input->post('pentin');
     $tinlan = $this->input->post('tinlan');
     $penlan = $this->input->post('penlan');
-    $hasil = $this->input->post('hasil');
     $date = mdate($datestring, $time);
     $data = array(
         'id_area' => $id_area,
@@ -59,7 +58,6 @@ class Form extends CI_Controller{
         'tindak_lanjut' => $tinlan,
         'oleh' => $penlan,
         'tanggal' => $date,
-        'hasil' => $hasil,
         'skor' => $totalSum
       );
       $this->m_form->get_id_att($attendant);
