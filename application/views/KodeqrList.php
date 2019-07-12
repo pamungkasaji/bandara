@@ -56,7 +56,7 @@
                 <td>
                   <a class="btn btn-info" href="<?php echo site_url()."/Kodeqr/ubah?id_kodeqr=".$data['id_kodeqr'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>
 
-                  <a class="btn btn-info" href="<?php echo site_url()."Kodeqr/pdfdetails/".$data['id_kodeqr'];?>"><i class="icon-pencil icon-white"></i> Print</a>
+                  <a class="btn btn-info" target="_blank" href="<?php echo site_url()."Kodeqr/pdfdetails/".$data['id_kodeqr'];?>"><i class="icon-pencil icon-white"></i> Print</a>
 
                   <a onclick="return confirm('Yakin data anda ingin di hapus??')" href="<?php echo site_url()."/Kodeqr/hapus?id_kodeqr=".$data['id_kodeqr'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
 

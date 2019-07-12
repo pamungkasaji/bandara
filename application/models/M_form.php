@@ -12,7 +12,16 @@ class M_form extends CI_Model{
 
   function getPenilaian()
     {
-    $query=$this->db->query("select * from penilaian");
+    $query=$this->db->query("select penilaian.*,nama_area, nama_subarea from penilaian,area,subarea where area.id_area=penilaian.id_area and subarea.id_subarea=penilaian.id_subarea");
+    foreach ($query->result_array() as $row) {$array[] = $row;}
+    if (!isset($array)) { $array='';}
+    $query->free_result();
+    return $array;
+  }
+
+  function getPenilaiaDetail()
+    {
+    $query=$this->db->query("select penilaian.*,nama_area, nama_subarea, nama_material from penilaian,area,subarea,material where area.id_area=penilaian.id_area and subarea.id_subarea=penilaian.id_subarea and material.id_material=penilaian.id_material");
     foreach ($query->result_array() as $row) {$array[] = $row;}
     if (!isset($array)) { $array='';}
     $query->free_result();
