@@ -8,7 +8,7 @@ class LaporanSCA extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('login_m');
-		$this->load->model('M_form');
+		$this->load->model('penilaian_model');
 		$this->load->model('Navbar_model');
 		if(!$this->session->userdata('id_karyawan'))
 		{
@@ -21,7 +21,7 @@ class LaporanSCA extends CI_Controller {
 	{
 
 		$data['session']	= $this->session->all_userdata();
-		$data['penilaian'] = $this->M_form->getPenilaian();
+		$data['penilaian'] = $this->penilaian_model->getPenilaian();
 	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
@@ -35,12 +35,11 @@ class LaporanSCA extends CI_Controller {
 	}
 
 	
-
 	public function cetakLaporansca()
 	{
 		$data['session']	= $this->session->all_userdata();
 		$this->load->library('pdf');
-		$data['data'] = $this->M_form->getPenilaian();
+		$data['data'] = $this->penilaian_model->getPenilaian();
 
 		$this->pdf->generate('Laporan/laporansca_view', $data, 'laporan-mahasiswa', 'A4', 'landscape');
 	}
