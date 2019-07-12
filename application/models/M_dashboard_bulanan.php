@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_dashboard extends CI_Model{
+class M_dashboard_bulanan extends CI_Model{
 
   public function __construct()
   {
@@ -15,14 +15,15 @@ class M_dashboard extends CI_Model{
       //$first_date = '2019-07-03';
       $datestring = '%Y-%m-%d';
       $time = time();
+
       $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+      $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
       $this->db->where('tanggal <=', $second_date);
       $this->db->where('tanggal >=', $first_date);
       //$this->db->where('tanggal >=', $first_date);
       $this->db->select_sum('skor', 'skor1');
-      $this->db->select('tanggal, COUNT(tanggal) as tottang');
-      $this->db->group_by('tanggal');
+      $this->db->select('tanggal, COUNT(month(tanggal)) as tottang');
+      $this->db->group_by('month(tanggal)');
       $this->db->order_by('tanggal', 'asc');
       $this->db->from('penilaian');
       //$this->db->where($condition);
@@ -39,7 +40,7 @@ class M_dashboard extends CI_Model{
       $datestring = '%Y-%m-%d';
       $time = time();
       $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+      $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
       $this->db->where('tanggal <=', $second_date);
       $this->db->where('tanggal >=', $first_date);
       $this->db->select_sum('skor', 'skor1');
@@ -62,7 +63,7 @@ class M_dashboard extends CI_Model{
       $datestring = '%Y-%m-%d';
       $time = time();
       $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+      $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
       $this->db->where('tanggal <=', $second_date);
       $this->db->where('tanggal >=', $first_date);
       $this->db->where('id_area', $x);
@@ -89,14 +90,14 @@ class M_dashboard extends CI_Model{
       $datestring = '%Y-%m-%d';
       $time = time();
       $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+      $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
       $this->db->where('tanggal <=', $second_date);
       $this->db->where('tanggal >=', $first_date);
       $this->db->where('id_subarea', $aa);
       $this->db->where('id_area', $a);
       $this->db->select_sum('skor', 'skor1');
-      $this->db->select('COUNT(tanggal) as tangnew, tanggal');
-      $this->db->group_by('tanggal');
+      $this->db->select('COUNT(month(tanggal)) as tangnew, tanggal');
+      $this->db->group_by('month(tanggal)');
       $this->db->order_by('tanggal', 'asc');
       //$this->db->join('subarea', 'subarea.id_subarea = penilaian.id_subarea');
       $this->db->from('penilaian');
@@ -115,7 +116,7 @@ class M_dashboard extends CI_Model{
       $datestring = '%Y-%m-%d';
       $time = time();
       $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+      $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
       $this->db->where('tanggal <=', $second_date);
       $this->db->where('tanggal >=', $first_date);
       $this->db->select_sum('skor', 'skor1');
@@ -138,13 +139,13 @@ class M_dashboard extends CI_Model{
       $datestring = '%Y-%m-%d';
       $time = time();
       $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+      $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
       $this->db->where('tanggal <=', $second_date);
       $this->db->where('tanggal >=', $first_date);
       $this->db->where('penilaian.id_area', $a);
       $this->db->select_sum('skor', 'skor1');
-      $this->db->select('COUNT(tanggal) as tangnew, tanggal');
-      $this->db->group_by('tanggal');
+      $this->db->select('COUNT(month(tanggal)) as tangnew, tanggal');
+      $this->db->group_by('month(tanggal)');
       $this->db->order_by('tanggal', 'asc');
       $this->db->join('area', 'area.id_area = penilaian.id_area');
       $this->db->from('penilaian');
