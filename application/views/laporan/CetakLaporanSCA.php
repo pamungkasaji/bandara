@@ -29,8 +29,8 @@
 
   <hr class="line-title"> 
   <p>
-    Tanggal <br>
-    <b>Angkatan 2018</b>
+    Tanggal : <br>
+    <b>Area  : </b>
   </p>
   <table class="table table-bordered">
     <tr>
