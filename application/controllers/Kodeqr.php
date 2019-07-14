@@ -51,7 +51,7 @@ class Kodeqr extends CI_Controller
 	{
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
-		$data['subarea'] 	= $this->subarea_model->getSubarea(); 
+		$data['subarea'] 	= $this->subarea_model->getSubarea();
 		$data['area'] 		= $this->area_model->getArea();
 
 		$this->Navbar_model->view_loader('KodeqrForm', $data);
@@ -78,7 +78,7 @@ class Kodeqr extends CI_Controller
 
         $image_name=$id_area.'-'.$id_subarea.'.png'; //buat name dari qr code sesuai dengan nim
 
-        $params['data'] = 'localhost/bandara/Penilaian/IsiNilai/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
+        $params['data'] = 'angkasapura.xyz/Form/input/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
@@ -99,7 +99,7 @@ class Kodeqr extends CI_Controller
     	$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
     	$id_kodeqr		= $this->input->get('id_kodeqr');
     	$data['kodeqr']		= $this->kodeqr_model->getKodeqrUpdate($id_kodeqr);
-    	$data['subarea'] 	= $this->subarea_model->getSubarea(); 
+    	$data['subarea'] 	= $this->subarea_model->getSubarea();
 		$data['area'] 		= $this->area_model->getArea();
 
     	$this->Navbar_model->view_loader('KodeqrForm', $data);
@@ -110,7 +110,7 @@ class Kodeqr extends CI_Controller
     	$data['session']	= $this->session->all_userdata();
     	$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
     	$id_kodeqr	= $this->input->get('id_kodeqr');
-    	$data['subarea'] 	= $this->subarea_model->getSubarea(); 
+    	$data['subarea'] 	= $this->subarea_model->getSubarea();
     	$data['area'] 		= $this->area_model->getArea();
 		//Jika update data sukses
     	if($this->kodeqr_model->ubah())

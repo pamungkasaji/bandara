@@ -31,6 +31,10 @@ class DashboardBulanan extends CI_Controller{
       $data['line_area'] = $this->m_dashboard_bulanan->line_area($c,$p);
       $data['are'] = $this->m_dashboard_bulanan->ambil_area();
       $data['karyawan'] = $this->m_dashboard_bulanan->karyawan_rating($p);
+      $data['max_area'] = $this->m_dashboard_bulanan->get_max_area($p);
+      $data['min_area'] = $this->m_dashboard_bulanan->get_min_area($p);
+      $data['total_satisfied'] = $this->m_dashboard_bulanan->get_total($p);
+      $data['karmax'] = $this->m_dashboard_bulanan->karyawan_rating_max($p);
       //$data['gambar'] = $this->m_login->ambil_gambar();
       $coba = $this->m_dashboard_bulanan->pie_subarea_area($c,$p);
       //var_dump($coba);
@@ -43,7 +47,6 @@ class DashboardBulanan extends CI_Controller{
       $second_date = mdate($datestring, $time);
       $times = $this->time = date('Y-m-d', strtotime("-$p month", time()));
 
-    var_dump($times);
   }
 
 

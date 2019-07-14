@@ -200,7 +200,7 @@ class M_dashboard_bulanan extends CI_Model{
     $this->db->select('penilaian.id_subarea, subarea.nama_subarea');
     $this->db->group_by('penilaian.id_subarea');
     $this->db->join('subarea', 'subarea.id_subarea = penilaian.id_subarea');
-    $this->db->from('penilaian', 7);
+    $this->db->from('penilaian');
     $query = $this->db->get();
     $output =  '<option value="">Select Subarea</option>';
     foreach ($query->result() as $row) {
@@ -213,7 +213,7 @@ class M_dashboard_bulanan extends CI_Model{
     $datestring = '%Y-%m-%d';
     $time = time();
     $second_date = mdate($datestring, $time);
-    $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
+    $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
     $this->db->where('tanggal <=', $second_date);
     $this->db->where('tanggal >=', $first_date);
     $this->db->select_sum('skor', 'skor1');
@@ -226,5 +226,71 @@ class M_dashboard_bulanan extends CI_Model{
     //$this->db->where($condition);
     $query = $this->db->get();
     return $query->result();
+  }
+
+  function get_max_area($z){
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $second_date = mdate($datestring, $time);
+    $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
+    $this->db->where('tanggal <=', $second_date);
+    $this->db->where('tanggal >=', $first_date);
+    $this->db->select('sum(skor) as skor1, COUNT(penilaian.id_area) as are, nama_area, sum(skor)/COUNT(penilaian.id_area) as score');
+    $this->db->group_by('penilaian.id_area');
+    $this->db->order_by('score', 'desc');
+    $this->db->join('area', 'area.id_area = penilaian.id_area');
+    $this->db->from('penilaian');
+    //$this->db->where($condition);
+    $query = $this->db->get()->row();
+    return $query;
+  }
+
+  function get_min_area($z){
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $second_date = mdate($datestring, $time);
+    $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
+    $this->db->where('tanggal <=', $second_date);
+    $this->db->where('tanggal >=', $first_date);
+    $this->db->select('sum(skor) as skor1, COUNT(penilaian.id_subarea) as are, nama_subarea, sum(skor)/COUNT(penilaian.id_subarea) as score');
+    $this->db->group_by('penilaian.id_subarea');
+    $this->db->order_by('score', 'desc');
+    $this->db->join('subarea', 'subarea.id_subarea = penilaian.id_subarea');
+    $this->db->from('penilaian');
+    //$this->db->where($condition);
+    $query = $this->db->get()->row();
+    return $query;
+  }
+
+  function get_total($z){
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $second_date = mdate($datestring, $time);
+    $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
+    $this->db->where('tanggal <=', $second_date);
+    $this->db->where('tanggal >=', $first_date);
+    $this->db->select('sum(skor) as skor1, count(penilaian.id_penilaian) as idpen, sum(skor)/count(penilaian.id_penilaian) as score');
+    $this->db->from('penilaian');
+    $query = $this->db->get()->row();
+    return $query;
+  }
+
+  function karyawan_rating_max($z){
+    $datestring = '%Y-%m-%d';
+    $time = time();
+    $second_date = mdate($datestring, $time);
+    $first_date = $this->time = date('Y-m-d', strtotime("-$z month", time()));
+    $this->db->where('tanggal <=', $second_date);
+    $this->db->where('tanggal >=', $first_date);
+    $this->db->select_sum('skor', 'skor1');
+    $this->db->select('COUNT(job.id_karyawan) as kar, karyawan.nama');
+    $this->db->group_by('job.id_karyawan');
+    $this->db->order_by('skor1', 'desc');
+    $this->db->join('job', 'penilaian.id_penilaian = job.id_penilaian');
+    $this->db->join('karyawan', 'job.id_karyawan = karyawan.id_karyawan');
+    $this->db->from('penilaian');
+    //$this->db->where($condition);
+    $query = $this->db->get()->row();
+    return $query;
   }
 }

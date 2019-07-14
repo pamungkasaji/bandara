@@ -23,7 +23,7 @@
       {
         foreach($skortanggal as $data){
           $time=strtotime($data->tanggal);
-          $hari=date("D",$time);
+          $hari=date("D d-M-y",$time);
           $tanggal[] = $hari;
           $skor[] = ($data->skor1)/($data->tottang);
         }
@@ -69,7 +69,7 @@
               //$time=strtotime($data->tanggal);
               //$hari=date("D",$time);
               $time=strtotime($data->tanggal);
-              $hari=date("D",$time);
+              $hari=date("D d-M-y",$time);
               $tangls[] = $hari;
               $skorls[] = ($data->skor1)/($data->tangnew);
             }
@@ -81,13 +81,14 @@
               //$time=strtotime($data->tanggal);
               //$hari=date("D",$time);
               $time=strtotime($data->tanggal);
-              $hari=date("D",$time);
+              $hari=date("D d-M-y",$time);
               $tangla[] = $hari;
               $skorla[] = ($data->skor1)/($data->tangnew);
             }
           }
 
-          $id_k = $this->uri->segment('3');
+
+
     ?>
 
 </head>
@@ -109,11 +110,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Best Area Score</div>
+                      <div class="h6 mb-0 font-weight-bold text-gray-800"><?php echo round($max_area->score).'<br>' .$max_area->nama_area; ?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -126,11 +127,11 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Best Sub Area Score</div>
+                      <div class="h6 mb-0 font-weight-bold text-gray-800"><?php echo round($min_area->score).'<br>' .$min_area->nama_subarea; ?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -143,14 +144,14 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Terpenuhi</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo round($total_satisfied->score); ?>%</div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo round($total_satisfied->score); ?>%" aria-valuenow="<?php echo round($total_satisfied->score); ?>" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
                         </div>
                       </div>
@@ -169,8 +170,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Best Karyawan</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $karmax->nama; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -183,6 +184,42 @@
 
           <!-- Content Row -->
 
+          <hr>
+
+          <div class="shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Input Parameter</h6>
+            </div>
+            <div class="card-body">
+          <form class="user" method="POST" action="<?php echo base_url(); ?>Dashboard">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Masukkan jumlah hari</span>
+              </div>
+              <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+          <div class="input-group input-group-sm mb-3">
+
+          <select class="form-control" name="getarea" id="getarea">
+            <option value="">Select Area</option>;
+          <?php
+          foreach($are as $row)
+          {
+            echo '<option value="'.$row->id_area.'">'.$row->nama_area.'</option>';
+          } ?>
+          </select>
+
+          <select class="form-control" name="getsubarea" id="getsubarea">
+            <option value="">Select Subarea</option>;
+          </select>
+
+          <input type="submit" class="btn-primary" value="ok" >
+        </div>
+          </form>
+        </div>
+        </div>
+
+          <hr>
 
 
             <!-- Area Chart -->
@@ -631,32 +668,6 @@
             </div>
           </div>
 
-
-          <form class="user" method="POST" action="<?php echo base_url(); ?>Dashboard">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Masukkan jumlah hari</span>
-              </div>
-              <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-            </div>
-          <div class="input-group input-group-sm mb-3">
-
-          <select class="form-control" name="getarea" id="getarea">
-            <option value="">Select Area</option>;
-          <?php
-          foreach($are as $row)
-          {
-            echo '<option value="'.$row->id_area.'">'.$row->nama_area.'</option>';
-          } ?>
-          </select>
-
-          <select class="form-control" name="getsubarea" id="getsubarea">
-            <option value="">Select Subarea</option>;
-          </select>
-
-          <input type="submit" class="btn-primary" value="ok" >
-        </div>
-          </form>
 
           <hr>
           <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
