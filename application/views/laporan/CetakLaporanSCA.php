@@ -29,14 +29,16 @@
 
   <hr class="line-title"> 
   <p>
-    Tanggal : <br>
+    <?php foreach ($data as $row): ?>
+    Tanggal : <?php echo $row['tanggal']; ?> <br> 
+    <?php endforeach ?>
     <b>Area  : </b>
   </p>
   <table class="table table-bordered">
     <tr>
       <th>#</th>
-      <th>id</th>
-      <th>sub</th>
+      <th>Area</th>
+      <th>Subarea</th>
       <th>Tgl</th>
       <th>Skor</th>
 
@@ -44,8 +46,8 @@
     <?php $no = 1; foreach ($data as $row): ?>
       <tr>
         <td><?php echo $no++ ?></td>
-        <td><?php echo $row['id_penilaian'] ?></td>
-        <td><?php echo $row['id_subarea'] ?></td>
+        <td><?php echo $row['nama_area'] ?></td>
+        <td><?php echo $row['nama_subarea'] ?></td>
         <td><?php echo $row['tanggal'] ?></td>
         <td><?php echo $row['skor'] ?></td>
      

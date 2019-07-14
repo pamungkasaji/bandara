@@ -70,7 +70,7 @@ elseif(!empty($session[0]['level']))
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">Laporan</h6>
 
-							<a class="collapse-item" href="<?php echo site_url('LaporanSCA'); ?>"><i class="icon-angle-right"></i> Laporan SCA </a>
+							<a class="collapse-item" href="<?php echo site_url('Penilaian'); ?>"><i class="icon-angle-right"></i> Penilaian </a>
 							<a class="collapse-item" href="<?php echo site_url('#'); ?>"><i class="icon-angle-right"></i> Lost and Found </a>
 							<a class="collapse-item" href="<?php echo site_url('#'); ?>"><i class="icon-angle-right"></i> Kerusakan </a>
 

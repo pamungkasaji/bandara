@@ -1,16 +1,16 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Penilaian extends CI_Controller 
-{
+class Penilaian extends CI_Controller {
+
+
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('penilaian_model');
-		//$this->load->model('divisi_model');
 		$this->load->model('login_m');
-		if(!$this->session->userdata('username'))
+		$this->load->model('penilaian_model');
+		$this->load->model('Navbar_model');
+		if(!$this->session->userdata('id_karyawan'))
 		{
 			redirect('Login');
 		}
@@ -19,39 +19,46 @@ class Penilaian extends CI_Controller
 
 	public function index()
 	{
+
 		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
-		//$data['penilaian'] 	= $this->penilaian_model->getArea(); 
-		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('navigasi',$data);
-		$this->load->view('PenilaianForm',$data);
-		$this->load->view('right');
-		$this->load->view('footer-table');
+		$data['penilaian'] = $this->penilaian_model->getPenilaian();
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+	    //include head, header, footer di view dihapus dulu
+	    //parameter $data tidak diubah, ikut controller bersangkutan,
+	    //kalo parameter $nav sama di semua controller
+		$this->Navbar_model->view_loader('PenilaianList', $data);
+	  //var_dump($data['subarea']);
+	  //$this->Navbar_model->view_loader('SubareaList', $data);
+	  //var_dump($data['subarea']);
+
+		//var_dump($data['data']);
 	}
 
-	public function isiNilai()
+	public function pdfdetails()
 	{
-
-		$data['session']	= $this->session->all_userdata();
-		$username				= $this->session->userdata('username');
-		$data['level']= $this->login_m->getLevel($username);
-		$this->load->view('head');
-		$this->load->view('PenilaianForm',$data);
-		$this->load->view('right');
+		if($this->uri->segment(3))
+		{
+			$id_kodeqr = $this->uri->segment(3);
+			$html_content = '<h3 align="center">Angkasa Pura</h3>';
+			$html_content .= $this->penilaian_model->fetch_single_details($id_kodeqr);
+			$this->pdf->loadHtml($html_content);
+			$this->pdf->render();
+			$this->pdf->stream("".$id_kodeqr.".pdf", array("Attachment"=>0));
+		}
 	}
 
-	public function ini()
+	
+	public function cetakLaporansca()
 	{
-		$data['session']	= $this->session->all_userdata();
-		$this->load->library('pdf');
-		$data['data'] = array(
-			['nim'=>'123456789','name'=>'example name 1','jurusan'=>'Teknik Informatika'],
-			['nim'=>'123456789', 'name'=>'example name 2', 'jurusan'=>'Jaringan']
-		);
-		$this->pdf->generate('Laporan/laporan1', $data, 'laporan-mahasiswa', 'A4', 'landscape');
+		if($this->uri->segment(3))
+		{
+			$id_penilaian = $this->uri->segment(3);
+			$data['session']	= $this->session->all_userdata();
+			$this->load->library('pdf');
+			$data['data'] = $this->penilaian_model->getPenilaianDetail($id_penilaian);
+
+			$this->pdf->generate('Laporan/CetakLaporansca', $data, 'laporan-sca', 'A4', 'landscape');
+		}
 	}
+
 }
-
-?>

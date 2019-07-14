@@ -44,7 +44,7 @@
                 <td><?php echo $nama_subarea; ?></td>
                 <td><?php echo $tanggal; ?></td>
                 <td>
-                  <a class="btn btn-info" href="#"><i class="icon-pencil icon-white"></i> Print</a>
+                  <a class="btn btn-info" target="_blank" href="<?php echo site_url()."penilaian/cetakLaporansca/".$data['id_penilaian'];?>"><i class="icon-pencil icon-white"></i> Print</a>
 
                   <a onclick="return confirm('Yakin data anda ingin di hapus??')" href="<?php echo site_url()."/Subarea/hapus?id_subarea=".$data['id_subarea'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
 
