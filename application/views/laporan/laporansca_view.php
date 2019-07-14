@@ -21,6 +21,7 @@
               <th>Area</th>
               <th>Subarea</th>
               <th>Tanggal</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
