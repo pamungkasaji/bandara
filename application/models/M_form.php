@@ -58,10 +58,10 @@ class M_form extends CI_Model{
 
   function get_standard($id_subarea) {
     $this->db->where('ruang_lingkup.id_subarea', $id_subarea);
-    $this->db->select('standard_area.pertanyaan, standard_area.id_standard');
+    $this->db->select('standard.pertanyaan, standard.id_standard');
       $this->db->join('ruang_lingkup', 'ruang_lingkup.id_subarea = subarea.id_subarea');
         $this->db->join('memiliki', 'memiliki.id_material = ruang_lingkup.id_material');
-    $this->db->join('standard_area', 'standard_area.id_standard = memiliki.id_standard');
+    $this->db->join('standard', 'standard.id_standard = memiliki.id_standard');
 
 
     $this->db->from('subarea');

@@ -21,38 +21,59 @@
       <td align="center">
         <span style="line-height: 1.6; font-weight: bold;">
           STANDARD CLEANLINESS AREA (SCA)
-          <br>AREA BANDARA
+          <br>Area <?php echo $data[0]['nama_area']; ?>
         </span>
       </td>
     </tr>
   </table>
 
-  <hr class="line-title"> 
+  <hr class="line-title">
   <p>
-    <?php foreach ($data as $row): ?>
-    Tanggal : <?php echo $row['tanggal']; ?> <br> 
-    <?php endforeach ?>
-    <b>Area  : </b>
+    Tanggal : <?php echo $data[0]['tanggal']; ?> <br>
+    Jumlah material : <?php echo count($data); ?> <br>
   </p>
   <table class="table table-bordered">
     <tr>
-      <th>#</th>
+      <th>No</th>
       <th>Area</th>
       <th>Subarea</th>
-      <th>Tgl</th>
+      <th>Material</th>
+      <th>Penjelasan</th>
+      <th>Tindak Lanjut</th>
       <th>Skor</th>
-
     </tr>
-    <?php $no = 1; foreach ($data as $row): ?>
+    <tr>
+      <td rowspan="<?php echo count($data); ?>">1</td>
+      <td rowspan="<?php echo count($data); ?>"><?php echo $data[0]['nama_area']; ?></td>
+      <td rowspan="<?php echo count($data); ?>"><?php echo $data[0]['nama_subarea']; ?></td>
+      <td><?php echo $data[0]['nama_material']; ?></td>
+      <td><?php echo $data[0]['penjelasan']; ?></td>
+      <td><?php echo $data[0]['tindak_lanjut']; ?></td>
+      <td><?php echo $data[0]['skor']; ?></td>
+    </tr>
+    <?php 
+    for ($x = 1; $x < count($data); $x++) { ?>
       <tr>
-        <td><?php echo $no++ ?></td>
-        <td><?php echo $row['nama_area'] ?></td>
-        <td><?php echo $row['nama_subarea'] ?></td>
-        <td><?php echo $row['tanggal'] ?></td>
-        <td><?php echo $row['skor'] ?></td>
-     
+        <td><?php echo $data[$x]['nama_material']; ?></td>
+        <td><?php echo $data[$x]['penjelasan']; ?></td>
+        <td><?php echo $data[$x]['tindak_lanjut']; ?></td>
+        <td><?php echo $data[$x]['skor']; ?></td>
       </tr>
-    <?php endforeach ?>
+    <?php } 
+    ?>
+
+    <!-- <?php $no = 1; foreach ($data as $row): ?>
+    <tr>
+      <td><?php echo $no++ ?></td>
+      <td><?php echo $row['nama_area'] ?></td>
+      <td><?php echo $row['nama_subarea'] ?></td>
+      <td><?php echo $row['nama_material'] ?></td>
+      <td><?php echo $row['penjelasan'] ?></td>
+      <td><?php echo $row['tindak_lanjut'] ?></td>
+      <td><?php echo $row['skor'] ?></td>
+    </tr>
+    <?php endforeach ?> -->
+
   </table>
 
 </body>

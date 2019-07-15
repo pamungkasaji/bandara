@@ -91,6 +91,8 @@ p {
   margin-bottom: 1rem;
 }
 
+.page_break { page-break-after: always; }
+
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;

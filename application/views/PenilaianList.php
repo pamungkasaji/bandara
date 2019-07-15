@@ -12,12 +12,19 @@
     </div>
 
     <div class="card-body">
+      <form action="<?php echo base_url('Penilaian/cetakLaporanrange') ?>" style="width: 50%; method="post">
+        <label>Dari</label>
+        <input class="form-control" type='date' name="dari"><br>
+        <label>Hingga</label>
+        <input class="form-control" type='date' name="hingga"><br>
+        <input class="btn btn-info" target="_blank" type="submit" value="Print">
+      </form>
       <br>
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Kode Laporan</th>
+              <th>No</th>
               <th>Area</th>
               <th>Subarea</th>
               <th>Tanggal</th>
@@ -30,7 +37,7 @@
             if(!empty($penilaian))
             {
                                         //load data Subarea
-              foreach ($penilaian as $data)
+              $no = 1 ;foreach ($penilaian as $data)
               {
                $id_penilaian    =$data['id_penilaian']; 
                $nama_area  =$data['nama_area']; 
@@ -39,7 +46,7 @@
 
                ?> 
                <tr class="odd gradeX">
-                <td><?php echo $id_penilaian; ?></td>
+                <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_area; ?></td>
                 <td><?php echo $nama_subarea; ?></td>
                 <td><?php echo $tanggal; ?></td>
