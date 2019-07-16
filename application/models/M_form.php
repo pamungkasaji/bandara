@@ -76,10 +76,10 @@ class M_form extends CI_Model{
 
   function get_standard($id_subarea) {
     $this->db->where('ruang_lingkup.id_subarea', $id_subarea);
-    $this->db->select('standard_area.pertanyaan, standard_area.id_standard');
+    $this->db->select('standard.pertanyaan, standard.id_standard');
       $this->db->join('ruang_lingkup', 'ruang_lingkup.id_subarea = subarea.id_subarea');
         $this->db->join('memiliki', 'memiliki.id_material = ruang_lingkup.id_material');
-    $this->db->join('standard_area', 'standard_area.id_standard = memiliki.id_standard');
+    $this->db->join('standard', 'standard.id_standard = memiliki.id_standard');
 
 
     $this->db->from('subarea');
@@ -122,6 +122,14 @@ class M_form extends CI_Model{
   function insert($table, $data){
     $this->db->insert($table, $data);
     return $this->db->insert_id();
+  }
+
+  function get_nama_karyawan($a){
+    $this->db->select('nama');
+    $this->db->where('id_karyawan', $a);
+    $query = $this->db->get('karyawan');
+    $ret = $query->row();
+    return $ret->nama;
   }
 
   //function get

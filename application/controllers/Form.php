@@ -51,26 +51,39 @@ class Form extends CI_Controller{
     $penlan = $this->input->post('penlan');
     $date = mdate($datestring, $time);
     $data = array(
-        'id_area' => $id_area,
-        'id_subarea' => $id_subarea,
-        'kode_tinjauan' => $kotin,
-        'penjelasan' => $pentin,
-        'tindak_lanjut' => $tinlan,
-        'oleh' => $penlan,
-        'tanggal' => $date,
-        'skor' => $totalSum
-      );
-      $this->m_form->get_id_att($attendant);
-      $id_att = $this->session->userdata('id_attendant');
-      var_dump($id_att);
-      var_dump($attendant);
-      var_dump($date);
-      $insert = $this->m_form->insert('penilaian', $data);
+      'id_area' => $id_area,
+      'id_subarea' => $id_subarea,
+      'kode_tinjauan' => $kotin,
+      'penjelasan' => $pentin,
+      'tindak_lanjut' => $tinlan,
+      'oleh' => $penlan,
+      'tanggal' => $date,
+      'skor' => $totalSum
+    );
+    $this->m_form->get_id_att($attendant);
+    $id_att = $this->session->userdata('id_attendant');
+    var_dump($id_att);
+    var_dump($attendant);
+    var_dump($date);
+    $insert = $this->m_form->insert('penilaian', $data);
     $data1 = array(
-        'id_penilaian' => $insert,
-        'id_karyawan' => $id_att
+      'id_penilaian' => $insert,
+      'id_karyawan' => $id_att
     );
     $insert1 = $this->db->insert('job', $data1);
+
+    if($this->db->affected_rows() > 0)
+    {
+      $data2 = array(
+        'id_karyawan' => $id_att,
+        'area' => $nama_area,
+        'subarea' => $nama_subarea,
+        'id_area' => $id_area,
+        'id_subarea' => $id_subarea,
+        'nama_karyawan' =>$this->m_form->get_nama_karyawan($id_att)
+      );
+      $this->load->view('tampilan_sukses',$data2);
+    }
   }
 
 }
