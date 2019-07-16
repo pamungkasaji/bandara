@@ -8,8 +8,8 @@ class Material_model extends CI_Model
 
 	//function menampilkan data Material
 	function getMaterial()
-	{
-		$query=$this->db->query("select * from material");
+    {
+		$query=$this->db->query("select material.*,ruang_lingkup.*,subarea.nama_subarea from material,ruang_lingkup,subarea where material.id_material=ruang_lingkup.id_material and ruang_lingkup.id_subarea=subarea.id_subarea");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
@@ -17,17 +17,16 @@ class Material_model extends CI_Model
 	}
 	//function menampilkan data Material yang akan di Update ke Form
 	function getMaterialUpdate($kode)
-	{
+    {
 		$query=$this->db->query("select * from material where id_material='$kode'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
 		return $array;
 	}
-
-	function getMaterialStandard($kode)
-	{
-		$query=$this->db->query("select * from memiliki where id_standard='$kode'");
+	function getMTRUpdate($kode)
+    {
+		$query=$this->db->query("select ruang_lingkup.*,subarea.nama_subarea from ruang_lingkup,subarea,material where material.id_material=ruang_lingkup.id_material and ruang_lingkup.id_subarea=subarea.id_subarea and ruang_lingkup.id_material='$kode'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();

@@ -9,6 +9,7 @@ class Material extends CI_Controller
 		parent::__construct();
 		$this->load->model('material_model');
 		$this->load->model('login_m');
+		$this->load->model('subarea_model');
 		$this->load->model('Navbar_model');
 		if(!$this->session->userdata('id_karyawan'))
 		{
@@ -34,6 +35,7 @@ class Material extends CI_Controller
 	{
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
+		$data['subarea'] 		= $this->subarea_model->getSubarea(); 
 
 		$this->Navbar_model->view_loader('MaterialForm', $data);
 
@@ -43,6 +45,7 @@ class Material extends CI_Controller
 	{
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
+		$data['subarea'] 		= $this->subarea_model->getSubarea(); 
 		//Untuk Validasi
 		//query simpan data Material
 		if($this->material_model->simpanMaterial())
@@ -71,7 +74,11 @@ class Material extends CI_Controller
 		$data['session']	= $this->session->all_userdata();
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$id_material		= $this->input->get('id_material');
+		//$data['MTR']= $this->material_model->getMTRUpdate($kode); 
+		$data['subarea'] 		= $this->subarea_model->getSubarea(); 
+		$data['MTR']		= $this->material_model->getMTRUpdate($id_material);
 		$data['material']		= $this->material_model->getMaterialUpdate($id_material);
+
 
 		$this->Navbar_model->view_loader('MaterialForm', $data);
 
@@ -81,6 +88,7 @@ class Material extends CI_Controller
 		$data['session']	= $this->session->all_userdata();
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$id_material	= $this->input->get('id_material');
+		//$data['MTR']= $this->material_model->getMTRUpdate($kode); 
 		//Jika update data sukses
 		if($this->material_model->ubah())
 		{
