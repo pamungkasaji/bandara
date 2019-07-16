@@ -60,6 +60,8 @@ class Kodeqr extends CI_Controller
 	function simpanKodeqr(){
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
+        $data['subarea']    = $this->subarea_model->getSubarea();
+        $data['area']       = $this->area_model->getArea();
 
 		$id_area=$this->input->post('id_area');
 		$id_subarea=$this->input->post('id_subarea');

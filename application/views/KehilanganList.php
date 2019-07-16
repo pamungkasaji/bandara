@@ -76,7 +76,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="<?php echo site_url()."/Kehilangan/ubahStatusHilang?id_kehilangan=".$data['id_kehilangan'];?>">Hilang</a>
-                      <a class="dropdown-item" href="<?php echo site_url()."/Kehilangan/ubahStatusMenemukan?id_kehilangan=".$data['id_kehilangan'];?>">Ditemukan</a>
+                      <a class="dropdown-item" href="<?php echo site_url()."/Kehilangan/ubahStatusMenemukan?id_kehilangan=".$data['id_kehilangan'];?>">Menemukan</a>
                       <a class="dropdown-item" href="<?php echo site_url()."/Kehilangan/ubahStatusDikembalikan?id_kehilangan=".$data['id_kehilangan'];?>">Dikembalikan</a>
                     </div>
                   </div>

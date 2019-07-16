@@ -44,19 +44,6 @@ class Kerusakan extends CI_Controller {
 		
 	}
 
-	public function cetakLaporansca()
-	{
-		if($this->uri->segment(3))
-		{
-			$id_kerusakan = $this->uri->segment(3);
-			$data['session']	= $this->session->all_userdata();
-			$this->load->library('pdf');
-			$data['data'] = $this->kerusakan_model->getKerusakanDetail($id_kerusakan);
-			//$data['coba'] = $this->kerusakan_model->getKerusakanDetailCoba($id_kerusakan);
-			$this->pdf->generate('Laporan/CetakLaporansca', $data, 'laporan-sca', 'A4', 'landscape');
-		}
-	}
-
 	public function cetakLaporanrange()
 	{
 		//$dari		= $_POST['dari'];
