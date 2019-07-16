@@ -34,7 +34,8 @@ class Material extends CI_Controller
 	{
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		$data['session']	= $this->session->all_userdata();
-
+		$data['material'] = $this->material_model->getMaterial();
+		var_dump($data['material']);
 		$this->Navbar_model->view_loader('MaterialForm', $data);
 
 	}

@@ -42,7 +42,7 @@
                   <hr>
                   <div class="text-center">
                   <a class="btn btn-primary" href="<?php echo base_url().'presensi/input/'.$id_karyawan.'/'.$area.'/'.$subarea; ?>" role="button">Presensi</a>
-                  <a class="btn btn-success" href="#" role="button">Kerusakan</a>
+                  <a class="btn btn-success" href="<?php echo base_url().'kerusakan/input/'.$id_karyawan.'/'.$area.'/'.$subarea; ?>" role="button" role="button">Kerusakan</a>
                   <a class="btn btn-warning" href="#" role="button">Lost And Found</a>
                 </div>
                 <?php

@@ -93,11 +93,12 @@ elseif(!empty($session[0]['level']))
 					<li class="nav-item active">
 						<a class="nav-link" href="<?php echo site_url('Dashboard'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Harian</span></a>
 						<a class="nav-link" href="<?php echo site_url('DashboardBulanan'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Bulanan</span></a>
+						<a class="nav-link" href="<?php echo site_url('DashboardPresensi'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Presensi Karyawan</span></a>
 					</li>
 					<?php
 				}
-				
-			
+
+
 			elseif($session['level'] =='teamleader')
 			{
 				?>
@@ -163,14 +164,6 @@ elseif(!empty($session[0]['level']))
 									<a class="dropdown-item" href="<?php echo base_url().'Profile/tambahGambar/'.$session['id_karyawan'];?>">
 										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 										Profile
-									</a>
-									<a class="dropdown-item" href="#">
-										<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-										Settings
-									</a>
-									<a class="dropdown-item" href="#">
-										<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-										Activity Log
 									</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

@@ -50,8 +50,13 @@
 
 			<div class="form-group">
 				<label>Nama Material</label>
-				<input class="form-control" required name="nama_material" value="<?php echo isset($material[0]['nama_material'])?$material[0]['nama_material']:'';?>">
-			</div>
+				<input list="materials" name="nama_material">
+				  <datalist id="materials">
+				    <?php foreach ($material as $material) {
+				    	echo
+				    '<option value="'.$material['nama_material'].'">';}?>
+				  </datalist>
+				  <input type="submit">			</div>
 			<button type="submit" class="btn btn-success" name="save">Simpan</button>
 			<a href="<?php echo site_url('Material'); ?>"> <button type="button" class="btn btn-danger" name="batal">Kembali</button></a>
 

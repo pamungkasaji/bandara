@@ -10,16 +10,16 @@ class M_dashboard extends CI_Model{
     //Codeigniter : Write Less Do More
   }
 
-  function select_skor($z) {
+  function select_skor($z, $y) {
       //$condition = "emp_date_of_join BETWEEN " . "'" . $data['date1'] . "'" . " AND " . "'" . $data['date2'] . "'";
       //$first_date = '2019-07-03';
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
-      //$this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
+      //$this->db->where('tanggal >=', $z);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('tanggal, COUNT(tanggal) as tottang');
       $this->db->group_by('tanggal');
@@ -35,13 +35,13 @@ class M_dashboard extends CI_Model{
       }
     }
 
-    function pie_subarea($z) {
+    function pie_subarea($z,$y) {
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('COUNT(penilaian.id_subarea) as suba, nama_subarea, tanggal');
       $this->db->group_by('penilaian.id_subarea');
@@ -58,13 +58,13 @@ class M_dashboard extends CI_Model{
       }
     }
 
-    function pie_subarea_area($x, $z) {
+    function pie_subarea_area($x, $z,$y) {
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->where('id_area', $x);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('COUNT(penilaian.id_subarea) as subb, nama_subarea, tanggal');
@@ -85,13 +85,13 @@ class M_dashboard extends CI_Model{
 
 
 
-    function line_subarea($a, $aa, $z){
+    function line_subarea($a, $aa, $z,$y){
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->where('id_subarea', $aa);
       $this->db->where('id_area', $a);
       $this->db->select_sum('skor', 'skor1');
@@ -111,13 +111,13 @@ class M_dashboard extends CI_Model{
       }
     }
 
-    function pie_area($z) {
+    function pie_area($z,$y) {
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('COUNT(penilaian.id_area) as are, nama_area');
       $this->db->group_by('penilaian.id_area');
@@ -134,13 +134,13 @@ class M_dashboard extends CI_Model{
       }
     }
 
-    function line_area($a, $z) {
+    function line_area($a, $z,$y) {
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->where('penilaian.id_area', $a);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('COUNT(tanggal) as tangnew, tanggal');
@@ -208,13 +208,13 @@ class M_dashboard extends CI_Model{
       return $output;
     }
 
-    function karyawan_rating($z){
+    function karyawan_rating($z,$y){
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('COUNT(job.id_karyawan) as kar, karyawan.nama');
       $this->db->group_by('job.id_karyawan');
@@ -227,13 +227,13 @@ class M_dashboard extends CI_Model{
       return $query->result();
     }
 
-    function get_max_area($z){
+    function get_max_area($z,$y){
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select('sum(skor) as skor1, COUNT(penilaian.id_area) as are, nama_area, sum(skor)/COUNT(penilaian.id_area) as score');
       $this->db->group_by('penilaian.id_area');
       $this->db->order_by('score', 'desc');
@@ -244,13 +244,13 @@ class M_dashboard extends CI_Model{
       return $query;
     }
 
-    function get_min_area($z){
+    function get_min_area($z,$y){
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select('sum(skor) as skor1, COUNT(penilaian.id_subarea) as are, nama_subarea, sum(skor)/COUNT(penilaian.id_subarea) as score');
       $this->db->group_by('penilaian.id_subarea');
       $this->db->order_by('score', 'desc');
@@ -261,26 +261,26 @@ class M_dashboard extends CI_Model{
       return $query;
     }
 
-    function get_total($z){
+    function get_total($z,$y){
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select('sum(skor) as skor1, count(penilaian.id_penilaian) as idpen, sum(skor)/count(penilaian.id_penilaian) as score');
       $this->db->from('penilaian');
       $query = $this->db->get()->row();
       return $query;
     }
 
-    function karyawan_rating_max($z){
+    function karyawan_rating_max($z,$y){
       $datestring = '%Y-%m-%d';
       $time = time();
-      $second_date = mdate($datestring, $time);
-      $first_date = $this->time = date('Y-m-d', strtotime("-$z day", time()));
-      $this->db->where('tanggal <=', $second_date);
-      $this->db->where('tanggal >=', $first_date);
+
+
+      $this->db->where('tanggal <=', $y);
+      $this->db->where('tanggal >=', $z);
       $this->db->select_sum('skor', 'skor1');
       $this->db->select('COUNT(job.id_karyawan) as kar, karyawan.nama');
       $this->db->group_by('job.id_karyawan');

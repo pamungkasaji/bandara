@@ -189,32 +189,56 @@
               <h6 class="m-0 font-weight-bold text-primary">Input Parameter</h6>
             </div>
             <div class="card-body">
-          <form class="user" method="POST" action="<?php echo base_url(); ?>Dashboard">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Masukkan rentang bulan</span>
+              <form class="user" method="POST" action="<?php echo base_url(); ?>DashboardBulanan">
+                <div class="form-row">
+                  <div class="col">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Dari</span>
+                  </div>
+                  <input type="date" class="form-control" name="dari" id="dari" placeholder="" aria-label="Username" aria-describedby="basic-addon1"
+                  value="1970-00-00">
+                </div>
               </div>
-              <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Sampai</span>
+                  </div>
+                  <input type="date" class="form-control" name="sampai" id="sampai" placeholder="" aria-label="Username" aria-describedby="basic-addon1"
+                  value="2030-00-00">
+                </div>
+              </div>
             </div>
-          <div class="input-group input-group-sm mb-3">
+                <div class="form-row">
+                  <div class="col">
+              <select class="form-control" name="getarea" id="getarea">
+                <option value="">Select Area</option>;
+              <?php
+              foreach($are as $row)
+              {
+                echo '<option value="'.$row->id_area.'">'.$row->nama_area.'</option>';
+              } ?>
+              </select>
+            </div>
 
-          <select class="form-control" name="getarea" id="getarea">
-            <option value="">Select Area</option>;
-          <?php
-          foreach($are as $row)
-          {
-            echo '<option value="'.$row->id_area.'">'.$row->nama_area.'</option>';
-          } ?>
-          </select>
+            <div class="col">
+              <select class="form-control" name="getsubarea" id="getsubarea">
+                <option value="">Select Subarea</option>;
+              </select>
+            </div>
+            </div>
+            <br>
+            <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              Submit
+            </button>
 
-          <select class="form-control" name="getsubarea" id="getsubarea">
-            <option value="">Select Subarea</option>;
-          </select>
 
-          <input type="submit" class="btn-primary" value="ok" >
+          </div>
         </div>
-          </form>
-        </div>
+        </form>
+
         </div>
 
           <hr>
@@ -686,7 +710,7 @@
                       echo ($key+1).'. '.$value->nama.'
 
                       <div class="progress" style="height: 20px;">
-    <div class="progress-bar" role="progressbar" style="width: '.($value->skor1/$value->kar).'%" aria-valuenow="'.($value->skor1/$value->kar).'" aria-valuemin="0" aria-valuemax="100">'.($value->skor1/$value->kar).'%</div>
+    <div class="progress-bar" role="progressbar" style="width: '.round($value->skor1/$value->kar).'%" aria-valuenow="'.round($value->skor1/$value->kar).'" aria-valuemin="0" aria-valuemax="100">'.round($value->skor1/$value->kar).'%</div>
                       </div><br>';
                     } ?></div>
                     <div class="col">
