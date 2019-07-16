@@ -1,78 +1,108 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kehilangan extends CI_Controller{
+class Kehilangan extends CI_Controller {
 
-  public function __construct()
-  {
-    parent::__construct();
-    //Codeigniter : Write Less Do More
-    $this->load->library('session');
-    $this->load->model('m_form');
-    $this->load->helper('date');
-  }
 
-  function index()
-  {
-    $data['nama_area'] = $this->session->userdata('nama_area');
-    $data['nama_subarea'] = $this->session->userdata('nama_subarea');
-    $data['attendant']= $this->m_form->get_attendant();
-    $this->load->view('tampilan_form',$data);
-  }
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->model('login_m');
+		$this->load->model('kehilangan_model');
+		$this->load->model('Navbar_model');
+		if(!$this->session->userdata('id_karyawan'))
+		{
+			redirect('Login');
+		}
+		$this->load->helper(array('form', 'url','download'));
+	}
 
-  function input($a, $b)
-  {
-    //$a = urldecode($this->uri->segment(4));
-    $this->m_form->get_subarea($a, $b);
-    $data['standard']= $this->m_form->get_standard($b);
-    //$data['id_standard']=$this->session->userdata('id_standard');
-    //$data['pertanyaan']=$this->session->userdata('pertanyaan');
-    $data['nama_area']=$this->session->userdata('nama_area');
-    $data['nama_subarea']=$this->session->userdata('nama_subarea');
-    $data['attendant']= $this->m_form->get_attendant();
-    //$data['standard']=$this->m_form->get_standard();
-    $this->load->view('tampilan_form',$data);
-  }
+	public function index()
+	{
 
-  function ceksubmit(){
+		$data['session']	= $this->session->all_userdata();
+		$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+	    //include head, header, footer di view dihapus dulu
+	    //parameter $data tidak diubah, ikut controller bersangkutan,
+	    //kalo parameter $nav sama di semua controller
+		$this->Navbar_model->view_loader('KehilanganList', $data);
+	  //var_dump($data['kehilangan']);
+	  //$this->Navbar_model->view_loader('SubareaList', $data);
+	  //var_dump($data['kehilangan']);
 
-    $datestring = '%Y-%m-%d';
-    $time = time();
-    $nama_area = $this->session->userdata('nama_area'); //$this->session->userdata('nama_area');
-    $nama_subarea = $this->session->userdata('nama_subarea'); //$this->session->userdata('nama_subarea');
-    $this->m_form->get_id($nama_area, $nama_subarea);
-    $id_area = $this->session->userdata('id_area');
-    $id_subarea = $this->session->userdata('id_subarea');
-    $attendant = $this->input->post('attendant');
-    $totalSum = $this->input->post('presentase');
-    $kotin = $this->input->post('kotin');
-    $pentin = $this->input->post('pentin');
-    $tinlan = $this->input->post('tinlan');
-    $penlan = $this->input->post('penlan');
-    $hasil = $this->input->post('hasil');
-    $date = mdate($datestring, $time);
-    $data = array(
-        'id_area' => $id_area,
-        'id_subarea' => $id_subarea,
-        'kode_tinjauan' => $kotin,
-        'penjelasan' => $pentin,
-        'tindak_lanjut' => $tinlan,
-        'oleh' => $penlan,
-        'tanggal' => $date,
-        'hasil' => $hasil,
-        'skor' => $totalSum
-      );
-      $this->m_form->get_id_att($attendant);
-      $id_att = $this->session->userdata('id_attendant');
-      var_dump($id_att);
-      var_dump($attendant);
-      var_dump($date);
-      $insert = $this->m_form->insert('penilaian', $data);
-    $data1 = array(
-        'id_penilaian' => $insert,
-        'id_karyawan' => $id_att
-    );
-    $insert1 = $this->db->insert('job', $data1);
-  }
+		//var_dump($data['data']);
+	}
+
+	public function cetakLaporanKehilangan()
+	{
+		//$dari		= $_POST['dari'];
+		$dari = $this->input->post('dari');
+		$hingga = $this->input->post('hingga');
+		$data['session']	= $this->session->all_userdata();
+		$this->load->library('pdf');
+		$data['data'] = $this->kehilangan_model->getKehilanganRange($dari, $hingga);
+		if (is_array($data)){
+			$this->pdf->generate('Laporan/CetakLaporanKehilangan', $data, 'laporan-sca', 'A4', 'landscape');
+		}else{
+			confirm('Yakin data anda ingin di hapus??');
+		}
+		
+	}
+
+	public function ubahStatusHilang()
+	{
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$this->kehilangan_model->ubahStatusHilang($id_kehilangan);
+		redirect('Kehilangan');
+
+	}
+
+	public function ubahStatusMenemukan()
+	{
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$this->kehilangan_model->ubahStatusMenemukan($id_kehilangan);
+		redirect('Kehilangan');
+
+	}
+
+	public function ubahStatusDikembalikan()
+	{
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$this->kehilangan_model->ubahStatusDikembalikan($id_kehilangan);
+		redirect('Kehilangan');
+
+	}
+
+	public function hapus()
+	{
+		$data['session']	= $this->session->all_userdata();
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+		//panggil query hapus di model
+		if($this->kehilangan_model->hapus($id_kehilangan))
+		{
+			//load notifikasi sukses
+			$data['sukses']= '
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Kehilangan Sukses</strong></p>
+			</div>';
+			$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
+
+			$this->Navbar_model->view_loader('KehilanganList', $data);
+		}
+		//Jika update data tidak sukses
+		else
+		{
+			//load notifikasi gagal
+			$data['error'] = '
+			<div class="msg msg-error"><p><strong>Hapus Data Kehilangan Gagal!</strong></p>
+			</div>';
+			$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
+
+			$this->Navbar_model->view_loader('KehilanganList', $data);
+		}
+
+	}
 
 }

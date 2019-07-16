@@ -31,8 +31,9 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Standar Area</th>
+              <th>Nama Standard Area</th>
               <th>Pertanyaan</th>
+              <th>Material</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -47,12 +48,14 @@
                $id_standard    =$data['id_standard']; 
                $nama_standard  =$data['nama_standard']; 
                $pertanyaan        =$data['pertanyaan'];
+               $nama_material        =$data['nama_material'];
 
                ?> 
                <tr class="odd gradeX">
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_standard; ?></td>
                 <td><?php echo $pertanyaan; ?></td>
+                <td><?php echo $nama_material; ?></td>
                 <td>
                   <a class="btn btn-info" href="<?php echo site_url()."/Standard/ubah?id_standard=".$data['id_standard'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>
 

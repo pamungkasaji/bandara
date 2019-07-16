@@ -76,7 +76,7 @@ class Standard extends CI_Controller
 		$id_standard		= $this->input->get('id_standard');
 		//$data['STD']= $this->standard_model->getSTDUpdate($kode); 
 		$data['material'] 		= $this->material_model->getMaterial(); 
-		$data['materialstd']		= $this->material_model->getMaterialStandard($id_standard);
+		$data['STD']		= $this->standard_model->getSTDUpdate($id_standard);
 		$data['standard']		= $this->standard_model->getStandardUpdate($id_standard);
 
 

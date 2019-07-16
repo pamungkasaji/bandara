@@ -52,6 +52,68 @@
 				<label>Nama Material</label>
 				<input class="form-control" required name="nama_material" value="<?php echo isset($material[0]['nama_material'])?$material[0]['nama_material']:'';?>">
 			</div>
+			<div class="form-group">
+				<label>Subarea</label>
+				<?php
+				if(!empty($MTR))
+				{	
+					$no=0;
+					foreach($MTR as $detail)
+					{
+						$id_material=$detail['id_material'];
+						$nama_subarea=$detail['nama_subarea'];
+						$id_subarea=$detail['id_subarea'];
+
+						?>	
+						<SELECT name="id_subarea" required class="form-control">
+							<OPTION value="<?php echo isset($MTR[$no]['id_subarea'])?$MTR[$no]['id_subarea']:'';?>"><?php echo isset($MTR[$no]['nama_subarea'])?$MTR[$no]['nama_subarea']:'';?></OPTION>
+							<?php
+							if(!empty($subarea))
+							{
+								foreach($subarea as $data)
+								{
+									$id_subarea=$data['id_subarea'];
+									$nama_subarea=$data['nama_subarea'];
+
+									?>	
+
+									<OPTION value="<?php echo $id_subarea;?>"><?php echo $nama_subarea;?></OPTION>
+									<?php
+								}
+							}
+							?>		
+						</SELECT>
+						<?php
+						$no=$no+1;
+					}
+					?>
+					<?php
+				}
+				else
+				{
+					?>
+					<SELECT name="id_subarea" required class="form-control">
+						<OPTION value="<?php echo isset($MTR[0]['id_subarea'])?$MTR[0]['id_subarea']:'';?>"><?php echo isset($MTR[0]['nama_subarea'])?$MTR[0]['nama_subarea']:'';?></OPTION>
+						<?php
+						if(!empty($subarea))
+						{
+							foreach($subarea as $mtr)
+							{
+								$id_subarea=$mtr['id_subarea'];
+								$nama_subarea=$mtr['nama_subarea'];
+								?>	
+
+								<OPTION value="<?php echo $id_subarea;?>"><?php echo $nama_subarea;?></OPTION>
+								<?php
+							}
+						}
+						?>				       
+					</SELECT>
+					<?php
+				}
+				?>
+			</div>
+
 			<button type="submit" class="btn btn-success" name="save">Simpan</button>
 			<a href="<?php echo site_url('Material'); ?>"> <button type="button" class="btn btn-danger" name="batal">Kembali</button></a>
 
