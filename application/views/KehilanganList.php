@@ -31,6 +31,7 @@
               <th>Keterangan</th>
               <th>Kontak</th>
               <th>Status</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -59,8 +60,6 @@
                 <td><?php echo $kontak; ?></td>
                 <td><?php echo $status; ?></td>
                 <td>
-                  <a class="btn btn-info" target="_blank" href="<?php echo site_url()."kehilangan/cetakLaporansca/".$data['id_kehilangan'];?>"><i class="icon-pencil icon-white"></i> Print</a>
-
                   <a onclick="return confirm('Yakin data anda ingin di hapus??')" href="<?php echo site_url()."/Kehilangan/hapus?id_kehilangan=".$data['id_kehilangan'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
 
                 </td>

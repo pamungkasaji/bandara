@@ -66,6 +66,7 @@ class Penilaian extends CI_Controller {
 		$this->load->library('pdf');
 		$data['data'] = $this->penilaian_model->getPenilaianRange($dari, $hingga);
 
+
 		$this->pdf->generate('Laporan/CetakLaporanrange', $data, 'laporan-sca', 'A4', 'landscape');
 		
 	}
