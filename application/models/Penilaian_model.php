@@ -29,12 +29,19 @@ class Penilaian_model extends CI_Model
 
 	function getPenilaianRange($dari, $hingga)
 	{
-		$query=$this->db->query("select penilaian.*,nama_area, nama_subarea from penilaian,area,subarea where tanggal >= '$dari' AND tanggal <= '$hingga' and area.id_area=penilaian.id_area and subarea.id_subarea=penilaian.id_subarea");
+		$query=$this->db->query("select penilaian.*,nama_area, nama_subarea, nama_material from penilaian,area,subarea,ruang_lingkup,material where tanggal >= '$dari' AND tanggal <= '$hingga' and area.id_area=penilaian.id_area and subarea.id_subarea=penilaian.id_subarea and penilaian.id_subarea = ruang_lingkup.id_subarea and material.id_material = ruang_lingkup.id_material");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
 		return $array;
 	}
+
+	function hapus($kode)
+    {
+		 $sql = "delete from penilaian  WHERE id_penilaian ='$kode'";
+		 $this->db->query($sql);
+		 return true;
+    }
 
 	
 }

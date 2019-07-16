@@ -71,4 +71,35 @@ class Penilaian extends CI_Controller {
 		
 	}
 
+		public function hapus()
+	{
+		$data['session']	= $this->session->all_userdata();
+		$id_penilaian		= $this->input->get('id_penilaian');
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+		//panggil query hapus di model
+		if($this->penilaian_model->hapus($id_penilaian))
+		{
+			//load notifikasi sukses
+			$data['sukses']= '
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Penilaian Sukses</strong></p>
+			</div>';
+			$data['penilaian'] = $this->penilaian_model->getPenilaian();
+
+			$this->Navbar_model->view_loader('PenilaianList', $data);
+		}
+		//Jika update data tidak sukses
+		else
+		{
+			//load notifikasi gagal
+			$data['error'] = '
+			<div class="msg msg-error"><p><strong>Hapus Data Subarea Gagal!</strong></p>
+			</div>';
+			$data['penilaian'] = $this->penilaian_model->getPenilaian();
+
+			$this->Navbar_model->view_loader('PenilaianList', $data);
+		}
+
+	}
+
 }

@@ -33,31 +33,8 @@ class Kehilangan extends CI_Controller {
 
 		//var_dump($data['data']);
 	}
-	
-	public function cetakLaporan()
-	{
-		$data['session']	= $this->session->all_userdata();
-		$this->load->library('pdf');
-		$data['data'] = $this->kehilangan_model->getKehilangan();
 
-		$this->pdf->generate('Laporan/CetakLaporansca', $data, 'laporan-sca', 'A4', 'landscape');
-		
-	}
-
-	public function cetakLaporansca()
-	{
-		if($this->uri->segment(3))
-		{
-			$id_kehilangan = $this->uri->segment(3);
-			$data['session']	= $this->session->all_userdata();
-			$this->load->library('pdf');
-			$data['data'] = $this->kehilangan_model->getKehilanganDetail($id_kehilangan);
-			//$data['coba'] = $this->kehilangan_model->getKehilanganDetailCoba($id_kehilangan);
-			$this->pdf->generate('Laporan/CetakLaporansca', $data, 'laporan-sca', 'A4', 'landscape');
-		}
-	}
-
-	public function cetakLaporanrange()
+	public function cetakLaporanKehilangan()
 	{
 		//$dari		= $_POST['dari'];
 		$dari = $this->input->post('dari');
@@ -65,12 +42,39 @@ class Kehilangan extends CI_Controller {
 		$data['session']	= $this->session->all_userdata();
 		$this->load->library('pdf');
 		$data['data'] = $this->kehilangan_model->getKehilanganRange($dari, $hingga);
-
-		$this->pdf->generate('Laporan/CetakLaporanrange', $data, 'laporan-sca', 'A4', 'landscape');
+		if (is_array($data)){
+			$this->pdf->generate('Laporan/CetakLaporanKehilangan', $data, 'laporan-sca', 'A4', 'landscape');
+		}else{
+			confirm('Yakin data anda ingin di hapus??');
+		}
 		
 	}
 
-		public function hapus()
+	public function ubahStatusHilang()
+	{
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$this->kehilangan_model->ubahStatusHilang($id_kehilangan);
+		redirect('Kehilangan');
+
+	}
+
+	public function ubahStatusMenemukan()
+	{
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$this->kehilangan_model->ubahStatusMenemukan($id_kehilangan);
+		redirect('Kehilangan');
+
+	}
+
+	public function ubahStatusDikembalikan()
+	{
+		$id_kehilangan		= $this->input->get('id_kehilangan');
+		$this->kehilangan_model->ubahStatusDikembalikan($id_kehilangan);
+		redirect('Kehilangan');
+
+	}
+
+	public function hapus()
 	{
 		$data['session']	= $this->session->all_userdata();
 		$id_kehilangan		= $this->input->get('id_kehilangan');
@@ -80,23 +84,23 @@ class Kehilangan extends CI_Controller {
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Hapus Data Subarea Sukses</strong></p>
-							</div>';
-							$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Kehilangan Sukses</strong></p>
+			</div>';
+			$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
 
-			$this->Navbar_model->view_loader('SubareaList', $data);
+			$this->Navbar_model->view_loader('KehilanganList', $data);
 		}
 		//Jika update data tidak sukses
 		else
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Hapus Data Subarea Gagal!</strong></p>
-								</div>';
-								$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
+			<div class="msg msg-error"><p><strong>Hapus Data Kehilangan Gagal!</strong></p>
+			</div>';
+			$data['kehilangan'] = $this->kehilangan_model->getKehilangan();
 
-			$this->Navbar_model->view_loader('SubareaList', $data);
+			$this->Navbar_model->view_loader('KehilanganList', $data);
 		}
 
 	}

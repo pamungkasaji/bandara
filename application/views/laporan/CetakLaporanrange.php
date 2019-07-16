@@ -1,10 +1,10 @@
-<!--
+
 <html>
 <head>
  <style>
    @page { margin: 180px 50px; }
-   #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 150px; background-color: orange; text-align: center; }
-   #footer { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px; background-color: lightblue; }
+   #header { position: fixed; left: 0px; top: -180px; right: 0px; height: 150px; text-align: center; }
+   #footer { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 150px;  }
    #footer .page:after { content: counter(page, upper-roman); }
 </style>
 <meta charset="utf-8">
@@ -22,7 +22,7 @@
 </head>
 <body>
  <div id="header">
-   <h1>Widgets Express</h1>
+   <h1> STANDARD CLEANLINESS AREA (SCA)</h1>
      <table class="table table-bordered">
     <tr>
       <th>No</th>
@@ -54,7 +54,7 @@
     <?php } 
     ?>
 
-
+    <!--
     <?php $no = 1; foreach ($data as $row): ?>
     <tr>
       <td><?php echo $no++ ?></td>
@@ -66,6 +66,7 @@
       <td><?php echo $row['skor'] ?></td>
     </tr>
     <?php endforeach ?>
+    -->
 
   </table>
 </div>
@@ -78,8 +79,8 @@
 </div>
 </body>
 </html>
--->
 
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,3 +140,4 @@
 
 </body>
 </html>
+-->
