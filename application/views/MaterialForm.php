@@ -52,6 +52,27 @@
 				<label>Nama Material</label>
 				<input class="form-control" required name="nama_material" value="<?php echo isset($material[0]['nama_material'])?$material[0]['nama_material']:'';?>">
 			</div>
+			<div class="form-group">
+				<label>Subarea</label>
+				<SELECT name="id_subarea" required class="form-control">
+					<OPTION value="<?php echo isset($material[0]['id_subarea'])?$material[0]['id_subarea']:'';?>"><?php echo isset($material[0]['nama_subarea'])?$material[0]['nama_subarea']:'';?></OPTION>
+					<?php
+					if(!empty($subarea))
+					{
+						foreach($subarea as $data)
+						{
+							$id_subarea=$data['id_subarea'];
+							$nama_subarea=$data['nama_subarea'];
+
+							?>	
+
+							<OPTION value="<?php echo $id_subarea;?>"><?php echo $nama_subarea;?></OPTION>
+							<?php
+						}
+					}
+					?>		
+				</SELECT>
+			</div>
 			<button type="submit" class="btn btn-success" name="save">Simpan</button>
 			<a href="<?php echo site_url('Material'); ?>"> <button type="button" class="btn btn-danger" name="batal">Kembali</button></a>
 
