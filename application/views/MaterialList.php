@@ -32,6 +32,7 @@
             <tr>
               <th>No</th>
               <th>Nama Material</th>
+              <th>Nama Subarea</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -45,11 +46,13 @@
               {
                $id_material    =$data['id_material']; 
                $nama_material  =$data['nama_material']; 
+               $nama_subarea  =$data['nama_subarea']; 
 
                ?> 
                <tr class="odd gradeX">
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_material; ?></td>
+                <td><?php echo $nama_subarea; ?></td>
                 <td>
                   <a class="btn btn-info" href="<?php echo site_url()."/Material/ubah?id_material=".$data['id_material'];?>"><i class="icon-pencil icon-white"></i> Ubah</a>
 

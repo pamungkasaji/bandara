@@ -9,7 +9,7 @@ class Standard_model extends CI_Model
 	//function menampilkan data Standard
 	function getStandard()
     {
-		$query=$this->db->query("select * from standard");
+		$query=$this->db->query("select standard.*,memiliki.*,material.nama_material from standard,memiliki,material where standard.id_standard=memiliki.id_standard and memiliki.id_material=material.id_material");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
@@ -26,19 +26,19 @@ class Standard_model extends CI_Model
 	}
 	function getSTDUpdate($kode)
     {
-		$query=$this->db->query("select memiliki.*,material.nama_material from meminta,material,standard where and standard.id_standard=meminta.id_standard and meminta.id_material=material.id_material and meminta.id_standard='$kode'");
+		$query=$this->db->query("select memiliki.*,material.nama_material from memiliki,material,standard where standard.id_standard=memiliki.id_standard and memiliki.id_material=material.id_material and memiliki.id_standard='$kode'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
 		return $array;
 	}
+
 	//function hapus data Standard
 	function hapus($kode)
     {
 		 $sql = "delete from standard  WHERE id_standard ='$kode'"; 
 		 $this->db->query($sql);
-		 $sqli = "delete from standard  WHERE id_standard ='$kode'"; 
-		 $this->db->query($sqli);
+
 		 return true;
     }
 
