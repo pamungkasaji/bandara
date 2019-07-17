@@ -35,10 +35,10 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Barang</th>
+              <th>Barang</th>
               <th>Tanggal</th>
-              <th>Gambar</th>
-              <th>Keterangan</th>
+              <th>Area</th>
+              <th>Subarea</th>
               <th>Kontak</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -55,6 +55,8 @@
                $id_kehilangan    =$data['id_kehilangan']; 
                $nama_barang  =$data['nama_barang']; 
                $tanggal  =$data['tanggal']; 
+               $area  =$data['area']; 
+               $subarea  =$data['subarea']; 
                $gambar  =$data['gambar']; 
                $keterangan  =$data['keterangan']; 
                $kontak =$data['kontak']; 
@@ -65,8 +67,8 @@
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_barang; ?></td>
                 <td><?php echo $tanggal; ?></td>
-                <td><?php echo $gambar; ?></td>
-                <td><?php echo $keterangan; ?></td>
+                <td><?php echo $area; ?></td>
+                <td><?php echo $subarea; ?></td>
                 <td><?php echo $kontak; ?></td>
                 <td>
 

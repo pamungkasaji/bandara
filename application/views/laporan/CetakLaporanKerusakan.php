@@ -21,7 +21,7 @@
     <tr>
       <td align="center">
         <span style="line-height: 1.6; font-weight: bold;">
-          LAPORAN KEHILANGAN BARANG
+          LAPORAN KERUSAKAN BARANG
           <br>AREA BANDARA
         </span>
       </td>
@@ -36,26 +36,20 @@
   <table class="table table-bordered">
     <tr>
       <th>No</th>
-      <th>Barang</th>
       <th>Tanggal</th>
       <th>Area</th>
       <th>Subarea</th>
       <th>Gambar</th>
       <th>Keterangan</th>
-      <th>Kontak</th>
-      <th>Status</th>
     </tr>
     <?php $no = 1; foreach ($data as $row): ?>
     <tr>
       <td><?php echo $no++ ?></td>
-      <td><?php echo $row['nama_barang'] ?></td>
-      <td><?php echo $row['tanggal'] ?></td>
+      <td><?php echo $row['tgl_kerusakan'] ?></td>
       <td><?php echo $row['area'] ?></td>
       <td><?php echo $row['subarea'] ?></td>
-      <td><img style="width: 50px;" src="'.base_url().'gambar/'.$row->gambar.'" />/td>
+      <td><img style="width: 50px;" src="'.base_url().'gambar/'.$row->gambar.'" />/<td>
       <td><?php echo $row['keterangan'] ?></td>
-      <td><?php echo $row['kontak'] ?></td>
-      <td><?php echo $row['status'] ?></td>
     </tr>
     <?php endforeach ?> -->
 

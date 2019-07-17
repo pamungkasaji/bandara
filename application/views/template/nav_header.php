@@ -72,7 +72,7 @@ elseif(!empty($session[0]['level']))
 
 							<a class="collapse-item" href="<?php echo site_url('Penilaian'); ?>"><i class="icon-angle-right"></i> Penilaian </a>
 							<a class="collapse-item" href="<?php echo site_url('Kehilangan'); ?>"><i class="icon-angle-right"></i> Kehilangan </a>
-							<a class="collapse-item" href="<?php echo site_url('#'); ?>"><i class="icon-angle-right"></i> Kerusakan </a>
+							<a class="collapse-item" href="<?php echo site_url('Kerusakan'); ?>"><i class="icon-angle-right"></i> Kerusakan </a>
 
 						</div>
 					</div>

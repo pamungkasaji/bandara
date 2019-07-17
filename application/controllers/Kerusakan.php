@@ -36,16 +36,6 @@ class Kerusakan extends CI_Controller {
 		//var_dump($data['data']);
 	}
 
-	public function cetakLaporan()
-	{
-		$data['session']	= $this->session->all_userdata();
-		$this->load->library('pdf');
-		$data['data'] = $this->kerusakan_model->getKerusakan();
-
-		$this->pdf->generate('Laporan/CetakLaporansca', $data, 'laporan-sca', 'A4', 'landscape');
-
-	}
-
 	public function cetakLaporanrange()
 	{
 		//$dari		= $_POST['dari'];
@@ -55,7 +45,7 @@ class Kerusakan extends CI_Controller {
 		$this->load->library('pdf');
 		$data['data'] = $this->kerusakan_model->getKerusakanRange($dari, $hingga);
 
-		$this->pdf->generate('Laporan/CetakLaporanrange', $data, 'laporan-sca', 'A4', 'landscape');
+		$this->pdf->generate('Laporan/CetakLaporanKerusakan', $data, 'laporan-sca', 'A4', 'landscape');
 
 	}
 

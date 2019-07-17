@@ -12,7 +12,7 @@
     </div>
 
     <div class="card-body">
-      <form action="<?php echo base_url('Penilaian/cetakLaporanrange') ?>" style="width: 50%; method="post">
+      <form action="<?php echo base_url('Kerusakan/cetakLaporanrange') ?>" style="width: 50%" method="post">
         <label>Dari</label>
         <input class="form-control" type='date' name="dari"><br>
         <label>Hingga</label>
@@ -25,12 +25,11 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Barang</th>
               <th>Tanggal</th>
+              <th>Area</th>
+              <th>Subarea</th>
               <th>Gambar</th>
               <th>Keterangan</th>
-              <th>Kontak</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -42,25 +41,21 @@
               $no = 1 ;foreach ($kerusakan as $data)
               {
                $id_kerusakan    =$data['id_kerusakan']; 
-               $nama_area  =$data['nama_area']; 
-               $nama_subarea  =$data['nama_subarea']; 
+               $tanggal  =$data['tgl_kerusakan']; 
+               $nama_area  =$data['area']; 
+               $nama_subarea  =$data['subarea']; 
                $gambar  =$data['gambar']; 
                $keterangan  =$data['keterangan']; 
-               $kontak =$data['kontak']; 
-               $status =$data['status']; 
 
                ?> 
                <tr class="odd gradeX">
                 <td><?php echo $no++; ?></td>
-                <td><?php echo $nama_barang; ?></td>
                 <td><?php echo $tanggal; ?></td>
-                <td><?php echo $gambar; ?></td>
+                <td><?php echo $nama_area; ?></td>
+                <td><?php echo $nama_subarea; ?></td>
+                <td><img style="width: 50px;" src="<?php echo base_url().'gambar/'.$gambar;?>"></td>
                 <td><?php echo $keterangan; ?></td>
-                <td><?php echo $kontak; ?></td>
-                <td><?php echo $status; ?></td>
                 <td>
-                  <a class="btn btn-info" target="_blank" href="<?php echo site_url()."kerusakan/cetakLaporansca/".$data['id_kerusakan'];?>"><i class="icon-pencil icon-white"></i> Print</a>
-
                   <a onclick="return confirm('Yakin data anda ingin di hapus??')" href="<?php echo site_url()."/Kerusakan/hapus?id_kerusakan=".$data['id_kerusakan'];?>" class="btn btn-danger"><i class="icon-remove icon-white"></i> Hapus</a>
 
                 </td>

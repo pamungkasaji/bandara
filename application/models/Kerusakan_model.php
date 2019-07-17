@@ -29,7 +29,7 @@ class Kerusakan_model extends CI_Model
 
 	function getKerusakanRange($dari, $hingga)
 	{
-		$query=$this->db->query("select kerusakan.*,nama_area, nama_subarea from kerusakan,area,subarea where tanggal > '$dari' and tanggal < '$hingga' and area.id_area=kerusakan.id_area and subarea.id_subarea=kerusakan.id_subarea");
+		$query=$this->db->query("select kerusakan.* from kerusakan where tgl_kerusakan > '$dari' and tgl_kerusakan < '$hingga'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
