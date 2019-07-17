@@ -1,27 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-<<<<<<< HEAD
-class Kerusakan extends CI_Controller{
-
-  public function __construct()
-  {
-    parent::__construct();
-    //Codeigniter : Write Less Do More
-    $this->load->model(array('Model_kerusakan'));
-  }
-
-  function input($a, $b, $c){
-    $data['id_karyawan'] = $a;
-    $data['nama_karyawan'] = $this->Model_presensi->get_nama($a);
-    $data['area'] = $b;
-    $data['subarea'] = $c;
-    $this->session->set_userdata($data);
-    $this->load->view('form_kerusakan', $data);
-  }
-
-}
-=======
 class Kerusakan extends CI_Controller {
 
 
@@ -31,12 +10,14 @@ class Kerusakan extends CI_Controller {
 		$this->load->model('login_m');
 		$this->load->model('kerusakan_model');
 		$this->load->model('Navbar_model');
+
 		if(!$this->session->userdata('id_karyawan'))
 		{
 			redirect('Login');
 		}
 		$this->load->helper(array('form', 'url','download'));
 	}
+
 
 	public function index()
 	{
@@ -54,7 +35,7 @@ class Kerusakan extends CI_Controller {
 
 		//var_dump($data['data']);
 	}
-	
+
 	public function cetakLaporan()
 	{
 		$data['session']	= $this->session->all_userdata();
@@ -62,7 +43,7 @@ class Kerusakan extends CI_Controller {
 		$data['data'] = $this->kerusakan_model->getKerusakan();
 
 		$this->pdf->generate('Laporan/CetakLaporansca', $data, 'laporan-sca', 'A4', 'landscape');
-		
+
 	}
 
 	public function cetakLaporanrange()
@@ -75,7 +56,7 @@ class Kerusakan extends CI_Controller {
 		$data['data'] = $this->kerusakan_model->getKerusakanRange($dari, $hingga);
 
 		$this->pdf->generate('Laporan/CetakLaporanrange', $data, 'laporan-sca', 'A4', 'landscape');
-		
+
 	}
 
 		public function hapus()
@@ -110,4 +91,3 @@ class Kerusakan extends CI_Controller {
 	}
 
 }
->>>>>>> b39f8fe7cf0c7c992a78458053035b2277b74b32

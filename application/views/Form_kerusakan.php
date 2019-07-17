@@ -38,11 +38,11 @@
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Form Presensi</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Form Kerusakan</h1>
                   </div>
                   <hr>
 
-                  <form class="user" method="post" action="<?php echo base_url(); ?>kerusakan/submit/<?php echo $id_karyawan ?>">
+                  <?php echo form_open_multipart('kerusakanForm/aksi_upload/'.$id_karyawan, 'class="user"') ?>
                     <div class="form-group">
                       <label for="tanggal">Tanggal</label>
                       <input class="form-control" type="text" name="tanggal" id="tanggal" value="<?php
@@ -52,10 +52,7 @@
                       " readonly>
                     </div>
 
-                    <div class="form-group">
-                      <label for="karyawan">Nama Karyawan</label>
-                      <input type="text" class="form-control" name="karyawan" id="karyawan" value="<?php echo $nama_karyawan ?>" readonly>
-                    </div>
+
                     <div class="form-group">
                       <label for="area">Area</label>
                       <input type="text" class="form-control" name="area" id="area" value="<?php echo $area ?>" readonly>
@@ -65,15 +62,13 @@
                       <input type="text" class="form-control" name="subarea" id="subarea" value="<?php echo $subarea ?>" readonly>
                     </div>
                     <div class="form-group">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="absen" id="absen" value="Hadir">
-                      <label class="form-check-label" for="absen">Hadir</label>
+                      <label for="gambar">Upload Gambar</label>
+                    <input type="file" name="gambar" id="gambar"/>
                     </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="absen" id="absen" value="Mangkir">
-                      <label class="form-check-label" for="absen">Mangkir</label>
+                    <div class="form-group">
+                      <label for="keterangan">Keterangan</label>
+                      <textarea class="form-control" name="keterangan" id="keterangan"></textarea>
                     </div>
-                  </div>
                     <?php
                       $info = $this->session->flashdata('info');
                       if (!empty($info)) {
