@@ -55,7 +55,7 @@
 			</div>
 			<div class="form-group">
 				<label>password</label>
-				<input class="form-control" type="password" name="password" value="<?php echo isset($karyawan[0]['password'])?$karyawan[0]['password']:'';?>">
+				<input class="form-control" name="password" >
 			</div>
 			<div class="form-group">
 				<label>Level</label>

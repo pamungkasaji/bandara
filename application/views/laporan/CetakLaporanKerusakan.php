@@ -39,7 +39,6 @@
       <th>Tanggal</th>
       <th>Area</th>
       <th>Subarea</th>
-      <th>Gambar</th>
       <th>Keterangan</th>
     </tr>
     <?php $no = 1; foreach ($data as $row): ?>
@@ -48,7 +47,6 @@
       <td><?php echo $row['tgl_kerusakan'] ?></td>
       <td><?php echo $row['area'] ?></td>
       <td><?php echo $row['subarea'] ?></td>
-      <td><img style="width: 50px;" src="'.base_url().'gambar/'.$row->gambar.'" />/<td>
       <td><?php echo $row['keterangan'] ?></td>
     </tr>
     <?php endforeach ?> -->

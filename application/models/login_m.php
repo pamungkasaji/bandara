@@ -8,7 +8,7 @@ class Login_m extends CI_Model
 	{
 
 		$this->db->where('username',$username );
-		$this->db->where('password',$password);
+		$this->db->where('password',md5($password));
 		//$this->db->where('password',md5($password));
 		$login = $this->db->get('karyawan');
 		// The results of the query are stored in $login.
@@ -26,7 +26,7 @@ class Login_m extends CI_Model
             redirect('Dashboard');
         }
         else {
-            redirect('Welcome');
+            redirect('Area');
         }
 
       }
@@ -41,14 +41,6 @@ class Login_m extends CI_Model
 		$password	=$password;
 		//$password	=md5($password);
 		$query=$this->db->query("select * from karyawan where username='$username' and password='$password'");
-		foreach ($query->result_array() as $row) {$array[] = $row;}
-		if (!isset($array)) { $array='';}
-		$query->free_result();
-		return $array;
-	}
-	function getLevel($username)
-    {
-		$query=$this->db->query("select level from karyawan where username='$username'");
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();

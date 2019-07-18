@@ -40,7 +40,6 @@
       <th>Tanggal</th>
       <th>Area</th>
       <th>Subarea</th>
-      <th>Gambar</th>
       <th>Keterangan</th>
       <th>Kontak</th>
       <th>Status</th>
@@ -52,12 +51,11 @@
       <td><?php echo $row['tanggal'] ?></td>
       <td><?php echo $row['area'] ?></td>
       <td><?php echo $row['subarea'] ?></td>
-      <td><img style="width: 50px;" src="'.base_url().'gambar/'.$row->gambar.'" />/td>
       <td><?php echo $row['keterangan'] ?></td>
       <td><?php echo $row['kontak'] ?></td>
       <td><?php echo $row['status'] ?></td>
     </tr>
-    <?php endforeach ?> -->
+    <?php endforeach ?> 
 
   </table>
 
