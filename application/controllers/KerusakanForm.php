@@ -18,7 +18,16 @@ class KerusakanForm extends CI_Controller{
     $data['area'] = $b;
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
-    $this->load->view('form_kerusakan', $data);
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;</script>";
+      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }else{
+      $this->load->view('form_kerusakan', $data);
+    }
+    
   }
 
   public function aksi_upload($x){
@@ -28,7 +37,7 @@ class KerusakanForm extends CI_Controller{
     $tanggal = $this->input->post('tanggal');
     $keterangan = $this->input->post('keterangan');
 
-      if ($gambar=''){}else{
+    if ($gambar=''){}else{
 
       $config['upload_path']          = './gambar/';
       $config['allowed_types']        = 'gif|jpg|png';
@@ -61,7 +70,7 @@ class KerusakanForm extends CI_Controller{
         'subarea' => $subarea,
         'nama_karyawan' =>$this->Model_kerusakan->get_nama($x)
       );
-        $this->load->view('tampilan_sukses', $data);    }
-  }
+      $this->load->view('tampilan_sukses', $data);    }
+    }
 
-}
+  }

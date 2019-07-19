@@ -28,7 +28,15 @@ class Kerusakan extends CI_Controller {
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-		$this->Navbar_model->view_loader('KerusakanList', $data);
+	    $level	= $this->session->userdata('level');
+		if ($level != 'admin') {
+			$message = "Anda tidak memiliki akses ke halaman ini";
+			echo "<script type='text/javascript'>alert('$message') ;</script>";
+			echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+		}else{
+			$this->Navbar_model->view_loader('KerusakanList', $data);
+		}
+		
 	  //var_dump($data['kerusakan']);
 	  //$this->Navbar_model->view_loader('SubareaList', $data);
 	  //var_dump($data['kerusakan']);
@@ -49,7 +57,7 @@ class Kerusakan extends CI_Controller {
 
 	}
 
-		public function hapus()
+	public function hapus()
 	{
 		$data['session']	= $this->session->all_userdata();
 		$id_kerusakan		= $this->input->get('id_kerusakan');
@@ -59,10 +67,10 @@ class Kerusakan extends CI_Controller {
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Hapus Data Subarea Sukses</strong></p>
-							</div>';
-							$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Subarea Sukses</strong></p>
+			</div>';
+			$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
 
 			$this->Navbar_model->view_loader('SubareaList', $data);
 		}
@@ -71,9 +79,9 @@ class Kerusakan extends CI_Controller {
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Hapus Data Subarea Gagal!</strong></p>
-								</div>';
-								$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
+			<div class="msg msg-error"><p><strong>Hapus Data Subarea Gagal!</strong></p>
+			</div>';
+			$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
 
 			$this->Navbar_model->view_loader('SubareaList', $data);
 		}

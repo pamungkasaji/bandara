@@ -22,13 +22,18 @@ class Subarea extends CI_Controller
 
 		$data['session']	= $this->session->all_userdata();
 		$data['subarea'] = $this->subarea_model->getSubarea();
-	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-	  $this->Navbar_model->view_loader('SubareaList', $data);
-	  //var_dump($data['subarea']);
-
+	    $level	= $this->session->userdata('level');
+		if ($level != 'admin') {
+			$message = "Anda tidak memiliki akses ke halaman ini";
+			echo "<script type='text/javascript'>alert('$message') ;</script>";
+			echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+		}else{
+			$this->Navbar_model->view_loader('SubareaList', $data);
+		}
 	}
 	//function tambahSubarea
 	public function tambahSubarea()
@@ -50,19 +55,19 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']  = '
-					<div class="alert alert-success"><p><strong>Input Data Subarea Sukses</strong></p></div>';
-					$this->Navbar_model->view_loader('SubareaForm', $data);
+			<div class="alert alert-success"><p><strong>Input Data Subarea Sukses</strong></p></div>';
+			$this->Navbar_model->view_loader('SubareaForm', $data);
 
 		}
 		else
 		{
 			//load notifikasi gagal
 			$data['error']  = '
-							<div class="msg msg-error">
-								<p><strong>Input Subarea Data Gagal!</strong></p>
-							</div>';
+			<div class="msg msg-error">
+			<p><strong>Input Subarea Data Gagal!</strong></p>
+			</div>';
 
-					$this->Navbar_model->view_loader('SubareaForm', $data);
+			$this->Navbar_model->view_loader('SubareaForm', $data);
 
 		}
 	}
@@ -87,10 +92,10 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Update Data Subarea Sukses</strong></p>
-							</div>';
-							$data['subarea'] = $this->subarea_model->getSubarea();
+			<div class="alert alert-success">
+			<p><strong>Update Data Subarea Sukses</strong></p>
+			</div>';
+			$data['subarea'] = $this->subarea_model->getSubarea();
 
 			$this->Navbar_model->view_loader('SubareaList', $data);
 		}
@@ -99,9 +104,9 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Update Data Subarea Gagal!</strong></p>
-								</div>';
-								$data['subarea'] = $this->subarea_model->getSubarea();
+			<div class="msg msg-error"><p><strong>Update Data Subarea Gagal!</strong></p>
+			</div>';
+			$data['subarea'] = $this->subarea_model->getSubarea();
 
 			$this->Navbar_model->view_loader('SubareaList', $data);
 		}
@@ -118,10 +123,10 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Hapus Data Subarea Sukses</strong></p>
-							</div>';
-							$data['subarea'] = $this->subarea_model->getSubarea();
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Subarea Sukses</strong></p>
+			</div>';
+			$data['subarea'] = $this->subarea_model->getSubarea();
 
 			$this->Navbar_model->view_loader('SubareaList', $data);
 		}
@@ -130,9 +135,9 @@ class Subarea extends CI_Controller
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Hapus Data Subarea Gagal!</strong></p>
-								</div>';
-								$data['subarea'] = $this->subarea_model->getSubarea();
+			<div class="msg msg-error"><p><strong>Hapus Data Subarea Gagal!</strong></p>
+			</div>';
+			$data['subarea'] = $this->subarea_model->getSubarea();
 
 			$this->Navbar_model->view_loader('SubareaList', $data);
 		}
