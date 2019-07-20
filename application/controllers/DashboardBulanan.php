@@ -62,6 +62,7 @@ class DashboardBulanan extends CI_Controller{
       $second_date = mdate($datestring, $time);
       $times = $this->time = date('Y-m-d', strtotime("-$p day", time()));
   }
+}
 
 
   function get_subselect(){
