@@ -26,12 +26,14 @@ class Penilaian extends CI_Controller {
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-		$this->Navbar_model->view_loader('PenilaianList', $data);
-	  //var_dump($data['subarea']);
-	  //$this->Navbar_model->view_loader('SubareaList', $data);
-	  //var_dump($data['subarea']);
-
-		//var_dump($data['data']);
+	    $level	= $this->session->userdata('level');
+		if ($level != 'admin') {
+			$message = "Anda tidak memiliki akses ke halaman ini";
+			echo "<script type='text/javascript'>alert('$message') ;</script>";
+			echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+		}else{
+			$this->Navbar_model->view_loader('PenilaianList', $data);
+		}
 	}
 	
 	public function cetakLaporan()
@@ -71,7 +73,7 @@ class Penilaian extends CI_Controller {
 		
 	}
 
-		public function hapus()
+	public function hapus()
 	{
 		$data['session']	= $this->session->all_userdata();
 		$id_penilaian		= $this->input->get('id_penilaian');

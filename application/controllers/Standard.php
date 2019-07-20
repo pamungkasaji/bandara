@@ -23,11 +23,19 @@ class Standard extends CI_Controller
 
 		$data['session']	= $this->session->all_userdata();
 		$data['standard'] = $this->standard_model->getStandard();
-	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-	  $this->Navbar_model->view_loader('StandardList', $data);
+	    $level	= $this->session->userdata('level');
+		if ($level != 'admin') {
+			$message = "Anda tidak memiliki akses ke halaman ini";
+			echo "<script type='text/javascript'>alert('$message') ;</script>";
+			echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+		}else{
+			$this->Navbar_model->view_loader('StandardList', $data);
+		}
+
 
 	}
 	//function tambahStandard
@@ -52,19 +60,19 @@ class Standard extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']  = '
-					<div class="alert alert-success"><p><strong>Input Data Standard Sukses</strong></p></div>';
-					$this->Navbar_model->view_loader('StandardForm', $data);
+			<div class="alert alert-success"><p><strong>Input Data Standard Sukses</strong></p></div>';
+			$this->Navbar_model->view_loader('StandardForm', $data);
 
 		}
 		else
 		{
 			//load notifikasi gagal
 			$data['error']  = '
-							<div class="msg msg-error">
-								<p><strong>Input Standard Data Gagal!</strong></p>
-							</div>';
+			<div class="msg msg-error">
+			<p><strong>Input Standard Data Gagal!</strong></p>
+			</div>';
 
-					$this->Navbar_model->view_loader('StandardForm', $data);
+			$this->Navbar_model->view_loader('StandardForm', $data);
 
 		}
 	}
@@ -94,10 +102,10 @@ class Standard extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Update Data Standard Sukses</strong></p>
-							</div>';
-							$data['standard'] = $this->standard_model->getStandard();
+			<div class="alert alert-success">
+			<p><strong>Update Data Standard Sukses</strong></p>
+			</div>';
+			$data['standard'] = $this->standard_model->getStandard();
 
 			$this->Navbar_model->view_loader('StandardList', $data);
 		}
@@ -106,9 +114,9 @@ class Standard extends CI_Controller
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Update Data Standard Gagal!</strong></p>
-								</div>';
-								$data['standard'] = $this->standard_model->getStandard();
+			<div class="msg msg-error"><p><strong>Update Data Standard Gagal!</strong></p>
+			</div>';
+			$data['standard'] = $this->standard_model->getStandard();
 
 			$this->Navbar_model->view_loader('StandardList', $data);
 		}
@@ -125,10 +133,10 @@ class Standard extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Hapus Data Standard Sukses</strong></p>
-							</div>';
-							$data['standard'] = $this->standard_model->getStandard();
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Standard Sukses</strong></p>
+			</div>';
+			$data['standard'] = $this->standard_model->getStandard();
 
 			$this->Navbar_model->view_loader('StandardList', $data);
 		}
@@ -137,9 +145,9 @@ class Standard extends CI_Controller
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Hapus Data Standard Gagal!</strong></p>
-								</div>';
-								$data['standard'] = $this->standard_model->getStandard();
+			<div class="msg msg-error"><p><strong>Hapus Data Standard Gagal!</strong></p>
+			</div>';
+			$data['standard'] = $this->standard_model->getStandard();
 
 			$this->Navbar_model->view_loader('StandardList', $data);
 		}

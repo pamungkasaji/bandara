@@ -44,11 +44,18 @@ class DashboardBulanan extends CI_Controller{
       $data['total_satisfied'] = $this->m_dashboard_bulanan->get_total($p,$x);
       $data['karmax'] = $this->m_dashboard_bulanan->karyawan_rating_max($p,$x);
       //$data['gambar'] = $this->m_login->ambil_gambar();
-      $coba = $this->m_dashboard_bulanan->pie_subarea_area($c,$p,$x);
+    $coba = $this->m_dashboard_bulanan->pie_subarea_area($c,$p,$x);
       //var_dump($coba);
-      $data['skortanggal'] = $this->m_dashboard_bulanan->select_skor($p,$x);
-      if (isset($c)){$data['area'] = $this->m_dashboard_bulanan->get_area($c);}
-      if (isset($uu)){$data['subarea'] = $this->m_dashboard_bulanan->get_subarea($uu);}
+    $data['skortanggal'] = $this->m_dashboard_bulanan->select_skor($p,$x);
+    if (isset($c)){$data['area'] = $this->m_dashboard_bulanan->get_area($c);}
+    if (isset($uu)){$data['subarea'] = $this->m_dashboard_bulanan->get_subarea($uu);}
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'supervisor') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;</script>";
+      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }else{
       $this->Navbar_model->view_loader('tampilan_dashboard_bulanan', $data);
       $datestring = '%Y-%m-%d';
       $time = time();

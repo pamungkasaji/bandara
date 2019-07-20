@@ -18,7 +18,16 @@ class KehilanganForm extends CI_Controller{
     $data['area'] = $b;
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
-    $this->load->view('Form_kehilangan', $data);
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;</script>";
+      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }else{
+      $this->load->view('Form_kehilangan', $data);
+    }
+    
   }
 
   public function aksi_upload($x){
@@ -31,7 +40,7 @@ class KehilanganForm extends CI_Controller{
     $kontak = $this->input->post('kontak');
     $status = $this->input->post('status');
 
-      if ($gambar=''){}else{
+    if ($gambar=''){}else{
 
       $config['upload_path']          = './gambar/';
       $config['allowed_types']        = 'gif|jpg|png';
@@ -67,7 +76,7 @@ class KehilanganForm extends CI_Controller{
         'subarea' => $subarea,
         'nama_karyawan' =>$this->Model_kehilangan->get_nama($x)
       );
-        $this->load->view('tampilan_sukses', $data);    }
-  }
+      $this->load->view('tampilan_sukses', $data);    }
+    }
 
-}
+  }

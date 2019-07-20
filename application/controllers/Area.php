@@ -22,12 +22,19 @@ class Area extends CI_Controller
 
 		$data['session']	= $this->session->all_userdata();
 		$data['area'] = $this->area_model->getArea();
-	  $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-	  $this->Navbar_model->view_loader('AreaList', $data);
-
+		$level	= $this->session->userdata('level');
+		if ($level != 'admin') {
+			$message = "Anda tidak memiliki akses ke halaman ini";
+			echo "<script type='text/javascript'>alert('$message') ;</script>";
+			echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+		}else{
+			$this->Navbar_model->view_loader('AreaList', $data);
+		}
+		
 	}
 	//function tambahArea
 	public function tambahArea()
@@ -49,19 +56,19 @@ class Area extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']  = '
-					<div class="alert alert-success"><p><strong>Input Data Area Sukses</strong></p></div>';
-					$this->Navbar_model->view_loader('AreaForm', $data);
+			<div class="alert alert-success"><p><strong>Input Data Area Sukses</strong></p></div>';
+			$this->Navbar_model->view_loader('AreaForm', $data);
 
 		}
 		else
 		{
 			//load notifikasi gagal
 			$data['error']  = '
-							<div class="msg msg-error">
-								<p><strong>Input Area Data Gagal!</strong></p>
-							</div>';
+			<div class="msg msg-error">
+			<p><strong>Input Area Data Gagal!</strong></p>
+			</div>';
 
-					$this->Navbar_model->view_loader('AreaForm', $data);
+			$this->Navbar_model->view_loader('AreaForm', $data);
 
 		}
 	}
@@ -86,10 +93,10 @@ class Area extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Update Data Area Sukses</strong></p>
-							</div>';
-							$data['area'] = $this->area_model->getArea();
+			<div class="alert alert-success">
+			<p><strong>Update Data Area Sukses</strong></p>
+			</div>';
+			$data['area'] = $this->area_model->getArea();
 
 			$this->Navbar_model->view_loader('AreaList', $data);
 		}
@@ -98,9 +105,9 @@ class Area extends CI_Controller
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Update Data Area Gagal!</strong></p>
-								</div>';
-								$data['area'] = $this->area_model->getArea();
+			<div class="msg msg-error"><p><strong>Update Data Area Gagal!</strong></p>
+			</div>';
+			$data['area'] = $this->area_model->getArea();
 
 			$this->Navbar_model->view_loader('AreaList', $data);
 		}
@@ -117,10 +124,10 @@ class Area extends CI_Controller
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
-							<div class="alert alert-success">
-								<p><strong>Hapus Data Area Sukses</strong></p>
-							</div>';
-							$data['area'] = $this->area_model->getArea();
+			<div class="alert alert-success">
+			<p><strong>Hapus Data Area Sukses</strong></p>
+			</div>';
+			$data['area'] = $this->area_model->getArea();
 
 			$this->Navbar_model->view_loader('AreaList', $data);
 		}
@@ -129,9 +136,9 @@ class Area extends CI_Controller
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-								<div class="msg msg-error"><p><strong>Hapus Data Area Gagal!</strong></p>
-								</div>';
-								$data['area'] = $this->area_model->getArea();
+			<div class="msg msg-error"><p><strong>Hapus Data Area Gagal!</strong></p>
+			</div>';
+			$data['area'] = $this->area_model->getArea();
 
 			$this->Navbar_model->view_loader('AreaList', $data);
 		}

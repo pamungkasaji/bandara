@@ -54,29 +54,7 @@ class Kodeqr_model extends CI_Model
 	  return $output;
 	 }
 
-	/*
-	//tambah
-	function simpanKodeqr()
-    {
-		$CI =& get_instance();
-		$CI->load->database('default');
-		//insert
-		if(!empty($_POST['id_kodeqr']))
-		{
-			$id_kodeqr		= $_POST['id_kodeqr'];
-			$id_area		= $_POST['id_area'];
-			$id_subarea		= $_POST['id_subarea'];
-			$qr_code		= $_POST['image_name'];
-			$sql = "insert into kodeqr(id_kodeqr, id_area, id_subarea, qr_code) values('$id_kodeqr','$id_area','$id_subarea','$image_name')"; 
-			$this->db->query($sql);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-    }
-    */
+
 	function simpanKodeqr($id_area,$id_subarea,$image_name){
         $data = array(
             'id_area'       => $id_area,
@@ -86,24 +64,20 @@ class Kodeqr_model extends CI_Model
         $this->db->insert('kodeqr',$data);
     }
 
-	function ubah()
+	function ubah($image_name)
     {
 		$CI =& get_instance();
 		$CI->load->database('default');
-		if(!empty($_POST['id_kodeqr']))
-		{
+
 			$id_kodeqr		= $_POST['id_kodeqr'];
 			$id_area		= $_POST['id_area'];
 			$id_subarea		= $_POST['id_subarea'];
-			$qr_code		= $_POST['image_name'];
-			$sql = "update kodeqr set id_area='$id_area',id_subarea='$id_subarea', qr_codea='$image_name' where id_kodeqr='$id_kodeqr'"; 
+			$sql = "update kodeqr set id_area='$id_area',id_subarea='$id_subarea',qr_code='$image_name' where id_kodeqr='$id_kodeqr'"; 
 			$this->db->query($sql);
 			return true;
-		}
-		else
-		{
-			return false;
-		}
-    }                                                                                                    
+
+    } 
+
+                                                                                             
 }
 ?>

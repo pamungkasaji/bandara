@@ -45,6 +45,8 @@
 			}											
 			?>
 
+			<input class="form-control" type="hidden" name="id_kodeqr" value="<?php echo isset($kodeqr[0]['id_kodeqr'])?$kodeqr[0]['id_kodeqr']:'';?>" >
+
 			<div class="form-group">
 				<label>Area</label>
 				<SELECT name="id_area" class="form-control">

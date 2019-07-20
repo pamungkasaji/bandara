@@ -17,7 +17,15 @@ class Form extends CI_Controller{
     $data['nama_area'] = $this->session->userdata('nama_area');
     $data['nama_subarea'] = $this->session->userdata('nama_subarea');
     $data['attendant']= $this->m_form->get_attendant();
-    $this->load->view('tampilan_form',$data);
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;</script>";
+      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }else{
+          $this->load->view('tampilan_form',$data);
+    }
   }
 
   function input($a, $b)

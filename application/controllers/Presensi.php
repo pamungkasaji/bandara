@@ -17,7 +17,15 @@ class Presensi extends CI_Controller{
     $data['area'] = $b;
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
-    $this->load->view('form_presensi', $data);
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;</script>";
+      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }else{
+      $this->load->view('form_presensi', $data);
+    }
   }
 
   function submit($x){
@@ -39,6 +47,6 @@ class Presensi extends CI_Controller{
       'subarea' => $subarea,
       'nama_karyawan' =>$this->Model_presensi->get_nama($x)
     );
-      $this->load->view('tampilan_sukses', $data);
+    $this->load->view('tampilan_sukses', $data);
   }
 }

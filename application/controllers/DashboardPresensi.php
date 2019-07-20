@@ -18,7 +18,16 @@ class DashboardPresensi extends CI_Controller{
     $data['session']  = $this->session->all_userdata();
     $data['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
     $data["tabel"] = $this->Model_presensi->get_tabel($x);
-    $this->Navbar_model->view_loader('tampilan_dashboard_presensi', $data);
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'supervisor') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;</script>";
+      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }else{
+      $this->Navbar_model->view_loader('tampilan_dashboard_presensi', $data);
+    }
+    
   }
 
 }
