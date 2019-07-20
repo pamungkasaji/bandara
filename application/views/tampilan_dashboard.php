@@ -199,7 +199,9 @@
                 <span class="input-group-text" id="basic-addon1">Dari</span>
               </div>
               <input type="date" class="form-control" name="dari" id="dari" placeholder="" aria-label="Username" aria-describedby="basic-addon1"
-              value="1970-00-00">
+              value="<?php if(isset($dari)){
+                echo $dari;
+              } ?>">
             </div>
           </div>
           <div class="col">
@@ -208,7 +210,9 @@
                 <span class="input-group-text" id="basic-addon1">Sampai</span>
               </div>
               <input type="date" class="form-control" name="sampai" id="sampai" placeholder="" aria-label="Username" aria-describedby="basic-addon1"
-              value="2030-00-00">
+              value="<?php if(isset($sampai)){
+                echo $sampai;
+              } ?>">
             </div>
           </div>
         </div>

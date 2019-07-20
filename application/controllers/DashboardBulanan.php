@@ -21,8 +21,14 @@ class DashboardBulanan extends CI_Controller{
   {
       $c = $this->input->post('getarea');
       $uu = $this->input->post('getsubarea');
-      if(!$this->input->post('dari')){$p='1970-01-01';}else{$p =$this->input->post('dari');};
-      if(!$this->input->post('sampai')){$x='2020-01-01';}else{$x =$this->input->post('sampai');};
+      $o = $this->input->post('dari');
+      $s = $this->input->post('sampai');
+      if(!$o){$p='1970-01-01';
+      $data['dari'] = '';}else{$p =$o . "-01";
+      $data['dari'] = $o;};
+      if(!$s){$x='2020-01-01';
+      $data['sampai'] = '';}else{$x =$s . "-01";
+      $data['sampai'] = $s;};
 
       $data['session']  = $this->session->all_userdata();
       $data['logo'] = $this->m_dashboard_bulanan->ambil_gambar($this->session->userdata('id_karyawan'));
@@ -48,7 +54,6 @@ class DashboardBulanan extends CI_Controller{
       $time = time();
       $second_date = mdate($datestring, $time);
       $times = $this->time = date('Y-m-d', strtotime("-$p day", time()));
-
   }
 
 

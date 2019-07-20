@@ -21,8 +21,12 @@ class Dashboard extends CI_Controller{
   {
       $c = $this->input->post('getarea');
       $uu = $this->input->post('getsubarea');
-      if(!$this->input->post('dari')){$p='1970-01-01';}else{$p =$this->input->post('dari');};
-      if(!$this->input->post('sampai')){$x='2020-01-01';}else{$x =$this->input->post('sampai');};
+      if(!$this->input->post('dari')){$p='1970-01-01';
+      $data['dari'] = '';}else{$p =$this->input->post('dari');
+      $data['dari'] = $p;};
+      if(!$this->input->post('sampai')){$x='2020-01-01';
+      $data['sampai'] = '';}else{$x =$this->input->post('sampai');
+      $data['sampai'] = $x;};
 
       $data['session']  = $this->session->all_userdata();
       $data['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
