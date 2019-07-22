@@ -10,6 +10,13 @@ class KerusakanForm extends CI_Controller{
     $this->load->model(array('Model_kerusakan'));
     $this->load->helper(array('form'));
     $this->load->helper('date');
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;javascript:history.go(-1)</script>";
+      //echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }
   }
 
   function input($a, $b, $c){
@@ -19,15 +26,7 @@ class KerusakanForm extends CI_Controller{
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
 
-    $level  = $this->session->userdata('level');
-    if ($level != 'teamleader') {
-      $message = "Anda tidak memiliki akses ke halaman ini";
-      echo "<script type='text/javascript'>alert('$message') ;</script>";
-      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
-    }else{
-      $this->load->view('form_kerusakan', $data);
-    }
-    
+    $this->load->view('form_kerusakan', $data);
   }
 
   public function aksi_upload($x){
