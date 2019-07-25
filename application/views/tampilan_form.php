@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Form</title>
+  <title>Angkasa Pura - Form</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url();?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,16 +19,6 @@
   <link href="<?php echo base_url();?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script>
-$( document.body )
-  .click(function() {
-    $( document.body ).append( $( "<div>" ) );
-    var n = $( "div" ).length;
-    $( "span" ).text( "There are " + n + " divs." +
-      "Click to add more.");
-  })
-  // Trigger the click to start
-  //.trigger( "click" );
-</script><script>
   $(document).ready(function() {$("input[type=radio]").click(function() {
     var total = 0;
     $("input[type=radio]:checked").each(function() {
@@ -42,8 +32,8 @@ $( document.body )
     $("input[name*='totalSkor']").val(total);
     $("input[name*='presentase']").val(ratafixed);
   });
-  });
-  </script>
+});
+</script>
 </head>
 
 <body class="bg-gradient-primary">
@@ -65,6 +55,16 @@ $( document.body )
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Form E-Checksheet untuk Area <?php echo $nama_area ?> dan Sub Area <?php echo $nama_subarea ?></h1>
                   </div>
+                  <?php 
+                  echo "<br>";
+                  if(@$kosong):
+                    echo $kosong;
+      //Jika update gagal tampilkan Notifikasi error
+                  else:  
+                    if(@$duplikat){echo @$duplikat;} 
+                  endif;
+
+                  ?>
                   <form class="user" method="post" action="<?php echo base_url(); ?>form/ceksubmit">
                     <div class="form-group">
                       <input class="form-control" type="text" placeholder="Tanggal : <?php
@@ -91,39 +91,39 @@ $( document.body )
                       <br>
                       <?php
                       foreach($standard as $row)
-                    {
-                      echo '<div class="form-group">
+                      {
+                        echo '<div class="form-group">
                         <p >'.$row->pertanyaan.'</p>
-                      <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions'.$row->id_standard.'" id="inlineRadio1" value="0">
                         <label class="form-check-label" for="inlineRadio1">Tidak</label>
-                      </div>
-                      <div class="form-check form-check-inline">
+                        </div>
+                        <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions'.$row->id_standard.'" id="inlineRadio2" value="1">
                         <label class="form-check-label" for="inlineRadio2">Iya</label>
+                        </div>
+                        </div>';
+                      }
+                      ?>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">Total Skor</span>
+                        </div>
+                        <input type="text" class="form-control" name="totalSkor" readonly aria-describedby="basic-addon1">
                       </div>
-                    </div>';
-                    }
-                    ?>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Total Skor</span>
-                    </div>
-                    <input type="text" class="form-control" name="totalSkor" readonly aria-describedby="basic-addon1">
-                  </div>
 
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Presentase</span>
-                    </div>
-                    <input type="text" class="form-control" name="presentase" readonly aria-describedby="basic-addon1">
-                    <div class="input-group-append">
-                      <span class="input-group-text">%</span>
-                    </div>
-                  </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">Presentase</span>
+                        </div>
+                        <input type="text" class="form-control" name="presentase" readonly aria-describedby="basic-addon1">
+                        <div class="input-group-append">
+                          <span class="input-group-text">%</span>
+                        </div>
+                      </div>
 
-                  <br>
-                </div>
+                      <br>
+                    </div>
 
                     <div class="form-group">
                       <label for="kotin">Kode Tinjauan</label>
@@ -143,11 +143,11 @@ $( document.body )
                     </div>
 
                     <?php
-                      $info = $this->session->flashdata('info');
-                      if (!empty($info)) {
-                          echo "<br /><div class='alert alert-danger' role='alert'>";
-                          echo $info."</div>";
-                      }
+                    $info = $this->session->flashdata('info');
+                    if (!empty($info)) {
+                      echo "<br /><div class='alert alert-danger' role='alert'>";
+                      echo $info."</div>";
+                    }
 
                     ?>
                     <button type="submit" class="btn btn-primary btn-user btn-block">

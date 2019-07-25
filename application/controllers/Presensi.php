@@ -9,6 +9,12 @@ class Presensi extends CI_Controller{
     //Codeigniter : Write Less Do More
     $this->load->model(array('Model_presensi'));
     $this->load->helper('date');
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;javascript:history.go(-1)</script>";
+      //echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }
   }
 
   function input($a, $b, $c){
@@ -18,14 +24,7 @@ class Presensi extends CI_Controller{
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
 
-    $level  = $this->session->userdata('level');
-    if ($level != 'teamleader') {
-      $message = "Anda tidak memiliki akses ke halaman ini";
-      echo "<script type='text/javascript'>alert('$message') ;</script>";
-      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
-    }else{
-      $this->load->view('form_presensi', $data);
-    }
+    $this->load->view('form_presensi', $data);
   }
 
   function submit($x){

@@ -10,6 +10,13 @@ class Form extends CI_Controller{
     $this->load->library('session');
     $this->load->model('m_form');
     $this->load->helper('date');
+
+    $level  = $this->session->userdata('level');
+    if ($level != 'teamleader') {
+      $message = "Anda tidak memiliki akses ke halaman ini";
+      echo "<script type='text/javascript'>alert('$message') ;javascript:history.go(-1)</script>";
+      //echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+    }
   }
 
   function index()
@@ -18,19 +25,13 @@ class Form extends CI_Controller{
     $data['nama_subarea'] = $this->session->userdata('nama_subarea');
     $data['attendant']= $this->m_form->get_attendant();
 
-    $level  = $this->session->userdata('level');
-    if ($level != 'teamleader') {
-      $message = "Anda tidak memiliki akses ke halaman ini";
-      echo "<script type='text/javascript'>alert('$message') ;</script>";
-      echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
-    }else{
-          $this->load->view('tampilan_form',$data);
-    }
+    $this->load->view('tampilan_form',$data);
   }
 
   function input($a, $b)
   {
     //$a = urldecode($this->uri->segment(4));
+
     $this->m_form->get_subarea($a, $b);
     $data['standard']= $this->m_form->get_standard($b);
     //$data['id_standard']=$this->session->userdata('id_standard');
@@ -39,7 +40,24 @@ class Form extends CI_Controller{
     $data['nama_subarea']=$this->session->userdata('nama_subarea');
     $data['attendant']= $this->m_form->get_attendant();
     //$data['standard']=$this->m_form->get_standard();
-    $this->load->view('tampilan_form',$data);
+
+    $duplicat = $this->m_form->cek($a, $b);
+
+    $this->load->library('javascript');
+    if(!empty($duplicat))
+    {
+      //load notifikasi sukses
+      $data['duplikat']  = '
+      <div class="alert alert-danger"><p><strong>Form penilaian area dan subarea ini sudah diisi hari ini</strong></p></div>';
+      $this->load->view('tampilan_form',$data);
+    }
+    else
+    {
+      //load notifikasi sukses
+      $data['kosong']  = '
+      <div class="alert alert-success"><p><strong>Silahkan isi form</strong></p></div>';
+      $this->load->view('tampilan_form',$data);
+    }
   }
 
   function ceksubmit(){

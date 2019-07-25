@@ -15,6 +15,13 @@ class Penilaian extends CI_Controller {
 			redirect('Login');
 		}
 		$this->load->helper(array('form', 'url','download'));
+
+		$level  = $this->session->userdata('level');
+		if ($level != 'admin') {
+			$message = "Anda tidak memiliki akses ke halaman ini";
+			echo "<script type='text/javascript'>alert('$message') ;javascript:history.go(-1)</script>";
+      //echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
+		}
 	}
 
 	public function index()
@@ -26,14 +33,7 @@ class Penilaian extends CI_Controller {
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-	    $level	= $this->session->userdata('level');
-		if ($level != 'admin') {
-			$message = "Anda tidak memiliki akses ke halaman ini";
-			echo "<script type='text/javascript'>alert('$message') ;</script>";
-			echo "<a href=\"javascript:history.go(-1)\">KEMBALI</a>";
-		}else{
-			$this->Navbar_model->view_loader('PenilaianList', $data);
-		}
+		$this->Navbar_model->view_loader('PenilaianList', $data);
 	}
 	
 	public function cetakLaporan()
