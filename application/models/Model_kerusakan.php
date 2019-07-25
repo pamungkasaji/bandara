@@ -18,11 +18,9 @@ class Model_kerusakan extends CI_Model{
   }
 
   function get_tabel($x){
-    $this->db->select('karyawan.nama, absen_mangkir.tgl_absensi, absen_mangkir.area, absen_mangkir.subarea, absen_mangkir.status');
-    $this->db->where('absen_mangkir.tgl_absensi', $x);
-    $this->db->order_by('tgl_absensi', 'desc');
-    $this->db->join('karyawan', 'absen_mangkir.id_karyawan = karyawan.id_karyawan');
-    $this->db->from('absen_mangkir');
+    $this->db->select('*');
+    $this->db->order_by($x, 'desc');
+    $this->db->from('kerusakan');
     $query = $this->db->get();
     return $query->result();
   }

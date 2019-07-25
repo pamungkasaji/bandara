@@ -42,7 +42,7 @@
                   </div>
                   <hr>
 
-                  <?php echo form_open_multipart('kerusakanForm/aksi_upload/'.$id_karyawan, 'class="user"') ?>
+                  <?php echo form_open_multipart('KerusakanForm/aksi_upload/'.$id_karyawan, 'class="user"') ?>
                     <div class="form-group">
                       <label for="tanggal">Tanggal</label>
                       <input class="form-control" type="text" name="tanggal" id="tanggal" value="<?php

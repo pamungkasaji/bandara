@@ -42,40 +42,46 @@ class KehilanganForm extends CI_Controller{
     if ($gambar=''){}else{
 
       $config['upload_path']          = './gambar/';
-      $config['allowed_types']        = 'gif|jpg|png';
+      $config['allowed_types']        = 'gif|jpg|png|jpeg';
       $config['file_name']            = 'kehilangan/'.$tanggal.'/'.$subarea;
-      $config['max_size']             = 100;
+      $config['max_size']             = 1000;
       $config['max_width']            = 1024;
       $config['max_height']           = 768;
 
       $this->load->library('upload', $config);
 
       if ( ! $this->upload->do_upload('gambar')){
-        $error = array('error' => $this->upload->display_errors());
-        $this->load->view('tampilan_profile', $error);
+        $data = array(
+          'id_karyawan' => $x,
+          'area' => $area,
+          'subarea' => $subarea,
+          'nama_karyawan' =>$this->Model_kehilangan->get_nama($x),
+          'error' => $this->upload->display_errors()
+        );
+        $this->load->view('tampilan_sukses', $data);
       }else{
         $gambar = $this->upload->data('file_name');
+        $dat=array(
+          'area' => $area,
+          'subarea' => $subarea,
+          'tanggal' => $tanggal,
+          'gambar' => $gambar,
+          'keterangan' => $keterangan,
+          'nama_barang' => $nama_barang,
+          'kontak' => $kontak,
+          'status' => $status
+        );
 
+        $this->Model_kehilangan->insert('kehilangan', $dat);
+        $data = array(
+          'id_karyawan' => $x,
+          'area' => $area,
+          'subarea' => $subarea,
+          'nama_karyawan' =>$this->Model_kehilangan->get_nama($x)
+        );
+        $this->load->view('tampilan_sukses', $data);    }
       }
-      $dat=array(
-        'area' => $area,
-        'subarea' => $subarea,
-        'tanggal' => $tanggal,
-        'gambar' => $gambar,
-        'keterangan' => $keterangan,
-        'nama_barang' => $nama_barang,
-        'kontak' => $kontak,
-        'status' => $status
-      );
 
-      $this->Model_kehilangan->insert('kehilangan', $dat);
-      $data = array(
-        'id_karyawan' => $x,
-        'area' => $area,
-        'subarea' => $subarea,
-        'nama_karyawan' =>$this->Model_kehilangan->get_nama($x)
-      );
-      $this->load->view('tampilan_sukses', $data);    }
     }
 
   }

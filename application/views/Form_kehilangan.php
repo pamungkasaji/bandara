@@ -72,7 +72,7 @@
                     <div class="form-group">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="status" id="status1" value="Hilang">
-                      <label class="form-check-label" for="status1">Hadir</label>
+                      <label class="form-check-label" for="status1">Hilang</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="status" id="status2" value="Ditemukan">

@@ -36,13 +36,15 @@
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
+                    <?php if (isset ($error)) {echo $error;} else{?>
                     <h1 class="h4 text-gray-900 mb-4">Data berhasil dimasukkan</h1>
+                  <?php } ?>
                     <h5 class="h5 text-gray-900 mb-4">Untuk Data Karyawan <?php echo $nama_karyawan ?> Area <?php echo $area ?> Sub Area <?php echo $subarea ?></h5>
                   </div>
                   <hr>
                   <div class="text-center">
                   <a class="btn btn-primary" href="<?php echo base_url().'presensi/input/'.$id_karyawan.'/'.$area.'/'.$subarea; ?>" role="button">Presensi</a>
-                  <a class="btn btn-success" href="<?php echo base_url().'kerusakanForm/input/'.$id_karyawan.'/'.$area.'/'.$subarea; ?>" role="button" role="button">Kerusakan</a>
+                  <a class="btn btn-success" href="<?php echo base_url().'KerusakanForm/input/'.$id_karyawan.'/'.$area.'/'.$subarea; ?>" role="button" role="button">Kerusakan</a>
                   <a class="btn btn-warning" href="<?php echo base_url().'KehilanganForm/input/'.$id_karyawan.'/'.$area.'/'.$subarea; ?>" role="button">Lost And Found</a>
                 </div>
                 <?php

@@ -8,8 +8,8 @@ class KerusakanForm extends CI_Controller{
     parent::__construct();
     //Codeigniter : Write Less Do More
     $this->load->model(array('Model_kerusakan'));
-    $this->load->helper(array('form'));
     $this->load->helper('date');
+    $this->load->helper(array('form', 'url'));
 
     $level  = $this->session->userdata('level');
     if ($level != 'teamleader') {
@@ -26,7 +26,7 @@ class KerusakanForm extends CI_Controller{
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
 
-    $this->load->view('form_kerusakan', $data);
+    $this->load->view('Form_kerusakan', $data);
   }
 
   public function aksi_upload($x){
@@ -39,37 +39,43 @@ class KerusakanForm extends CI_Controller{
     if ($gambar=''){}else{
 
       $config['upload_path']          = './gambar/';
-      $config['allowed_types']        = 'gif|jpg|png';
+      $config['allowed_types']        = 'gif|jpg|png|jpeg';
       $config['file_name']            = 'kerusakan/'.$tanggal.'/'.$subarea;
-      $config['max_size']             = 100;
+      $config['max_size']             = 1000;
       $config['max_width']            = 1024;
       $config['max_height']           = 768;
 
       $this->load->library('upload', $config);
 
       if ( ! $this->upload->do_upload('gambar')){
-        $error = array('error' => $this->upload->display_errors());
-        $this->load->view('tampilan_profile', $error);
+        $data = array(
+          'id_karyawan' => $x,
+          'area' => $area,
+          'subarea' => $subarea,
+          'nama_karyawan' =>$this->Model_kerusakan->get_nama($x),
+          'error' => $this->upload->display_errors()
+        );
+        $this->load->view('tampilan_sukses', $data);
       }else{
         $gambar = $this->upload->data('file_name');
+        $dat=array(
+          'area' => $area,
+          'subarea' => $subarea,
+          'tgl_kerusakan' => $tanggal,
+          'gambar' => $gambar,
+          'keterangan' => $keterangan
+        );
 
+        $this->Model_kerusakan->insert('kerusakan', $dat);
+        $data = array(
+          'id_karyawan' => $x,
+          'area' => $area,
+          'subarea' => $subarea,
+          'nama_karyawan' =>$this->Model_kerusakan->get_nama($x)
+        );
+        $this->load->view('tampilan_sukses', $data);    }
       }
-      $dat=array(
-        'area' => $area,
-        'subarea' => $subarea,
-        'tgl_kerusakan' => $tanggal,
-        'gambar' => $gambar,
-        'keterangan' => $keterangan
-      );
 
-      $this->Model_kerusakan->insert('kerusakan', $dat);
-      $data = array(
-        'id_karyawan' => $x,
-        'area' => $area,
-        'subarea' => $subarea,
-        'nama_karyawan' =>$this->Model_kerusakan->get_nama($x)
-      );
-      $this->load->view('tampilan_sukses', $data);    }
     }
 
   }
