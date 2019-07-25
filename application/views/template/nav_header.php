@@ -93,7 +93,9 @@ elseif(!empty($session[0]['level']))
 					<li class="nav-item active">
 						<a class="nav-link" href="<?php echo site_url('Dashboard'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Harian</span></a>
 						<a class="nav-link" href="<?php echo site_url('DashboardBulanan'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Bulanan</span></a>
-						<a class="nav-link" href="<?php echo site_url('DashboardPresensi'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Presensi Karyawan</span></a>
+						<a class="nav-link" href="<?php echo site_url('DashboardPresensi'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Presensi</span></a>
+						<a class="nav-link" href="<?php echo site_url('DashboardKerusakan'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Kerusakan</span></a>
+						<a class="nav-link" href="<?php echo site_url('DashboardKehilangan'); ?>"> <i class="fas fa-fw fa-table"></i> <span>Dashboard Kehilangan</span></a>
 					</li>
 					<?php
 				}
@@ -118,11 +120,7 @@ elseif(!empty($session[0]['level']))
 			?>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item active">
-				<a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-					<i class="fas fa-sign-out-alt"></i>
-					<span>Logout</span></a>
-				</li>
+
 
 				<!-- Divider -->
 				<hr class="sidebar-divider d-none d-md-block">
