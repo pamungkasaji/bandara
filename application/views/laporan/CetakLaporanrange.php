@@ -35,9 +35,9 @@
     </tr>
 
     <tr>
-      <td rowspan="<?php echo count($data); ?>">1</td>
-      <td rowspan="<?php echo count($data); ?>"><?php echo $data[0]['nama_area']; ?></td>
-      <td rowspan="<?php echo count($data); ?>"><?php echo $data[0]['nama_subarea']; ?></td>
+      <td rowspan="<?php echo count($data['nama_area']); ?>">1</td>
+      <td rowspan="<?php echo count($data['nama_area']); ?>"><?php echo $data[0]['nama_area']; ?></td>
+      <td rowspan="<?php echo count($data['nama_area']); ?>"><?php echo $data[0]['nama_subarea']; ?></td>
       <td><?php echo $data[0]['nama_material']; ?></td>
       <td><?php echo $data[0]['penjelasan']; ?></td>
       <td><?php echo $data[0]['tindak_lanjut']; ?></td>

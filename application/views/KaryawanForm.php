@@ -64,6 +64,7 @@
 					<OPTION value="admin">Admin</OPTION>
 					<OPTION value="supervisor">Supervisor</OPTION>
 					<OPTION value="teamleader">Team Leader</OPTION>
+					<OPTION value="attendant">Attendant</OPTION>
 				</SELECT>
 			</div>
 			<button type="submit" class="btn btn-success" name="save">Simpan</button>

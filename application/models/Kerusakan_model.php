@@ -15,26 +15,41 @@ class Kerusakan_model extends CI_Model
 		return $array;
 	}
 
-
-	function getKerusakanDetail($id_kerusakan)
+	function cetakKerusakan($dari, $hingga, $status)
 	{
-		$query=$this->db->query("select kerusakan.*,area.nama_area, subarea.nama_subarea, material.nama_material from kerusakan join area on kerusakan.id_area = area.id_area
-			join subarea on kerusakan.id_subarea = subarea.id_subarea join ruang_lingkup on kerusakan.id_subarea = ruang_lingkup.id_subarea
-			join material on material.id_material = ruang_lingkup.id_material where id_kerusakan='$id_kerusakan'");
+		if(!empty($status)){
+			$query=$this->db->query("select kerusakan.* from kerusakan where tgl_kerusakan >= '$dari' and tgl_kerusakan <= '$hingga' and status = '$status'");
+		}else{
+			$query=$this->db->query("select kerusakan.* from kerusakan where tgl_kerusakan >= '$dari' and tgl_kerusakan <= '$hingga'");
+		}	
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();
 		return $array;
 	}
 
-	function getKerusakanRange($dari, $hingga)
+	function ubahStatusRusak($id_kerusakan)
 	{
-		$query=$this->db->query("select kerusakan.* from kerusakan where tgl_kerusakan > '$dari' and tgl_kerusakan < '$hingga'");
-		foreach ($query->result_array() as $row) {$array[] = $row;}
-		if (!isset($array)) { $array='';}
-		$query->free_result();
-		return $array;
+		$CI =& get_instance();
+		$CI->load->database('default');
+		$sql = "update kerusakan set status='rusak' where id_kerusakan='$id_kerusakan'";
+		$this->db->query($sql);
+		return true;
 	}
 
-	
+	function ubahStatusDiperbaiki($id_kerusakan)
+	{
+		$CI =& get_instance();
+		$CI->load->database('default');
+		$sql = "update kerusakan set status='diperbaiki' where id_kerusakan='$id_kerusakan'";
+		$this->db->query($sql);
+		return true;
+	}
+
+	function hapus($kode)
+	{
+		$sql = "delete from kerusakan  WHERE id_kerusakan ='$kode'";
+		$this->db->query($sql);
+		return true;
+	}
 }
