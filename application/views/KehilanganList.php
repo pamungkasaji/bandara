@@ -8,15 +8,23 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Laporan Standard Cleanliness Area (SCA)</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Laporan Kehilangan</h6>
     </div>
 
     <div class="card-body">
-      <form action="<?php echo base_url('Kehilangan/cetakLaporanKehilangan') ?>" style="width: 50%" method="post">
+      <form action="<?php echo base_url('Kehilangan/cetakKehilangan') ?>" style="width: 30%" method="post">
         <label>Dari</label>
         <input class="form-control" required type='date' name="dari"><br>
         <label>Hingga</label>
         <input class="form-control" required type='date' name="hingga"><br>
+        <label>Status</label>
+        <select class="form-control" name="status">
+          <option value="">semua</option>
+          <option value="hilang">hilang</option>
+          <option value="menemukan">Menemukan</option>
+          <option value="dikembalikan">Dikembalikan</option>
+        </select><br>
+
         <input class="btn btn-info" target="_blank" type="submit" value="Print">
       </form>
 
@@ -37,8 +45,7 @@
               <th>No</th>
               <th>Barang</th>
               <th>Tanggal</th>
-              <th>Area</th>
-              <th>Subarea</th>
+              <th>Gambar</th>
               <th>Kontak</th>
               <th>Status</th>
               <th>Aksi</th>
@@ -55,20 +62,17 @@
                $id_kehilangan    =$data['id_kehilangan']; 
                $nama_barang  =$data['nama_barang']; 
                $tanggal  =$data['tanggal']; 
-               $area  =$data['area']; 
-               $subarea  =$data['subarea']; 
                $gambar  =$data['gambar']; 
                $keterangan  =$data['keterangan']; 
                $kontak =$data['kontak']; 
                $status =$data['status']; 
-
                ?> 
                <tr class="odd gradeX">
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $nama_barang; ?></td>
                 <td><?php echo $tanggal; ?></td>
-                <td><?php echo $area; ?></td>
-                <td><?php echo $subarea; ?></td>
+
+                <td><img style="width: 50px;" src="<?php echo base_url().'gambar/'.$gambar;?>"></td>
                 <td><?php echo $kontak; ?></td>
                 <td>
 

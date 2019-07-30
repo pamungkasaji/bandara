@@ -37,20 +37,19 @@ class Kehilangan extends CI_Controller {
 		//var_dump($data['data']);
 	}
 
-	public function cetakLaporanKehilangan()
+	public function cetakKehilangan()
 	{
 		//$dari		= $_POST['dari'];
 		$dari = $this->input->post('dari');
 		$hingga = $this->input->post('hingga');
+		$status = $this->input->post('status');
 		$data['session']	= $this->session->all_userdata();
 		$this->load->library('pdf');
-		$data['data'] = $this->kehilangan_model->getKehilanganRange($dari, $hingga);
-		if (is_array($data)){
-			$this->pdf->generate('Laporan/CetakLaporanKehilangan', $data, 'laporan-sca', 'A4', 'landscape');
-		}else{
-			confirm('Yakin data anda ingin di hapus??');
-		}
-		
+
+		$data['data'] = $this->kehilangan_model->cetakKehilangan($dari, $hingga, $status);
+
+		$this->pdf->generate('Laporan/CetakLaporanKehilangan', $data, 'laporan-kehilangan', 'A4', 'landscape');
+
 	}
 
 	public function ubahStatusHilang()

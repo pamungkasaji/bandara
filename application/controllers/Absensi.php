@@ -1,16 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kerusakan extends CI_Controller {
+class Absensi extends CI_Controller {
 
 
 	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('login_m');
-		$this->load->model('kerusakan_model');
+		$this->load->model('absensi_model');
 		$this->load->model('Navbar_model');
-
 		if(!$this->session->userdata('id_karyawan'))
 		{
 			redirect('Login');
@@ -25,22 +24,20 @@ class Kerusakan extends CI_Controller {
 		}
 	}
 
-
 	public function index()
 	{
 
 		$data['session']	= $this->session->all_userdata();
-		$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
+		$data['absensi'] = $this->absensi_model->getAbsensi();
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller
-		$this->Navbar_model->view_loader('KerusakanList', $data);
-
+		$this->Navbar_model->view_loader('AbsensiList', $data);
 		//var_dump($data['data']);
 	}
 
-	public function cetakKerusakan()
+	public function cetakAbsensi()
 	{
 		//$dari		= $_POST['dari'];
 		$dari = $this->input->post('dari');
@@ -48,55 +45,40 @@ class Kerusakan extends CI_Controller {
 		$status = $this->input->post('status');
 		$data['session']	= $this->session->all_userdata();
 		$this->load->library('pdf');
-		$data['data'] = $this->kerusakan_model->cetakKerusakan($dari, $hingga, $status);
 
-		$this->pdf->generate('Laporan/CetakLaporanKerusakan', $data, 'laporan-kerusakan', 'A4', 'landscape');
+		$data['data'] = $this->absensi_model->cetakAbsensi($dari, $hingga, $status);
 
-	}
-
-	public function ubahStatusRusak()
-	{
-		$id_kerusakan		= $this->input->get('id_kerusakan');
-		$this->kerusakan_model->ubahStatusRusak($id_kerusakan);
-		redirect('Kerusakan');
-
-	}
-
-	public function ubahStatusDiperbaiki()
-	{
-		$id_kerusakan		= $this->input->get('id_kerusakan');
-		$this->kerusakan_model->ubahStatusDiperbaiki($id_kerusakan);
-		redirect('Kerusakan');
+		$this->pdf->generate('Laporan/CetakLaporanAbsensi', $data, 'laporan-absensi', 'A4', 'landscape');
 
 	}
 
 	public function hapus()
 	{
 		$data['session']	= $this->session->all_userdata();
-		$id_kerusakan		= $this->input->get('id_kerusakan');
+		$id_absensi		= $this->input->get('id_absensi');
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 		//panggil query hapus di model
-		if($this->kerusakan_model->hapus($id_kerusakan))
+		if($this->absensi_model->hapus($id_absensi))
 		{
 			//load notifikasi sukses
 			$data['sukses']= '
 			<div class="alert alert-success">
-			<p><strong>Hapus Data Kerusakan Sukses</strong></p>
+			<p><strong>Hapus Data Absensi Sukses</strong></p>
 			</div>';
-			$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
+			$data['absensi'] = $this->absensi_model->getAbsensi();
 
-			$this->Navbar_model->view_loader('KerusakanList', $data);
+			$this->Navbar_model->view_loader('AbsensiList', $data);
 		}
 		//Jika update data tidak sukses
 		else
 		{
 			//load notifikasi gagal
 			$data['error'] = '
-			<div class="msg msg-error"><p><strong>Hapus Data Kerusakan Gagal!</strong></p>
+			<div class="msg msg-error"><p><strong>Hapus Data Absensi Gagal!</strong></p>
 			</div>';
-			$data['kerusakan'] = $this->kerusakan_model->getKerusakan();
+			$data['absensi'] = $this->absensi_model->getAbsensi();
 
-			$this->Navbar_model->view_loader('KerusakanList', $data);
+			$this->Navbar_model->view_loader('AbsensiList', $data);
 		}
 
 	}

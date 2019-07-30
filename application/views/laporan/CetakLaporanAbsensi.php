@@ -21,37 +21,58 @@
     <tr>
       <td align="center">
         <span style="line-height: 1.6; font-weight: bold;">
-          LAPORAN KERUSAKAN BARANG
-          <br>AREA BANDARA
+          LAPORAN ABSENSI KARYAWAN
+          <br>ANGKASA PURA
         </span>
       </td>
     </tr>
   </table>
 
+  <?php
+
+  if(!empty($data))
+  { 
+    ?>
+    <hr class="line-title">
+    <br>
+    <p>
+      Jumlah absensi : <?php echo count($data); ?> <br>
+    </p>
+    <table class="table table-bordered">
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Tanggal</th>
+        <th>Area</th>
+        <th>Subarea</th>
+        <th>Status</th>
+      </tr>
+      <?php $no = 1; foreach ($data as $row): ?>
+      <tr>
+        <td><?php echo $no++ ?></td>
+        <td><?php echo $row['nama'] ?></td>
+        <td><?php echo $row['tgl_absensi'] ?></td>
+        <td><?php echo $row['area'] ?></td>
+        <td><?php echo $row['subarea'] ?></td>
+        <td><?php echo $row['status'] ?></td>
+      </tr>
+    <?php endforeach ?> 
+
+  </table>
+
+  <?php
+}else{
+  ?>
   <hr class="line-title">
   <br>
   <p>
-    Jumlah barang : <?php echo count($data); ?> <br>
+    Data Kosong <br>
   </p>
-  <table class="table table-bordered">
-    <tr>
-      <th>No</th>
-      <th>Tanggal</th>
-      <th>Area</th>
-      <th>Subarea</th>
-      <th>Keterangan</th>
-    </tr>
-    <?php $no = 1; foreach ($data as $row): ?>
-    <tr>
-      <td><?php echo $no++ ?></td>
-      <td><?php echo $row['tgl_kerusakan'] ?></td>
-      <td><?php echo $row['area'] ?></td>
-      <td><?php echo $row['subarea'] ?></td>
-      <td><?php echo $row['keterangan'] ?></td>
-    </tr>
-    <?php endforeach ?> -->
+  <?php
+}
 
-  </table>
+?>
+
 
 </body>
 </html>
