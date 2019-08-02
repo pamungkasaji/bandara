@@ -30,13 +30,6 @@ class DashboardAdmin extends CI_Controller {
 		$data['session']	= $this->session->all_userdata();
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 
-		$data['jumlah_karyawan']	= $this->dashboardadmin_model->getJumlahKaryawan();
-		$data['jumlah_area']		= $this->dashboardadmin_model->getJumlahArea();
-		$data['jumlah_subarea']		= $this->dashboardadmin_model->getJumlahSubarea();
-		$data['jumlah_kodeqr']		= $this->dashboardadmin_model->getJumlahKodeqr();
-		$data['jumlah_material']	= $this->dashboardadmin_model->getJumlahMaterial();
-		$data['jumlah_standard']	= $this->dashboardadmin_model->getJumlahStandard();
-
 		$data['kerusakan'] = $this->dashboardadmin_model->getKerusakanIni();
 		$data['kehilangan'] = $this->dashboardadmin_model->getKehilanganIni();
 		$data['absensi'] = $this->dashboardadmin_model->getAbsensiIni();

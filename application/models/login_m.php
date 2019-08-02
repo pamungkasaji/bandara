@@ -25,8 +25,11 @@ class Login_m extends CI_Model
         if ($data['level']=='supervisor') {
             redirect('Dashboard');
         }
-        else {
-            redirect('Area');
+        elseif ($data['level']=='admin') {
+            redirect('DashboardAdmin');
+        }
+        elseif ($data['level']=='teamleader') {
+            $this->load->view('tampilan_awal');
         }
 
       }

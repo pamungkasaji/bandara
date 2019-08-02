@@ -88,7 +88,7 @@ function simpanKodeqr(){
 
         $image_name=$id_area.'-'.$id_subarea.'.png'; //buat name dari qr code sesuai dengan nim
 
-        $params['data'] = 'angkasapura.xyz/Form/input/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
+        $params['data'] = base_url().'Form/input/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
@@ -140,7 +140,7 @@ function simpanKodeqr(){
 
         $image_name=$id_area.'-'.$id_subarea.'.png'; //buat name dari qr code sesuai dengan nim
 
-        $params['data'] = 'angkasapura.xyz/Form/input/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
+        $params['data'] = base_url().'Form/input/'.$id_area.'/'.$id_subarea; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
         $params['size'] = 10;
         $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/

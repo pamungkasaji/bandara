@@ -6,48 +6,6 @@ class Dashboardadmin_model extends CI_Model
 		parent::__construct();
 	}
 
-	function getJumlahKaryawan()
-	{
-		$query	=$this->db->query("select count(id_karyawan) as jumlah from karyawan");
-		foreach ($query->result_array() as $row) {$jumlah = $row['jumlah'];}
-		return $jumlah;
-	}
-
-	function getJumlahArea()
-	{
-		$query	=$this->db->query("select count(id_area) as jumlah from area");
-		foreach ($query->result_array() as $row) {$jumlah = $row['jumlah'];}
-		return $jumlah;
-	}
-
-	function getJumlahSubarea()
-	{
-		$query	=$this->db->query("select count(id_subarea) as jumlah from subarea");
-		foreach ($query->result_array() as $row) {$jumlah = $row['jumlah'];}
-		return $jumlah;
-	}
-
-	function getJumlahKodeqr()
-	{
-		$query	=$this->db->query("select count(id_kodeqr) as jumlah from kodeqr");
-		foreach ($query->result_array() as $row) {$jumlah = $row['jumlah'];}
-		return $jumlah;
-	}
-
-	function getJumlahMaterial()
-	{
-		$query	=$this->db->query("select count(id_material) as jumlah from material");
-		foreach ($query->result_array() as $row) {$jumlah = $row['jumlah'];}
-		return $jumlah;
-	}
-
-	function getJumlahStandard()
-	{
-		$query	=$this->db->query("select count(id_standard) as jumlah from standard");
-		foreach ($query->result_array() as $row) {$jumlah = $row['jumlah'];}
-		return $jumlah;
-	}
-
 	function getPenilaianIni()
 	{
 		$query=$this->db->query("select penilaian.*,nama_area, nama_subarea from penilaian,area,subarea where area.id_area=penilaian.id_area and subarea.id_subarea=penilaian.id_subarea and tanggal=current_date()");

@@ -88,9 +88,9 @@ class Form extends CI_Controller{
     );
     $this->m_form->get_id_att($attendant);
     $id_att = $this->session->userdata('id_attendant');
-    var_dump($id_att);
-    var_dump($attendant);
-    var_dump($date);
+    //var_dump($id_att);
+    //var_dump($attendant);
+    //var_dump($date);
     $insert = $this->m_form->insert('penilaian', $data);
     $data1 = array(
       'id_penilaian' => $insert,

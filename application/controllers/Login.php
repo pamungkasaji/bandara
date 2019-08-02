@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Login extends CI_Controller
- {
+{
 	function __construct()
 	{
 		parent::__construct();
@@ -15,7 +15,16 @@ class Login extends CI_Controller
 		}
 		else
 		{
-			redirect('Welcome');
+			$level	= $this->session->userdata('level');
+			if ($level == 'supervisor') {
+				redirect('Dashboard');
+			}        
+			elseif ($level =='admin') {
+				redirect('DashboardAdmin');
+			}
+			elseif ($level=='teamleader') {
+				$this->load->view('tampilan_awal');
+			}
 		}
 	}
 
