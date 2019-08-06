@@ -29,7 +29,7 @@ class Login_m extends CI_Model
             redirect('DashboardAdmin');
         }
         elseif ($data['level']=='teamleader') {
-            $this->load->view('tampilan_awal');
+            redirect('AwalTeamleader');
         }
 
       }

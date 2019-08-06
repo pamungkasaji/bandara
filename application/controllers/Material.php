@@ -83,7 +83,7 @@ class Material extends CI_Controller
 	{
 		$data['session']	= $this->session->all_userdata();
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-		$id_material	= $this->input->get('id_material');
+		//$id_material	= $this->input->get('id_material');
 		//$data['MTR']= $this->material_model->getMTRUpdate($kode); 
 		//Jika update data sukses
 		if($this->material_model->ubah3())

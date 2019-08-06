@@ -46,7 +46,7 @@
 			}
 			?>
 
-			<input class="form-control w-50" type="hidden" name="id_material" value="<?php echo isset($material[0]['id_material'])?$material[0]['id_material']:'';?>" >
+			<input class="form-control" type="hidden" name="id_material" value="<?php echo isset($material[0]['id_material'])?$material[0]['id_material']:'';?>" >
 
 			<div class="form-group">
 				<label>Nama Material</label>

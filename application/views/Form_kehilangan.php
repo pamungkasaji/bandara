@@ -110,10 +110,6 @@
                       <input class="form-check-input" type="radio" name="status" id="status2" value="Ditemukan">
                       <label class="form-check-label" for="status2">Ditemukan</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="status" id="status3" value="Dikembalikan">
-                      <label class="form-check-label" for="status3">Dikembalikan</label>
-                    </div>
                     <div class="form-group">
                       <label for="gambar">Upload Gambar</label>
                     <input type="file" name="gambar" id="gambar"/>
