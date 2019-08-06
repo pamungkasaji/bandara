@@ -16,19 +16,6 @@
               <h6 class="m-0 font-weight-bold text-primary">Tabel Kerusakan</h6>
             </div>
             <div class="card-body">
-              <form class="user" method="POST" action="<?php echo base_url(); ?>DashboardKerusakan">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Sort By</span>
-                  </div>
-                  <select class="form-control" name="sort" id="sort">
-                  <option value="tgl_kerusakan">Tanggal</option>
-                  <option value="area">Area</option>
-                  <option value="subarea">SubArea</option>
-                  </select>
-                  <input type="submit" class="btn-primary" value="ok" >
-                </div>
-                </form>
               <div class="input-group input-group-sm mb-3">
               <div class="table-responsive">
                 <table class="table table-bordered display"  id="dataTable" width="100%" cellspacing="0">

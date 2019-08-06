@@ -27,11 +27,10 @@ class DashboardKerusakan extends CI_Controller{
 
   function index()
   {
-    $x = $this->input->post('sort');
-    if(!isset($x)){$x='id_kerusakan';}else{$data['sorted']=$x;}
+    //if(!isset($x)){$x='id_kerusakan';}else{$data['sorted']=$x;}
     $data['session']  = $this->session->all_userdata();
     $data['logo'] = $this->m_dashboard->ambil_gambar($this->session->userdata('id_karyawan'));
-    $data["tabel"] = $this->Model_kerusakan->get_tabel($x);
+    $data["tabel"] = $this->Model_kerusakan->get_tabel();
 
     $this->Navbar_model->view_loader('tampilan_dashboard_kerusakan', $data);
 

@@ -17,9 +17,8 @@ class Model_kerusakan extends CI_Model{
     return $ret->nama;
   }
 
-  function get_tabel($x){
+  function get_tabel(){
     $this->db->select('*');
-    $this->db->order_by($x, 'desc');
     $this->db->from('kerusakan');
     $query = $this->db->get();
     return $query->result();
