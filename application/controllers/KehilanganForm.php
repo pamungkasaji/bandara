@@ -7,9 +7,18 @@ class KehilanganForm extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->library('session');
+    $this->load->model('login_m');
     $this->load->helper(array('form'));
+    header('Cache-Control: no cache'); //no cache
     $this->load->helper('date');
     $this->load->model(array('Model_kehilangan'));
+
+    if(!$this->session->userdata('id_karyawan'))
+    {
+      redirect('Login');
+    }
+    $this->load->helper(array('form', 'url','download'));
 
     $level  = $this->session->userdata('level');
     if ($level != 'teamleader') {
@@ -25,6 +34,8 @@ class KehilanganForm extends CI_Controller{
     $data['area'] = $b;
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
+    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+    $data['session']  = $this->session->all_userdata();
 
     $this->load->view('Form_kehilangan', $data);
   }
@@ -38,6 +49,8 @@ class KehilanganForm extends CI_Controller{
     $nama_barang = $this->input->post('nama_barang');
     $kontak = $this->input->post('kontak');
     $status = $this->input->post('status');
+    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+    $data['session']  = $this->session->all_userdata();
 
     if ($gambar=''){}else{
 
@@ -56,6 +69,8 @@ class KehilanganForm extends CI_Controller{
           'area' => $area,
           'subarea' => $subarea,
           'nama_karyawan' =>$this->Model_kehilangan->get_nama($x),
+          'logo' => $this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
+          'session' => $this->session->all_userdata(),
           'error' => $this->upload->display_errors()
         );
         $this->load->view('tampilan_sukses', $data);
@@ -77,6 +92,8 @@ class KehilanganForm extends CI_Controller{
           'id_karyawan' => $x,
           'area' => $area,
           'subarea' => $subarea,
+          'logo' => $this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
+          'session' => $this->session->all_userdata(),
           'nama_karyawan' =>$this->Model_kehilangan->get_nama($x)
         );
         $this->load->view('tampilan_sukses', $data);    }

@@ -7,9 +7,18 @@ class KerusakanForm extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->library('session');
+    $this->load->model('login_m');
     $this->load->model(array('Model_kerusakan'));
+    header('Cache-Control: no cache'); //no cache
     $this->load->helper('date');
     $this->load->helper(array('form', 'url'));
+
+    if(!$this->session->userdata('id_karyawan'))
+    {
+      redirect('Login');
+    }
+    $this->load->helper(array('form', 'url','download'));
 
     $level  = $this->session->userdata('level');
     if ($level != 'teamleader') {
@@ -25,6 +34,9 @@ class KerusakanForm extends CI_Controller{
     $data['area'] = $b;
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
+    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+    $data['session']  = $this->session->all_userdata();
+
 
     $this->load->view('Form_kerusakan', $data);
   }
@@ -35,6 +47,8 @@ class KerusakanForm extends CI_Controller{
     $subarea = $this->input->post('subarea');
     $tanggal = $this->input->post('tanggal');
     $keterangan = $this->input->post('keterangan');
+    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+    $data['session']  = $this->session->all_userdata();
 
     if ($gambar=''){}else{
 
@@ -52,6 +66,8 @@ class KerusakanForm extends CI_Controller{
           'id_karyawan' => $x,
           'area' => $area,
           'subarea' => $subarea,
+          'logo' => $this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
+          'session' => $this->session->all_userdata(),
           'nama_karyawan' =>$this->Model_kerusakan->get_nama($x),
           'error' => $this->upload->display_errors()
         );
@@ -62,6 +78,7 @@ class KerusakanForm extends CI_Controller{
           'area' => $area,
           'subarea' => $subarea,
           'tgl_kerusakan' => $tanggal,
+          'status' => 'rusak',
           'gambar' => $gambar,
           'keterangan' => $keterangan
         );
@@ -70,6 +87,8 @@ class KerusakanForm extends CI_Controller{
         $data = array(
           'id_karyawan' => $x,
           'area' => $area,
+          'logo' => $this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
+          'session' => $this->session->all_userdata(),
           'subarea' => $subarea,
           'nama_karyawan' =>$this->Model_kerusakan->get_nama($x)
         );

@@ -7,8 +7,18 @@ class Presensi extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->library('session');
+    $this->load->model('login_m');
     $this->load->model(array('Model_presensi'));
+    header('Cache-Control: no cache'); //no cache
     $this->load->helper('date');
+
+    if(!$this->session->userdata('id_karyawan'))
+    {
+      redirect('Login');
+    }
+    $this->load->helper(array('form', 'url','download'));
+
     $level  = $this->session->userdata('level');
     if ($level != 'teamleader') {
       $message = "Anda tidak memiliki akses ke halaman ini";
@@ -23,6 +33,8 @@ class Presensi extends CI_Controller{
     $data['area'] = $b;
     $data['subarea'] = $c;
     $this->session->set_userdata($data);
+    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+    $data['session']  = $this->session->all_userdata();
 
     $this->load->view('form_presensi', $data);
   }
@@ -32,6 +44,7 @@ class Presensi extends CI_Controller{
     $subarea = $this->input->post('subarea');
     $tanggal = $this->input->post('tanggal');
     $status = $this->input->post('absen');
+
     $data = array(
       'id_karyawan' => $x,
       'area' => $area,
@@ -44,6 +57,8 @@ class Presensi extends CI_Controller{
       'id_karyawan' => $x,
       'area' => $area,
       'subarea' => $subarea,
+      'logo' => $this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
+      'session' => $this->session->all_userdata(),
       'nama_karyawan' =>$this->Model_presensi->get_nama($x)
     );
     $this->load->view('tampilan_sukses', $data);

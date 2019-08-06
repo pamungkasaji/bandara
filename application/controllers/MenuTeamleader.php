@@ -1,24 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Form extends CI_Controller{
+class MenuTeamleader extends CI_Controller{
 
   public function __construct()
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
-    $this->load->library('session');
     $this->load->model('login_m');
     $this->load->model('m_form');
+        header('Cache-Control: no cache'); //no cache
+    //$this->load->model(array('Model_presensi'));
     $this->load->helper('date');
-    header('Cache-Control: no cache'); //no cache
-
-    if(!$this->session->userdata('id_karyawan'))
-    {
-      redirect('Login');
-    }
-    $this->load->helper(array('form', 'url','download'));
-
     $level  = $this->session->userdata('level');
     if ($level != 'teamleader') {
       $message = "Anda tidak memiliki akses ke halaman ini";
@@ -27,52 +20,9 @@ class Form extends CI_Controller{
     }
   }
 
-  function index()
-  {
-    $data['nama_area'] = $this->session->userdata('nama_area');
-    $data['nama_subarea'] = $this->session->userdata('nama_subarea');
-    $data['attendant']= $this->m_form->get_attendant();
-    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-    $data['session']  = $this->session->all_userdata();
-
-    $this->load->view('tampilan_form',$data);
-  }
-
-  function input($a, $b)
-  {
-    //$a = urldecode($this->uri->segment(4));
-
-    $this->m_form->get_subarea($a, $b);
-    $data['standard']= $this->m_form->get_standard($b);
-    //$data['id_standard']=$this->session->userdata('id_standard');
-    //$data['pertanyaan']=$this->session->userdata('pertanyaan');
-    $data['nama_area']=$this->session->userdata('nama_area');
-    $data['nama_subarea']=$this->session->userdata('nama_subarea');
-    $data['attendant']= $this->m_form->get_attendant();
-    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-    $data['session']  = $this->session->all_userdata();
-    //$data['standard']=$this->m_form->get_standard();
-
-    $duplicat = $this->m_form->cek($a, $b);
-
-    $this->load->library('javascript');
-    if(!empty($duplicat))
-    {
-      //load notifikasi sukses
-      $data['duplikat']  = '
-      <div class="alert alert-danger"><p><strong>Form penilaian area dan subarea ini sudah diisi hari ini</strong></p></div>';
-      $this->load->view('tampilan_form',$data);
-    }
-    else
-    {
-      //load notifikasi sukses
-      $data['kosong']  = '
-      <div class="alert alert-success"><p><strong>Silahkan isi form</strong></p></div>';
-      $this->load->view('tampilan_form',$data);
-    }
-  }
-
-  function ceksubmit(){
+  function index(){
+    $data2['session']  = $this->session->all_userdata();
+    $data2['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
 
     $datestring = '%Y-%m-%d';
     $time = time();
@@ -87,9 +37,6 @@ class Form extends CI_Controller{
     $pentin = $this->input->post('pentin');
     $tinlan = $this->input->post('tinlan');
     $penlan = $this->input->post('penlan');
-    $data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
-    $data['session']  = $this->session->all_userdata();
-
     $date = mdate($datestring, $time);
     $data = array(
       'id_area' => $id_area,
@@ -121,13 +68,13 @@ class Form extends CI_Controller{
         'subarea' => $nama_subarea,
         'id_area' => $id_area,
         'id_subarea' => $id_subarea,
-        'logo' => $this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
-        'session' => $this->session->all_userdata(),
+        'session' =>$this->session->all_userdata(),
+        'logo' =>$this->login_m->ambil_gambar($this->session->userdata('id_karyawan')),
         'nama_karyawan' =>$this->m_form->get_nama_karyawan($id_att)
+
       );
       $this->load->view('tampilan_sukses',$data2);
-
+      
     }
   }
-
 }

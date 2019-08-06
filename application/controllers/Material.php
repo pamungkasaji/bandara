@@ -75,6 +75,7 @@ class Material extends CI_Controller
 		//$data['MTR']= $this->material_model->getMTRUpdate($kode); 
 		$data['subarea'] 		= $this->subarea_model->getSubarea(); 
 		$data['MTR']		= $this->material_model->getMTRUpdate($id_material);
+		$data['STD']		= $this->material_model->getSTDUpdate($id_material);
 		$data['material']		= $this->material_model->getMaterialUpdate($id_material);
 		$this->Navbar_model->view_loader('MaterialForm', $data);
 	}
@@ -85,7 +86,7 @@ class Material extends CI_Controller
 		$id_material	= $this->input->get('id_material');
 		//$data['MTR']= $this->material_model->getMTRUpdate($kode); 
 		//Jika update data sukses
-		if($this->material_model->ubah())
+		if($this->material_model->ubah3())
 		{
 			//load notifikasi sukses
 			$data['sukses']= '

@@ -55,8 +55,7 @@ elseif(!empty($session[0]['level']))
 							<a class="collapse-item" href="<?php echo site_url('Area'); ?>"><i class="icon-angle-right"></i> Area </a>
 							<a class="collapse-item" href="<?php echo site_url('Subarea'); ?>"><i class="icon-angle-right"></i> Subarea </a>
 							<a class="collapse-item" href="<?php echo site_url('Kodeqr'); ?>"><i class="icon-angle-right"></i> Kodeqr </a>
-							<a class="collapse-item" href="<?php echo site_url('Material'); ?>"><i class="icon-angle-right"></i> Material </a>
-							<a class="collapse-item" href="<?php echo site_url('Standard'); ?>"><i class="icon-angle-right"></i> Standard </a>
+							<a class="collapse-item" href="<?php echo site_url('Material'); ?>"><i class="icon-angle-right"></i> Standard </a>
 
 						</div>
 					</div>
