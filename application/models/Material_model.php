@@ -96,7 +96,8 @@ class Material_model extends CI_Model
 		$id_subarea	= $_POST['id_subarea'];
 
 		//insert
-		$sqli = "delete from material WHERE $id_material ='$id_material'"; 
+		//var_dump($id_material);
+		$sqli = "delete from material WHERE id_material ='$id_material'"; 
 		$this->db->query($sqli);
 
 		$sqli = "insert into material(nama_material) values('$nama_material')";
@@ -106,7 +107,7 @@ class Material_model extends CI_Model
 		$sqli="insert into ruang_lingkup (id_material,id_subarea) values(LAST_INSERT_ID(),'$id_subarea')";
 		$this->db->query($sqli);
 
-		$sqli = "delete from memiliki WHERE $id_material ='$id_material'"; 
+		$sqli = "delete from memiliki WHERE id_material ='$id_material'"; 
 		$this->db->query($sqli);
 
 		$nama_standard = $_POST['nama_standard'];
