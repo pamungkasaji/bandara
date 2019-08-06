@@ -163,7 +163,7 @@
                     </div>
                     <div class="form-group">
                       <label for="pentin">Penjelasan Tinjauan</label>
-                      <textarea class="form-control" name"pentin" id="pentin"></textarea>
+                      <textarea class="form-control" name="pentin" id="pentin"></textarea>
                     </div>
                     <div class="form-group">
                       <label for="tinlan">Tindakan Lanjutan</label>
