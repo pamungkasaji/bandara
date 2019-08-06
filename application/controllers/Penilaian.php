@@ -10,6 +10,8 @@ class Penilaian extends CI_Controller {
 		$this->load->model('login_m');
 		$this->load->model('penilaian_model');
 		$this->load->model('Navbar_model');
+		$this->load->model('area_model');
+		$this->load->model('subarea_model');
 		if(!$this->session->userdata('id_karyawan'))
 		{
 			redirect('Login');
@@ -30,6 +32,8 @@ class Penilaian extends CI_Controller {
 		$data['session']	= $this->session->all_userdata();
 		$data['penilaian'] = $this->penilaian_model->getPenilaian();
 		$data['logo'] = $this->login_m->ambil_gambar($this->session->userdata('id_karyawan'));
+		$data['subarea'] 	= $this->subarea_model->getSubarea();
+		$data['area'] 		= $this->area_model->getArea();
 	    //include head, header, footer di view dihapus dulu
 	    //parameter $data tidak diubah, ikut controller bersangkutan,
 	    //kalo parameter $nav sama di semua controller

@@ -15,7 +15,7 @@ class Kehilangan_model extends CI_Model
 		return $array;
 	}
 
-	function cetakKehilangan($dari, $hingga, $status)
+	function cetakKehilanganLama($dari, $hingga, $status)
 	{
 		if(!empty($status)){
 			$query=$this->db->query("select * from kehilangan where tanggal >= '$dari' and tanggal <= '$hingga' and status = '$status'");
@@ -23,6 +23,29 @@ class Kehilangan_model extends CI_Model
 			$query=$this->db->query("select * from kehilangan where tanggal >= '$dari' and tanggal <= '$hingga'");
 		}
 		
+		foreach ($query->result_array() as $row) {$array[] = $row;}
+		if (!isset($array)) { $array='';}
+		$query->free_result();
+		return $array;
+	}
+
+	function cetakKehilangan($dari, $hingga, $status)
+	{
+		$sql="select * from kehilangan where nama_barang IS NOT NULL";
+		
+		if(!empty($dari))
+		{
+			$sql.=" and tanggal >= '$dari'";
+		}
+		if(!empty($hingga))
+		{
+			$sql.=" and tanggal <= '$hingga'";
+		}
+		if(!empty($status))
+		{
+			$sql.=" and status = '$status'";
+		}		
+		$query=$this->db->query($sql);
 		foreach ($query->result_array() as $row) {$array[] = $row;}
 		if (!isset($array)) { $array='';}
 		$query->free_result();

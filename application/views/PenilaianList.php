@@ -14,9 +14,9 @@
     <div class="card-body">
       <form action="<?php echo base_url('Penilaian/cetakLaporanrange') ?>" style="width: 50%" method= "post">
         <label>Dari</label>
-        <input class="form-control" required type='date' name="dari"> <br>
+        <input class="form-control" type='date' name="dari"> <br>
         <label>Hingga</label>
-        <input class="form-control" required type='date' name="hingga"><br>
+        <input class="form-control" type='date' name="hingga"><br>
         <input class="btn btn-info" target="_blank" type="submit" value="Print">
       </form>
       <br>
