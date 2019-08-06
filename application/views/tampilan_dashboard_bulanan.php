@@ -198,7 +198,7 @@
                   <input type="month" class="form-control" name="dari" id="dari" placeholder="" aria-label="Username" aria-describedby="basic-addon1"
                   value="<?php if(isset($dari)){
                     echo $dari;
-                  } ?>">
+                  } ?>" required>
                 </div>
               </div>
               <div class="col">
@@ -209,13 +209,13 @@
                   <input type="month" class="form-control" name="sampai" id="sampai" placeholder="" aria-label="Username" aria-describedby="basic-addon1"
                   value="<?php if(isset($sampai)){
                     echo $sampai;
-                  } ?>">
+                  } ?>" required>
                 </div>
               </div>
             </div>
                 <div class="form-row">
                   <div class="col">
-              <select class="form-control" name="getarea" id="getarea">
+              <select class="form-control" name="getarea" id="getarea" required>
                 <option value="">Select Area</option>;
               <?php
               foreach($are as $row)
@@ -226,7 +226,7 @@
             </div>
 
             <div class="col">
-              <select class="form-control" name="getsubarea" id="getsubarea">
+              <select class="form-control" name="getsubarea" id="getsubarea" required>
                 <option value="">Select Subarea</option>;
               </select>
             </div>
