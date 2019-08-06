@@ -19,7 +19,7 @@
 
             <div class="form-group text-center">
               File Gambar <br>
-             <img src="<?php echo base_url().'/gambar/'.$logo;?>" class="img-responsive rounded-circle mx-auto d-block margin" style="display:inline" width="35%" height="35%">   
+             <img src="<?php echo base_url().'/gambar/'.$logo;?>" class="img-responsive rounded-circle mx-auto d-block margin" style="display:inline" width="35%" height="35%">
             <input type="file" name="gambar" />
           </div>
 

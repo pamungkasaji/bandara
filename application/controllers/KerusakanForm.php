@@ -55,9 +55,9 @@ class KerusakanForm extends CI_Controller{
       $config['upload_path']          = './gambar/';
       $config['allowed_types']        = 'gif|jpg|png|jpeg';
       $config['file_name']            = 'kerusakan/'.$tanggal.'/'.$subarea;
-      $config['max_size']             = 1000;
-      $config['max_width']            = 1024;
-      $config['max_height']           = 768;
+      $config['max_size']             = 2000;
+      $config['max_width']            = 1920;
+      $config['max_height']           = 1280;
 
       $this->load->library('upload', $config);
 
